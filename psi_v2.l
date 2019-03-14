@@ -9,16 +9,21 @@
 "int" {return tINT;}
 "printf" {return tPTF;}
 
-[a-zA-Z][a-zA-Z0-9_]* {return tID;}
-[0-9]+ {return tVAL;}
+[a-zA-Z][a-zA-Z0-9_]* {yylval.str = strdup(yytext); return tID;}
+[0-9]+ {yylval.nb = atoi(yytext); return tNB;}
 
 "+" {return tPLUS;}
 "-" {return tMOINS;}
 "*" {return tMUL;}
 "/" {return tDIV;}
 "=" {return tEGAL;}
+"<" {return tINF;}
+">" {return tSUP;}
+"<=" {return tINFEG;}
+">=" {return tSUPEG;}
 "(" {return tPARO;}
 ")" {return tPARF;}
+"" {}
 
 " " {}
 "\t" {}
@@ -28,4 +33,3 @@
 ";" {return tPV;}
 
 . {return tERR;}
-

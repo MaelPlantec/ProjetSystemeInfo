@@ -50,19 +50,23 @@ extern int yydebug;
     tACCF = 260,
     tCONST = 261,
     tINT = 262,
-    tPTF = 263,
-    tID = 264,
-    tVAL = 265,
+    tID = 263,
+    tNB = 264,
+    tPTF = 265,
     tPLUS = 266,
     tMOINS = 267,
     tMUL = 268,
     tDIV = 269,
     tEGAL = 270,
-    tPARO = 271,
-    tPARF = 272,
-    tVIRG = 273,
-    tPV = 274,
-    tERR = 275
+    tINF = 271,
+    tSUP = 272,
+    tINFEG = 273,
+    tSUPEG = 274,
+    tPARO = 275,
+    tPARF = 276,
+    tVIRG = 277,
+    tPV = 278,
+    tERR = 279
   };
 #endif
 /* Tokens.  */
@@ -71,23 +75,38 @@ extern int yydebug;
 #define tACCF 260
 #define tCONST 261
 #define tINT 262
-#define tPTF 263
-#define tID 264
-#define tVAL 265
+#define tID 263
+#define tNB 264
+#define tPTF 265
 #define tPLUS 266
 #define tMOINS 267
 #define tMUL 268
 #define tDIV 269
 #define tEGAL 270
-#define tPARO 271
-#define tPARF 272
-#define tVIRG 273
-#define tPV 274
-#define tERR 275
+#define tINF 271
+#define tSUP 272
+#define tINFEG 273
+#define tSUPEG 274
+#define tPARO 275
+#define tPARF 276
+#define tVIRG 277
+#define tPV 278
+#define tERR 279
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
-typedef int YYSTYPE;
+
+union YYSTYPE
+{
+#line 6 "compiler.y" /* yacc.c:1909  */
+
+	int nb;
+	char* str;
+
+#line 107 "y.tab.h" /* yacc.c:1909  */
+};
+
+typedef union YYSTYPE YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define YYSTYPE_IS_DECLARED 1
 #endif
