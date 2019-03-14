@@ -63,7 +63,7 @@ Conditions : tPARO Comparaisons tPARF
 Comparaisons : Comparaison Comparaisons
 		| Comparaison
 		;
-Comparaison : Val tINF tVAL
+Comparaison : E tINF E
 		| E tSUP E
 		| E tINFEG E
 		| E tSUPEG E
@@ -74,10 +74,11 @@ E : E tPLUS E
     | E tMUL E
     | E tDIV E
     | tMOINS E  {$$ = $2;}
-		| (E)
+		| tPARO E tPARF
     | tNB
 		| tID {$$ = 0;}
     ;
+
 
 Print : tPTF tPARO E tPARF
 		;

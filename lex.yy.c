@@ -373,8 +373,8 @@ static void yy_fatal_error (yyconst char msg[]  );
 	*yy_cp = '\0'; \
 	(yy_c_buf_p) = yy_cp;
 
-#define YY_NUM_RULES 26
-#define YY_END_OF_BUFFER 27
+#define YY_NUM_RULES 27
+#define YY_END_OF_BUFFER 28
 /* This struct is not used in this scanner,
    but its presence is necessary. */
 struct yy_trans_info
@@ -384,8 +384,8 @@ struct yy_trans_info
 	};
 static yyconst flex_int16_t yy_accept[46] =
     {   0,
-        0,    0,   27,   25,   21,   22,   20,   18,   19,   11,
-        9,   23,   10,   12,    8,   24,   14,   13,   15,    7,
+       20,   20,   28,   26,   22,   23,   21,   18,   19,   11,
+        9,   24,   10,   12,    8,   25,   14,   13,   15,    7,
         7,    7,    7,    7,    2,    3,    8,   16,   17,    7,
         7,    7,    7,    7,    7,    5,    7,    7,    7,    1,
         7,    4,    7,    6,    0
@@ -866,7 +866,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 27 "psi_v2.l"
+#line 26 "psi_v2.l"
 {}
 	YY_BREAK
 case 21:
@@ -875,32 +875,37 @@ YY_RULE_SETUP
 {}
 	YY_BREAK
 case 22:
-/* rule 22 can match eol */
 YY_RULE_SETUP
 #line 29 "psi_v2.l"
 {}
 	YY_BREAK
 case 23:
+/* rule 23 can match eol */
 YY_RULE_SETUP
-#line 31 "psi_v2.l"
-{return tVIRG;}
+#line 30 "psi_v2.l"
+{}
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
 #line 32 "psi_v2.l"
-{return tPV;}
+{return tVIRG;}
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
-#line 34 "psi_v2.l"
-{return tERR;}
+#line 33 "psi_v2.l"
+{return tPV;}
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
 #line 35 "psi_v2.l"
+{return tERR;}
+	YY_BREAK
+case 27:
+YY_RULE_SETUP
+#line 36 "psi_v2.l"
 ECHO;
 	YY_BREAK
-#line 904 "lex.yy.c"
+#line 909 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1901,4 +1906,4 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 35 "psi_v2.l"
+#line 36 "psi_v2.l"
