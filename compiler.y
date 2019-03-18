@@ -57,7 +57,7 @@ DIntSuite2 : tVIRG DIntSuite DIntSuite2
 		;
 
 Affectation : tID tEGAL E
-	;
+		;
 Conditions : tPARO Comparaisons tPARF
 		;
 Comparaisons : Comparaison Comparaisons
