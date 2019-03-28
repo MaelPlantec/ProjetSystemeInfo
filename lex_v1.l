@@ -25,4 +25,3 @@
 ";" {printf("tPV\n");}
 
 .[a-zA-Z0-9_]* {printf("error\n");}
-
