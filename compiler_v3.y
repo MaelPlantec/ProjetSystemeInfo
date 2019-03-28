@@ -44,21 +44,63 @@ Declaration : DConst
 
 DConst : tCONST tINT DConstSuite DConstSuite2
 		;
-DConstSuite : tID tEGAL tNB {ts_declaration($1, CONST_INT); $1 = ts_index-1; char name[50]; sprintf(name, "%d", $3); char addr[6]; ta_add("AFC", "R0", name); sprintf(addr, "%d", ts_get_addr()); ta_add("STORE",addr, "R0");}
+
+DConstSuite : tID tEGAL E {
+	unsigned int addr;
+	if((addr = ts_declaration($1, CONST_INT))==0) {
+		printf("Erreur : Déclaration, variable déjà créée.");
+		exit(0); }
+	char addr_E[6];
+	sprintf(addr_E, "%d", $3);
+	ta_add("LOAD", "R0", addr_E, "");
+	char addr_S[6];
+	sprintf(addr_S, "%d"; addr);
+	ta_add("STORE", addr_S, "R0", ""); }
+	// Il faut penser à décrémenter l'index de la table des symboles car on n'a plus besoin de la variable temporaire associée à E.
+	;
+
+
 DConstSuite2 : tVIRG DConstSuite DConstSuite2
 		|
 		;
 
 DInt : tINT DIntSuite DIntSuite2
 		;
-DIntSuite : tID
-		| tID tEGAL tNB
-		;
+
+DIntSuite : tID {
+	unsigned int addr;
+	if((addr = ts_declaration($1, CONST_INT))==0) {
+		printf("Erreur : Déclaration, variable déjà créée.");
+		exit(0); }
+	}
+	| tID tEGAL tNB {
+		unsigned int addr;
+		if((addr = ts_declaration($1, CONST_INT))==0) {
+			printf("Erreur : Déclaration, variable déjà créée.");
+			exit(0); }
+		char addr_E[6];
+		sprintf(addr_E, "%d", $3);
+		ta_add("LOAD", "R0", addr_E, "");
+		char addr_S[6];
+		sprintf(addr_S, "%d"; addr);
+		ta_add("STORE", addr_S, "R0", ""); }
+	;
+
 DIntSuite2 : tVIRG DIntSuite DIntSuite2
 		|
 		;
 
-Affectation : tID tEGAL E {unsigned int addr = }
+Affectation : tID tEGAL E {
+	unsigned int addr;
+	if((addr = ts_get_addr($1))==0) {
+		printf("Erreur : Déclaration, variable non déclarée.");
+		exit(0); }
+	char addr_E[6];
+	sprintf(addr_E, "%d", $3);
+	ta_add("LOAD", "R0", addr_E, "");
+	char addr_S[6];
+	sprintf(addr_S, "%d"; addr);
+	ta_add("STORE", addr_S, "R0", ""); }
 		;
 
 Condition : tPARO Comparaison tPARF
@@ -74,10 +116,10 @@ E : E tPLUS E
     | E tMOINS E
     | E tMUL E
     | E tDIV E
-    | tMOINS E  {$$ = $2;}
+    | tMOINS E {$$ = $2;}
 		| tPARO E tPARF
     | tNB
-		| tID {$$ = 0;}
+		| tID {$$ = ts_get_addr($1);}
     ;
 
 Print : tPTF tPARO E tPARF
