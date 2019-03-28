@@ -1,3 +1,18 @@
 int main () {
-	printf(1);
+	int a = 0;
+	int b = 1;
+	if (a == (b-1)) {
+		while (a < (b+4)) {
+			printf("Iteration.\n");
+			a = a + 1;
+		}
+	}
+	else if (a == 0) {
+		printf("Ceci ne devrait pas arriver.\n");
+		a = b;
+	}
+	else {
+		printf("Ceci ne devrait pas arriver.\n");
+	}
+	return 0;
 }
