@@ -30,13 +30,19 @@ void ta_text ()
     while (i < ta_index)
     {
       fputs(ta[i].OPE, file);
-      fputs(" : ", file);
+      fputs("  ", file);
       fputs(ta[i].A, file);
-      fputs(", ", file);
-      fputs(ta[i].B, file);
-      fputs(", ", file);
-      fputs(ta[i].C, file);
-      fputs(";\n", file);
+      if (strcmp(ta[i].B, "") != 0)
+      {
+        fputs(",", file);
+        fputs(ta[i].B, file);
+      }
+      if (strcmp(ta[i].C, "") != 0)
+      {
+        fputs(",", file);
+        fputs(ta[i].C, file);
+      }
+      fputs("\n", file);
       i++;
     }
     fclose(file);
@@ -49,9 +55,9 @@ int main(void) {
 
   ta_init();
   printf("--- ta_init ---\n");
-  ta_add("load","R4","R1","");
-  ta_add("add","R4","R1","R1");
-  ta_add("mul","R2","R1","R1");
+  ta_add("LOAD","R4","R1","");
+  ta_add("ADD","R4","R1","R1");
+  ta_add("JMP","0x356","","");
   printf("--- ta_add ---\n");
 
   ta_text();
