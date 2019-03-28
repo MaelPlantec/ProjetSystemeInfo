@@ -20,6 +20,10 @@ unsigned int ts_profondeur_actuelle;
 
 void ts_init (void);
 
-void ts_declaration(char* name, Type type, unsigned int profondeur);
+void ts_declaration(char* name, Type type);
 
 unsigned int ts_get_addr(int indice);
+
+void ts_depth_incr(void);
+
+void ts_depth_decr(void);

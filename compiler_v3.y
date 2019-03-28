@@ -9,7 +9,7 @@
 	char* str;
 }
 
-%token tMAIN tACCO tACCF tCONST tINT tID tNB tPTF tPLUS tMOINS tMUL tDIV tEGAL tINF tSUP tINFEG tSUPEG tPARO tPARF tVIRG tPV tERR
+%token tMAIN tACCO tACCF tCONST tINT tID tNB tPTF tPLUS tMOINS tMUL tDIV tEGAL tINF tSUP tINFEG tSUPEG tPARO tPARF tVIRG tPV tIF tELSE tWHILE tERR
 %type  <nb> tNB
 %type <str> tID
 %type <nb> E
@@ -24,7 +24,7 @@ start : Code {ts_init();}
 Code : tINT tMAIN tPARO tPARF Body
     ;
 
-Body : tACCO {ts_profondeur_actuelle++;} Instructions tACCF {ts_profondeur_actuelle--;}
+Body : tACCO {ts_depth_incr();} Instructions tACCF {ts_depth_decr();}
     ;
 
 Instructions : Instruction Instructions
@@ -34,6 +34,8 @@ Instructions : Instruction Instructions
 Instruction : Declaration tPV
 		| Affectation tPV
 		| Print tPV
+		| If tPV
+		| While tPV
     ;
 
 Declaration : DConst
@@ -42,8 +44,7 @@ Declaration : DConst
 
 DConst : tCONST tINT DConstSuite DConstSuite2
 		;
-DConstSuite : tID tEGAL tNB
-		;
+DConstSuite : tID tEGAL tNB {ts_declaration($1, CONST_INT); $1 = ts_index-1; char name[50]; sprintf(name, "%d", $3); char addr[6]; ta_add("AFC", "R0", name); sprintf(addr, "%d", ts_get_addr()); ta_add("STORE",addr, "R0");}
 DConstSuite2 : tVIRG DConstSuite DConstSuite2
 		|
 		;
@@ -57,9 +58,10 @@ DIntSuite2 : tVIRG DIntSuite DIntSuite2
 		|
 		;
 
-Affectation : tID tEGAL E
+Affectation : tID tEGAL E {unsigned int addr = }
 		;
-Conditions : tPARO Comparaisons tPARF
+
+Condition : tPARO Comparaison tPARF
 		;
 
 Comparaison : E tINF E
@@ -78,6 +80,16 @@ E : E tPLUS E
 		| tID {$$ = 0;}
     ;
 
-
 Print : tPTF tPARO E tPARF
 		;
+
+If : tIF Condition Body IfSuite
+	;
+
+IfSuite : tELSE Body
+	| tELSE tIF Body IfSuite
+	|
+	;
+
+While : tWHILE Conditions Body
+	;

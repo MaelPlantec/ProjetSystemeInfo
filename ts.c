@@ -10,7 +10,7 @@ void ts_init (void) {
 }
 
 // Appelée à la déclaration d'une variable.
-void ts_declaration(char* name, Type type, unsigned int profondeur) {
+void ts_declaration(char* name, Type type) {
   int i;
   if(ts_index == 0) {
     printf("Première déclaration.\n");
@@ -20,7 +20,7 @@ void ts_declaration(char* name, Type type, unsigned int profondeur) {
     strcpy(ligne.ts_name, name);
     ligne.ts_type = type;
     ligne.ts_addr = 0x4000;
-    ligne.ts_profondeur = profondeur;
+    ligne.ts_profondeur = ts_profondeur_actuelle;
     ts[0] = ligne;
     ts_index++;
   }
@@ -50,15 +50,26 @@ unsigned int ts_get_addr(int indice) {
   return ts[indice].ts_addr;
 }
 
+void ts_depth_incr(void) {
+  ts_profondeur_actuelle++;
+
+void ts_depth_decr(void) {
+  if(ts_profondeur_actuelle == 0) {
+    printf("Erreur : Problème de profondeur du code.\n", name);
+    exit(0);
+  } else
+    ts_profondeur_actuelle--;
+}
+
 // Tests
 int main(void) {
   ts_init();
   printf("index = %d\n", ts_index);
-  ts_declaration("a", INT, 1);
+  ts_declaration("a", INT);
   printf("index = %d\n", ts_index);
-  ts_declaration("b",INT, 2);
+  ts_declaration("a",INT);
   printf("index = %d\n", ts_index);
-  ts_declaration("c",CONST_INT, 2);
+  ts_declaration("c",CONST_INT);
   printf("index = %d\n", ts_index);
   printf("Fin du programme.\n");
   return 0;
