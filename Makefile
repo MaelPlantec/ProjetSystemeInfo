@@ -1,8 +1,8 @@
 compiler : y.tab.c lex.yy.c
 	gcc lex.yy.c y.tab.c -o compiler -ly -ll
 
-lex.yy.c : psi_v2.l Makefile
-	flex psi_v2.l
+lex.yy.c : compiler_v3.l Makefile
+	flex compiler_v3.l
 
 y.tab.c : compiler.y Makefile
 	yacc -d -t compiler.y
