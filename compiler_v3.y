@@ -13,7 +13,7 @@
 %token tMAIN tACCO tACCF tCONST tINT tID tNB tPTF tPLUS tMOINS tMUL tDIV tEGAL tINF tSUP tINFEG tSUPEG tPARO tPARF tVIRG tPV tIF tELSE tWHILE tERR
 %type  <nb> tNB
 %type <str> tID
-%type <str> E
+%type <nb> E
 
 %right tEGAL
 %left tPLUS tMOINS
@@ -134,7 +134,7 @@ E : E tPLUS E {
     | tMOINS E {
 			$$ = $2;
 			}
-		| tPARO E tPARF
+		| tPARO E tPARF 
     | tNB {
 			ta_add("AFC", 0, $1, -1);
 			int addr_nb = ts_add_tmp();
