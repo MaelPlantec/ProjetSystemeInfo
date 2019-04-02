@@ -13,7 +13,7 @@
 %token tMAIN tACCO tACCF tCONST tINT tID tNB tPTF tPLUS tMOINS tMUL tDIV tEGAL tINF tSUP tINFEG tSUPEG tPARO tPARF tVIRG tPV tIF tELSE tWHILE tERR
 %type  <nb> tNB
 %type <str> tID
-%type <str> E
+%type <nb> E
 
 %right tEGAL
 %left tPLUS tMOINS
@@ -97,7 +97,14 @@ Affectation : tID tEGAL E {
 Condition : tPARO Comparaison tPARF
 		;
 
-Comparaison : E tINF E
+Comparaison : E tEGAT tEGAL E
+	| E tINF E {
+	ta_add("LOAD", 0, $1, -1);
+	ta_add("LOAD", 1, $3, -1);
+	ta_add("INF", 0, 0, 1);
+	$$ = $1;
+	ts_pop();
+	}
 		| E tSUP E
 		| E tINFEG E
 		| E tSUPEG E
@@ -132,9 +139,14 @@ E : E tPLUS E {
 			ts_pop();
 		}
     | tMOINS E {
+			ta_add("LOAD", 0, $2, -1);
+			ta_add("AFC", 1, 0);
+			ta_add("SOU", 0, 1, 0);
 			$$ = $2;
 			}
-		| tPARO E tPARF
+		| tPARO E tPARF {
+			$$ = $2;
+		}
     | tNB {
 			ta_add("AFC", 0, $1, -1);
 			int addr_nb = ts_add_tmp();
@@ -143,7 +155,6 @@ E : E tPLUS E {
 		| tID {
 			int addr_id = ts_get_addr($1);
 			ta_add("LOAD", 0, addr_id, -1);
-
 			int addr_tmp = ts_add_tmp();
 			ta_add("STORE", addr_tmp, 0, -1);
 			$$ = addr_tmp;
