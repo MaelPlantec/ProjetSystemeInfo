@@ -1,5 +1,6 @@
 %{
 	#include "ts.h"
+	#include "ta.h"
 	int yylex(void);
 	void yyerror(char*);
 %}
@@ -54,7 +55,7 @@ DConstSuite : tID tEGAL E {
 	sprintf(addr_E, "%d", $3);
 	ta_add("LOAD", "R0", addr_E, "");
 	char addr_S[6];
-	sprintf(addr_S, "%d"; addr);
+	sprintf(addr_S, "%d", addr);
 	ta_add("STORE", addr_S, "R0", ""); }
 	// Il faut penser à décrémenter l'index de la table des symboles car on n'a plus besoin de la variable temporaire associée à E.
 	;
@@ -82,7 +83,7 @@ DIntSuite : tID {
 		sprintf(addr_E, "%d", $3);
 		ta_add("LOAD", "R0", addr_E, "");
 		char addr_S[6];
-		sprintf(addr_S, "%d"; addr);
+		sprintf(addr_S, "%d", addr);
 		ta_add("STORE", addr_S, "R0", ""); }
 	;
 
@@ -99,7 +100,7 @@ Affectation : tID tEGAL E {
 	sprintf(addr_E, "%d", $3);
 	ta_add("LOAD", "R0", addr_E, "");
 	char addr_S[6];
-	sprintf(addr_S, "%d"; addr);
+	sprintf(addr_S, "%d", addr);
 	ta_add("STORE", addr_S, "R0", ""); }
 		;
 
@@ -117,9 +118,9 @@ E : E tPLUS E
     | E tMUL E
     | E tDIV E
     | tMOINS E {$$ = $2;}
-	| tPARO E tPARF
+		| tPARO E tPARF
     | tNB
-	| tID {$$ = ts_get_addr($1);}
+		| tID {$$ = ts_get_addr($1);}
     ;
 
 Print : tPTF tPARO E tPARF

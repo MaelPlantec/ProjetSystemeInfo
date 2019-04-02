@@ -1,8 +1,3 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include "ts.h"
-
 void ts_init (void) {
   // Initialisation de l'index de la table.
   ts_index = 0;

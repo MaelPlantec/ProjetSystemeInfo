@@ -1,3 +1,8 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include "ts.h"
+
 #define TAILLE 1024
 
 //void yyerror(char *);
@@ -20,9 +25,9 @@ unsigned int ts_profondeur_actuelle;
 
 void ts_init (void);
 
-void ts_declaration(char* name, Type type);
+unsigned int ts_declaration(char* name, Type type);
 
-unsigned int ts_get_addr(int indice);
+unsigned int ts_get_addr(char * name);
 
 void ts_depth_incr(void);
 
