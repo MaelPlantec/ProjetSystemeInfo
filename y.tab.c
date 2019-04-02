@@ -474,10 +474,10 @@ static const yytype_int8 yyrhs[] =
 static const yytype_uint8 yyrline[] =
 {
        0,    23,    23,    25,    28,    28,    31,    32,    35,    36,
-      37,    38,    39,    42,    43,    46,    49,    64,    65,    68,
-      71,    77,    90,    91,    94,   107,   110,   111,   112,   113,
-     116,   117,   118,   119,   120,   121,   122,   123,   126,   129,
-     132,   133,   134,   137
+      37,    38,    39,    42,    43,    46,    49,    61,    62,    65,
+      68,    73,    85,    86,    89,    99,   102,   103,   104,   105,
+     108,   109,   110,   111,   112,   113,   114,   121,   131,   134,
+     137,   138,   139,   142
 };
 #endif
 
@@ -1454,71 +1454,82 @@ yyreduce:
   case 16:
 #line 49 "compiler_v3.y"
     {
-	unsigned int addr;
-	if((addr = ts_declaration((yyvsp[(1) - (3)].str), CONST_INT))==0) {
+	char addr_id[6] = ts_declaration((yyvsp[(1) - (3)].str), CONST_INT);
+	if(strcmp(addr_id, "0")) {
 		printf("Erreur : Déclaration, variable déjà créée.");
 		exit(0); }
-	char addr_E[6];
-	sprintf(addr_E, "%d", (yyvsp[(3) - (3)].nb));
+	char addr_E[6] = ts_pop();
 	ta_add("LOAD", "R0", addr_E, "");
-	char addr_S[6];
-	sprintf(addr_S, "%d", addr);
-	ta_add("STORE", addr_S, "R0", ""); }
+	ta_add("STORE", addr_id, "R0", "");
+	}
     break;
 
   case 20:
-#line 71 "compiler_v3.y"
+#line 68 "compiler_v3.y"
     {
-	unsigned int addr;
-	if((addr = ts_declaration((yyvsp[(1) - (1)].str), CONST_INT))==0) {
+	if(strcmp(ts_declaration((yyvsp[(1) - (1)].str), CONST_INT), "0")) {
 		printf("Erreur : Déclaration, variable déjà créée.");
 		exit(0); }
 	}
     break;
 
   case 21:
-#line 77 "compiler_v3.y"
+#line 73 "compiler_v3.y"
     {
-		unsigned int addr;
-		if((addr = ts_declaration((yyvsp[(1) - (3)].str), CONST_INT))==0) {
+		char addr_id[6] = ts_declaration((yyvsp[(1) - (3)].str), CONST_INT);
+		if(strcmp(addr_id, "0")) {
 			printf("Erreur : Déclaration, variable déjà créée.");
 			exit(0); }
-		char addr_E[6];
-		sprintf(addr_E, "%d", (yyvsp[(3) - (3)].nb));
-		ta_add("LOAD", "R0", addr_E, "");
-		char addr_S[6];
-		sprintf(addr_S, "%d", addr);
-		ta_add("STORE", addr_S, "R0", ""); }
+		char nb[6];
+		sprintf(nb, "%d", (yyvsp[(3) - (3)].nb));
+		ta_add("AFC", "R0", nb, "");
+		ta_add("STORE", addr_id, "R0", "");
+		}
     break;
 
   case 24:
-#line 94 "compiler_v3.y"
+#line 89 "compiler_v3.y"
     {
-	unsigned int addr;
-	if((addr = ts_get_addr((yyvsp[(1) - (3)].str)))==0) {
+	char addr_id[6] = ts_get_addr((yyvsp[(1) - (3)].str));
+	if(strcmp(addr_id, "0")) {
 		printf("Erreur : Déclaration, variable non déclarée.");
 		exit(0); }
-	char addr_E[6];
-	sprintf(addr_E, "%d", (yyvsp[(3) - (3)].nb));
-	ta_add("LOAD", "R0", addr_E, "");
-	char addr_S[6];
-	sprintf(addr_S, "%d", addr);
-	ta_add("STORE", addr_S, "R0", ""); }
+	ta_add("LOAD", (yyvsp[(3) - (3)].str), "R0", "");
+	ta_add("STORE", addr_id, "R0", "");
+	}
     break;
 
   case 34:
-#line 120 "compiler_v3.y"
-    {(yyval.nb) = (yyvsp[(2) - (2)].nb);}
+#line 112 "compiler_v3.y"
+    {(yyval.str) = (yyvsp[(2) - (2)].str);}
+    break;
+
+  case 36:
+#line 114 "compiler_v3.y"
+    {
+			char addr_tmp[6] = ts_add_tmp();
+			char nb[6];
+			sprintf(nb, "%d", (yyvsp[(1) - (1)].nb));
+			ta_add("AFC", "R0", nb, "");
+
+		}
     break;
 
   case 37:
-#line 123 "compiler_v3.y"
-    {(yyval.nb) = ts_get_addr((yyvsp[(1) - (1)].str));}
+#line 121 "compiler_v3.y"
+    {
+			char addr_id[6] = ts_get_addr((yyvsp[(1) - (1)].str));
+			ta_add("LOAD", "R0", addr_id, "");
+
+			char addr_tmp[6] = ts_add_tmp();
+			ta_add("STORE", addr_tmp, "R0", "");
+			(yyval.str) = addr_tmp;
+			}
     break;
 
 
 /* Line 1267 of yacc.c.  */
-#line 1522 "y.tab.c"
+#line 1533 "y.tab.c"
       default: break;
     }
   YY_SYMBOL_PRINT ("-> $$ =", yyr1[yyn], &yyval, &yyloc);

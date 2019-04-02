@@ -71,7 +71,7 @@ DIntSuite : tID {
 		exit(0); }
 	}
 	| tID tEGAL tNB {
-		char addr_id[6] = ts_declaration($1, CONST_INT);
+		char * addr_id = ts_declaration($1, CONST_INT);
 		if(strcmp(addr_id, "0")) {
 			printf("Erreur : Déclaration, variable déjà créée.");
 			exit(0); }
@@ -87,7 +87,7 @@ DIntSuite2 : tVIRG DIntSuite DIntSuite2
 		;
 
 Affectation : tID tEGAL E {
-	char addr_id[6] = ts_get_addr($1);
+	char * addr_id = ts_get_addr($1);
 	if(strcmp(addr_id, "0")) {
 		printf("Erreur : Déclaration, variable non déclarée.");
 		exit(0); }

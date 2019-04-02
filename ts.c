@@ -74,16 +74,12 @@ void ts_depth_decr(void) {
 }
 
 /* Décrémente l'index, et donc on va écraser ce qu'il y avait à l'index courant. (inutile de le faire ici). */
-char * ts_pop (void) {
+void ts_pop (void) {
   ts_index--;
   if (ts_index == -1) {
     printf("Erreur : L'index de la TS est négatif.\n");
     exit(0);
   }
-  unsigned int addr = ts[ts_index].ts_addr;
-  char addr_s[6];
-  sprintf(addr_s, "%d", addr);
-  return addr_s;
 }
 
 /* Ajoute une variable temporaire dans la TS, renvoi : l'adresse. */
