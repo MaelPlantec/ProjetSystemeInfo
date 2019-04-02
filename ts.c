@@ -8,8 +8,8 @@ void ts_init (void) {
 
 // Appelée à la déclaration d'une variable.
 // Renvoie 1 si la variable est déjà dans la table, 0 sinon.
-char * ts_declaration(char* name, Type type) {
-  unsigned int addr = 0;
+int ts_declaration(char* name, Type type) {
+  int addr = 0;
   int i;
   if(ts_index == 0) {
     printf("Première déclaration.\n");
@@ -41,24 +41,20 @@ char * ts_declaration(char* name, Type type) {
     ts_index++;
     addr = ligne.ts_addr;
   }
-  char addr_s[6];
-  sprintf(addr_s, "%d", addr);
-  return addr_s;
+  return addr;
 }
 
 // Renvoie l'addresse en mémoire de la variable
 // 0 si elle n'est pas dans la table
-char * ts_get_addr(char* name) {
-  unsigned int addr = 0;
+int ts_get_addr(char* name) {
+  int addr = 0;
   int i;
   for (i = 0; i < ts_index; i++) {
       if ((strcmp(ts[i].ts_name, name) == 0) && (strcmp(name, "") != 0)) {
         addr = ts[ts_index].ts_addr;
       }
   }
-  char addr_s[6];
-  sprintf(addr_s, "%d", addr);
-  return addr_s;
+  return addr;
 }
 
 void ts_depth_incr(void) {
@@ -83,8 +79,8 @@ void ts_pop (void) {
 }
 
 /* Ajoute une variable temporaire dans la TS, renvoi : l'adresse. */
-char * ts_add_tmp (void) {
-  unsigned int addr = 0;
+int ts_add_tmp (void) {
+  int addr = 0;
 
   struct ligne_ts ligne;
   ligne.ts_name = malloc(sizeof(char)*256);
@@ -96,9 +92,7 @@ char * ts_add_tmp (void) {
   ts_index++;
   addr = ligne.ts_addr;
 
-  char addr_s[6];
-  sprintf(addr_s, "%d", addr);
-  return addr_s;
+  return addr;
 }
 
 // Tests
