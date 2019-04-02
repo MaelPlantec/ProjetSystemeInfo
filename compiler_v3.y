@@ -14,6 +14,8 @@
 %type  <nb> tNB
 %type <str> tID
 %type <nb> E
+%type <nb> Comparaison
+%type <nb> Condition
 
 %right tEGAL
 %left tPLUS tMOINS
@@ -94,7 +96,9 @@ Affectation : tID tEGAL E {
 	}
 		;
 
-Condition : tPARO Comparaison tPARF
+Condition : tPARO Comparaison tPARF {
+	$$ = $2;
+	}
 		;
 
 Comparaison : E tEGAT tEGAL E
