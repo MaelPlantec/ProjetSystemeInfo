@@ -30,7 +30,7 @@ void ta_text ()
     while (i < ta_index)
     {
       fputs(ta[i].OPE, file);
-      fputs("  ", file);
+      fputs("\t", file);
       fputs(ta[i].A, file);
       if (strcmp(ta[i].B, "") != 0)
       {

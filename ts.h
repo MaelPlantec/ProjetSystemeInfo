@@ -10,7 +10,7 @@
 //void yyerror(char *);
 
 typedef enum Type Type;
-enum Type {INT = 8, CONST_INT = 8};
+enum Type {INT = 8, CONST_INT = 8, TMP = 8};
 
 struct ligne_ts {
   unsigned int ts_addr;
@@ -27,12 +27,16 @@ unsigned int ts_profondeur_actuelle;
 
 void ts_init (void);
 
-unsigned int ts_declaration(char* name, Type type);
+char * ts_declaration(char* name, Type type);
 
-unsigned int ts_get_addr(char * name);
+char * ts_get_addr(char * name);
 
 void ts_depth_incr(void);
 
 void ts_depth_decr(void);
+
+char * ts_pop (void);
+
+char * ts_add_tmp ();
 
 #endif  /* TS_H */
