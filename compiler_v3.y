@@ -76,7 +76,9 @@ DIntSuite : tID {
 		if(strcmp((addr = ts_declaration($1, CONST_INT)), "0")) {
 			printf("Erreur : Déclaration, variable déjà créée.");
 			exit(0); }
-		ta_add("AFC", "R0", $3, "");
+		char nb[6];
+		sprintf(, "%d", $3);
+		ta_add("AFC", "R0", nb, "");
 		ta_add("STORE", addr_id, "R0", "");
 		}
 	;
@@ -90,10 +92,9 @@ Affectation : tID tEGAL E {
 	if(strcmp((addr = ts_get_addr($1)), "0")) {
 		printf("Erreur : Déclaration, variable non déclarée.");
 		exit(0); }
-	ta_add("LOAD", "R0", E, "");
-	char addr_S[6];
-	sprintf(addr_S, "%d", addr);
-	ta_add("STORE", addr_S, "R0", ""); }
+	ta_add("LOAD", $3, "R0", "");
+	ta_add("STORE", addr_id, "R0", "");
+	}
 		;
 
 Condition : tPARO Comparaison tPARF
@@ -114,7 +115,7 @@ E : E tPLUS E
     | tNB{
 			char addr_tmp[6] = ts_add_tmp();
 			char nb[6];
-			sprintf(, "%d", $1);
+			sprintf(nb, "%d", $1);
 			ta_add("AFC", "R0", nb, "");
 
 		}
