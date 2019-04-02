@@ -1,11 +1,11 @@
 compiler : y.tab.c lex.yy.c
-	gcc lex.yy.c y.tab.c -o compiler -ly -ll
+	gcc lex.yy.c y.tab.c -o compiler_v3 -ly -ll
 
-lex.yy.c : compiler_v3.l Makefile
-	flex compiler_v3.l
+lex.yy.c : lex_v3.l Makefile
+	flex lex_v3.l
 
-y.tab.c : compiler.y Makefile
-	yacc -d -t compiler.y
+y.tab.c : compiler_v3.y Makefile
+	yacc -d -t compiler_v3.y
 
 test : compiler
 	./compiler < input_string
@@ -13,4 +13,4 @@ test : compiler
 clear :
 	rm lex.yy.c
 	rm y.tab.*
-	rm compiler
+	rm compiler_v3

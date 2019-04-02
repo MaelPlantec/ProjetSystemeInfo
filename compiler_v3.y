@@ -117,9 +117,9 @@ E : E tPLUS E
     | E tMUL E
     | E tDIV E
     | tMOINS E {$$ = $2;}
-		| tPARO E tPARF
+	| tPARO E tPARF
     | tNB
-		| tID {$$ = ts_get_addr($1);}
+	| tID {$$ = ts_get_addr($1);}
     ;
 
 Print : tPTF tPARO E tPARF
@@ -133,5 +133,5 @@ IfSuite : tELSE Body
 	|
 	;
 
-While : tWHILE Conditions Body
+While : tWHILE Condition Body
 	;

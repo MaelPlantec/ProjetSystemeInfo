@@ -60,7 +60,10 @@
      tPARF = 276,
      tVIRG = 277,
      tPV = 278,
-     tERR = 279
+     tIF = 279,
+     tELSE = 280,
+     tWHILE = 281,
+     tERR = 282
    };
 #endif
 /* Tokens.  */
@@ -85,20 +88,23 @@
 #define tPARF 276
 #define tVIRG 277
 #define tPV 278
-#define tERR 279
+#define tIF 279
+#define tELSE 280
+#define tWHILE 281
+#define tERR 282
 
 
 
 
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 typedef union YYSTYPE
-#line 6 "compiler.y"
+#line 7 "compiler_v3.y"
 {
 	int nb;
 	char* str;
 }
 /* Line 1529 of yacc.c.  */
-#line 102 "y.tab.h"
+#line 108 "y.tab.h"
 	YYSTYPE;
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
 # define YYSTYPE_IS_DECLARED 1
