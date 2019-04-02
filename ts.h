@@ -1,7 +1,9 @@
+#ifndef TS_H_
+#define TS_H_
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "ts.h"
 
 #define TAILLE 1024
 
@@ -32,3 +34,5 @@ unsigned int ts_get_addr(char * name);
 void ts_depth_incr(void);
 
 void ts_depth_decr(void);
+
+#endif  /* TS_H */

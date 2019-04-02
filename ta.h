@@ -1,5 +1,5 @@
 // Taille maximale du tableau des instructions d'assembleur.
-#define TAILLE 150
+#define TAILLE_I 150
 // T : Les opérations, les noms des registres ou les adresses ne dépasseront pas 6.
 #define T 6
 
@@ -12,7 +12,7 @@ struct ta_instru {
   char C[T];
 };
 
-struct ta_instru ta[TAILLE];
+struct ta_instru ta[TAILLE_I];
 
 void ta_init (void);
 

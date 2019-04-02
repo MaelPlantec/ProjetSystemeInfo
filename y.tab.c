@@ -127,6 +127,7 @@
 #line 1 "compiler_v3.y"
 
 	#include "ts.h"
+	#include "ta.h"
 	int yylex(void);
 	void yyerror(char*);
 
@@ -151,13 +152,13 @@
 
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 typedef union YYSTYPE
-#line 7 "compiler_v3.y"
+#line 8 "compiler_v3.y"
 {
 	int nb;
 	char* str;
 }
 /* Line 193 of yacc.c.  */
-#line 161 "y.tab.c"
+#line 162 "y.tab.c"
 	YYSTYPE;
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
 # define YYSTYPE_IS_DECLARED 1
@@ -170,7 +171,7 @@ typedef union YYSTYPE
 
 
 /* Line 216 of yacc.c.  */
-#line 174 "y.tab.c"
+#line 175 "y.tab.c"
 
 #ifdef short
 # undef short
@@ -472,11 +473,11 @@ static const yytype_int8 yyrhs[] =
 /* YYRLINE[YYN] -- source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    22,    22,    24,    27,    27,    30,    31,    34,    35,
-      36,    37,    38,    41,    42,    45,    48,    63,    64,    67,
-      70,    76,    89,    90,    93,   106,   109,   110,   111,   112,
-     115,   116,   117,   118,   119,   120,   121,   122,   125,   128,
-     131,   132,   133,   136
+       0,    23,    23,    25,    28,    28,    31,    32,    35,    36,
+      37,    38,    39,    42,    43,    46,    49,    64,    65,    68,
+      71,    77,    90,    91,    94,   107,   110,   111,   112,   113,
+     116,   117,   118,   119,   120,   121,   122,   123,   126,   129,
+     132,   133,   134,   137
 };
 #endif
 
@@ -1436,22 +1437,22 @@ yyreduce:
   switch (yyn)
     {
         case 2:
-#line 22 "compiler_v3.y"
+#line 23 "compiler_v3.y"
     {ts_init();}
     break;
 
   case 4:
-#line 27 "compiler_v3.y"
+#line 28 "compiler_v3.y"
     {ts_depth_incr();}
     break;
 
   case 5:
-#line 27 "compiler_v3.y"
+#line 28 "compiler_v3.y"
     {ts_depth_decr();}
     break;
 
   case 16:
-#line 48 "compiler_v3.y"
+#line 49 "compiler_v3.y"
     {
 	unsigned int addr;
 	if((addr = ts_declaration((yyvsp[(1) - (3)].str), CONST_INT))==0) {
@@ -1461,12 +1462,12 @@ yyreduce:
 	sprintf(addr_E, "%d", (yyvsp[(3) - (3)].nb));
 	ta_add("LOAD", "R0", addr_E, "");
 	char addr_S[6];
-	sprintf(addr_S, "%d"; addr);
+	sprintf(addr_S, "%d", addr);
 	ta_add("STORE", addr_S, "R0", ""); }
     break;
 
   case 20:
-#line 70 "compiler_v3.y"
+#line 71 "compiler_v3.y"
     {
 	unsigned int addr;
 	if((addr = ts_declaration((yyvsp[(1) - (1)].str), CONST_INT))==0) {
@@ -1476,7 +1477,7 @@ yyreduce:
     break;
 
   case 21:
-#line 76 "compiler_v3.y"
+#line 77 "compiler_v3.y"
     {
 		unsigned int addr;
 		if((addr = ts_declaration((yyvsp[(1) - (3)].str), CONST_INT))==0) {
@@ -1486,12 +1487,12 @@ yyreduce:
 		sprintf(addr_E, "%d", (yyvsp[(3) - (3)].nb));
 		ta_add("LOAD", "R0", addr_E, "");
 		char addr_S[6];
-		sprintf(addr_S, "%d"; addr);
+		sprintf(addr_S, "%d", addr);
 		ta_add("STORE", addr_S, "R0", ""); }
     break;
 
   case 24:
-#line 93 "compiler_v3.y"
+#line 94 "compiler_v3.y"
     {
 	unsigned int addr;
 	if((addr = ts_get_addr((yyvsp[(1) - (3)].str)))==0) {
@@ -1501,23 +1502,23 @@ yyreduce:
 	sprintf(addr_E, "%d", (yyvsp[(3) - (3)].nb));
 	ta_add("LOAD", "R0", addr_E, "");
 	char addr_S[6];
-	sprintf(addr_S, "%d"; addr);
+	sprintf(addr_S, "%d", addr);
 	ta_add("STORE", addr_S, "R0", ""); }
     break;
 
   case 34:
-#line 119 "compiler_v3.y"
+#line 120 "compiler_v3.y"
     {(yyval.nb) = (yyvsp[(2) - (2)].nb);}
     break;
 
   case 37:
-#line 122 "compiler_v3.y"
+#line 123 "compiler_v3.y"
     {(yyval.nb) = ts_get_addr((yyvsp[(1) - (1)].str));}
     break;
 
 
 /* Line 1267 of yacc.c.  */
-#line 1521 "y.tab.c"
+#line 1522 "y.tab.c"
       default: break;
     }
   YY_SYMBOL_PRINT ("-> $$ =", yyr1[yyn], &yyval, &yyloc);

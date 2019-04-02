@@ -1,3 +1,5 @@
+#include <ts.h>
+
 void ts_init (void) {
   // Initialisation de l'index de la table.
   ts_index = 0;
