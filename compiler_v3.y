@@ -47,12 +47,12 @@ DConst : tCONST tINT DConstSuite DConstSuite2
 		;
 
 DConstSuite : tID tEGAL E {
-	char addr_id[6] = ts_declaration($1, CONST_INT);
-	if(strcmp(addr_id, "0")) {
+	int addr_id = ts_declaration($1, CONST_INT);
+	if(addr_id == 0) {
 		printf("Erreur : Déclaration, variable déjà créée.");
 		exit(0); }
-	ta_add("LOAD", "R0", $3, "");
-	ta_add("STORE", addr_id, "R0", "");
+	ta_add("LOAD", 0, $3, -1);
+	ta_add("STORE", addr_id, 0, -1);
 	ts_pop();
 	}
 	;
@@ -66,19 +66,17 @@ DInt : tINT DIntSuite DIntSuite2
 		;
 
 DIntSuite : tID {
-	if(strcmp(ts_declaration($1, CONST_INT), "0")) {
+	if(ts_declaration($1, CONST_INT) == 0) {
 		printf("Erreur : Déclaration, variable déjà créée.");
 		exit(0); }
 	}
 	| tID tEGAL tNB {
-		char * addr_id = ts_declaration($1, CONST_INT);
-		if(strcmp(addr_id, "0")) {
+		int addr_id = ts_declaration($1, CONST_INT);
+		if(addr_id == 0) {
 			printf("Erreur : Déclaration, variable déjà créée.");
 			exit(0); }
-		char nb[6];
-		sprintf(nb, "%d", $3);
-		ta_add("AFC", "R0", nb, "");
-		ta_add("STORE", addr_id, "R0", "");
+		ta_add("AFC", 0, $3, -1);
+		ta_add("STORE", addr_id, 0, -1);
 		}
 	;
 
@@ -87,12 +85,12 @@ DIntSuite2 : tVIRG DIntSuite DIntSuite2
 		;
 
 Affectation : tID tEGAL E {
-	char * addr_id = ts_get_addr($1);
-	if(strcmp(addr_id, "0")) {
+	int addr_id = ts_get_addr($1);
+	if(addr_id == 0) {
 		printf("Erreur : Déclaration, variable non déclarée.");
 		exit(0); }
-	ta_add("LOAD", $3, "R0", "");
-	ta_add("STORE", addr_id, "R0", "");
+	ta_add("LOAD", $3, 0, -1);
+	ta_add("STORE", addr_id, 0, -1);
 	}
 		;
 
@@ -119,18 +117,16 @@ E : E tPLUS E {
     | tMOINS E {$$ = $2;}
 		| tPARO E tPARF
     | tNB {
-			char addr_tmp[6] = ts_add_tmp();
-			char nb[6];
-			sprintf(nb, "%d", $1);
-			ta_add("AFC", "R0", nb, "");
-
+			ta_add("AFC", 0, $1, -1);
+			int addr_nb = ts_add_tmp();
+			ta_add("STORE", addr_nb, 0, -1);
 		}
 		| tID {
-			char addr_id[6] = ts_get_addr($1);
-			ta_add("LOAD", "R0", addr_id, "");
+			int addr_id = ts_get_addr($1);
+			ta_add("LOAD", 0, addr_id, -1);
 
-			char addr_tmp[6] = ts_add_tmp();
-			ta_add("STORE", addr_tmp, "R0", "");
+			int addr_tmp = ts_add_tmp();
+			ta_add("STORE", addr_tmp, 0, -1);
 			$$ = addr_tmp;
 			}
     ;
