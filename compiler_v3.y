@@ -13,7 +13,7 @@
 %token tMAIN tACCO tACCF tCONST tINT tID tNB tPTF tPLUS tMOINS tMUL tDIV tEGAL tINF tSUP tINFEG tSUPEG tPARO tPARF tVIRG tPV tIF tELSE tWHILE tERR
 %type  <nb> tNB
 %type <str> tID
-%type <nb> E
+%type <str> E
 
 %right tEGAL
 %left tPLUS tMOINS
@@ -47,17 +47,14 @@ DConst : tCONST tINT DConstSuite DConstSuite2
 		;
 
 DConstSuite : tID tEGAL E {
-	unsigned int addr;
-	if((addr = ts_declaration($1, CONST_INT))==0) {
+	char addr_id[6];
+	if((strcmp(addr_id = ts_declaration($1, CONST_INT)),"0")) {
 		printf("Erreur : Déclaration, variable déjà créée.");
 		exit(0); }
-	char addr_E[6];
-	sprintf(addr_E, "%d", $3);
+	char addr_E[6] = ts_pop();
 	ta_add("LOAD", "R0", addr_E, "");
-	char addr_S[6];
-	sprintf(addr_S, "%d", addr);
-	ta_add("STORE", addr_S, "R0", ""); }
-	// Il faut penser à décrémenter l'index de la table des symboles car on n'a plus besoin de la variable temporaire associée à E.
+	ta_add("STORE", addr_id, "R0", "");
+	}
 	;
 
 
@@ -69,22 +66,19 @@ DInt : tINT DIntSuite DIntSuite2
 		;
 
 DIntSuite : tID {
-	unsigned int addr;
-	if((addr = ts_declaration($1, CONST_INT))==0) {
+	char addr_id[6];
+	if(strcmp((addr = ts_declaration($1, CONST_INT))=, "0")) {
 		printf("Erreur : Déclaration, variable déjà créée.");
 		exit(0); }
 	}
 	| tID tEGAL tNB {
-		unsigned int addr;
-		if((addr = ts_declaration($1, CONST_INT))==0) {
+		char addr_id[6];
+		if(strcmp((addr = ts_declaration($1, CONST_INT)), "0")) {
 			printf("Erreur : Déclaration, variable déjà créée.");
 			exit(0); }
-		char addr_E[6];
-		sprintf(addr_E, "%d", $3);
-		ta_add("LOAD", "R0", addr_E, "");
-		char addr_S[6];
-		sprintf(addr_S, "%d", addr);
-		ta_add("STORE", addr_S, "R0", ""); }
+		ta_add("AFC", "R0", $3, "");
+		ta_add("STORE", addr_id, "R0", "");
+		}
 	;
 
 DIntSuite2 : tVIRG DIntSuite DIntSuite2
@@ -92,13 +86,11 @@ DIntSuite2 : tVIRG DIntSuite DIntSuite2
 		;
 
 Affectation : tID tEGAL E {
-	unsigned int addr;
-	if((addr = ts_get_addr($1))==0) {
+	char addr_id[6];
+	if(strcmp((addr = ts_get_addr($1)), "0")) {
 		printf("Erreur : Déclaration, variable non déclarée.");
 		exit(0); }
-	char addr_E[6];
-	sprintf(addr_E, "%d", $3);
-	ta_add("LOAD", "R0", addr_E, "");
+	ta_add("LOAD", "R0", E, "");
 	char addr_S[6];
 	sprintf(addr_S, "%d", addr);
 	ta_add("STORE", addr_S, "R0", ""); }
@@ -119,8 +111,21 @@ E : E tPLUS E
     | E tDIV E
     | tMOINS E {$$ = $2;}
 		| tPARO E tPARF
-    | tNB
-		| tID {$$ = ts_get_addr($1);}
+    | tNB{
+			char addr_tmp[6] = ts_add_tmp();
+			char nb[6];
+			sprintf(, "%d", $1);
+			ta_add("AFC", "R0", nb, "");
+
+		}
+		| tID {
+			char addr_id[6] = ts_get_addr($1);
+			ta_add("LOAD", "R0", addr_id, "");
+
+			char addr_tmp[6] = ts_add_tmp();
+			ta_add("STORE", addr_tmp, "R0", "");
+			$$ = addr_tmp;
+			}
     ;
 
 Print : tPTF tPARO E tPARF
