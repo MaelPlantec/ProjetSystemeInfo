@@ -51,9 +51,9 @@ DConstSuite : tID tEGAL E {
 	if(strcmp(addr_id, "0")) {
 		printf("Erreur : Déclaration, variable déjà créée.");
 		exit(0); }
-	char addr_E[6] = ts_pop();
-	ta_add("LOAD", "R0", addr_E, "");
+	ta_add("LOAD", "R0", $3, "");
 	ta_add("STORE", addr_id, "R0", "");
+	ts_pop();
 	}
 	;
 
@@ -105,13 +105,20 @@ Comparaison : E tINF E
 		| E tSUPEG E
 		;
 
-E : E tPLUS E
+E : E tPLUS E {
+	$$ = $1;
+	ta_add("LOAD", "R0", $1, "");
+	ta_add("LOAD", "R1", $3, "");
+	ta_add("ADD", "R0", "R0", "R1");
+	ts_pop();
+	}
     | E tMOINS E
+
     | E tMUL E
     | E tDIV E
     | tMOINS E {$$ = $2;}
 		| tPARO E tPARF
-    | tNB{
+    | tNB {
 			char addr_tmp[6] = ts_add_tmp();
 			char nb[6];
 			sprintf(nb, "%d", $1);
