@@ -105,16 +105,35 @@ Comparaison : E tINF E
 
 E : E tPLUS E {
 	$$ = $1;
-	ta_add("LOAD", "R0", $1, "");
-	ta_add("LOAD", "R1", $3, "");
-	ta_add("ADD", "R0", "R0", "R1");
+	ta_add("LOAD", 0, $1, -1);
+	ta_add("LOAD", 1, $3, -1);
+	ta_add("ADD", 0, 0, 1);
 	ts_pop();
 	}
-    | E tMOINS E
-
-    | E tMUL E
-    | E tDIV E
-    | tMOINS E {$$ = $2;}
+    | E tMOINS E {
+			$$ = $1;
+			ta_add("LOAD", 0, $1, -1);
+			ta_add("LOAD", 1, $3, -1);
+			ta_add("SOU", 0, 0, 1);
+			ts_pop();
+		}
+    | E tMUL E {
+			$$ = $1;
+			ta_add("LOAD", 0, $1, -1);
+			ta_add("LOAD", 1, $3, -1);
+			ta_add("MUL", 0, 0, 1);
+			ts_pop();
+		}
+    | E tDIV E {
+			$$ = $1;
+			ta_add("LOAD", 0, $1, -1);
+			ta_add("LOAD", 1, $3, -1);
+			ta_add("DIV", 0, 0, 1);
+			ts_pop();
+		}
+    | tMOINS E {
+			$$ = $2;
+			}
 		| tPARO E tPARF
     | tNB {
 			ta_add("AFC", 0, $1, -1);
