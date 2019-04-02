@@ -47,8 +47,8 @@ DConst : tCONST tINT DConstSuite DConstSuite2
 		;
 
 DConstSuite : tID tEGAL E {
-	char addr_id[6];
-	if(strcmp((addr_id = ts_declaration($1, CONST_INT)),"0")) {
+	char addr_id[6] = ts_declaration($1, CONST_INT);
+	if(strcmp(addr_id, "0")) {
 		printf("Erreur : Déclaration, variable déjà créée.");
 		exit(0); }
 	char addr_E[6] = ts_pop();
@@ -71,12 +71,12 @@ DIntSuite : tID {
 		exit(0); }
 	}
 	| tID tEGAL tNB {
-		char addr_id[6];
-		if(strcmp((addr_id = ts_declaration($1, CONST_INT)), "0")) {
+		char addr_id[6] = ts_declaration($1, CONST_INT);
+		if(strcmp(addr_id, "0")) {
 			printf("Erreur : Déclaration, variable déjà créée.");
 			exit(0); }
 		char nb[6];
-		sprintf(, "%d", $3);
+		sprintf(nb, "%d", $3);
 		ta_add("AFC", "R0", nb, "");
 		ta_add("STORE", addr_id, "R0", "");
 		}
@@ -87,8 +87,8 @@ DIntSuite2 : tVIRG DIntSuite DIntSuite2
 		;
 
 Affectation : tID tEGAL E {
-	char addr_id[6];
-	if(strcmp((addr_id = ts_get_addr($1)), "0")) {
+	char addr_id[6] = ts_get_addr($1);
+	if(strcmp(addr_id, "0")) {
 		printf("Erreur : Déclaration, variable non déclarée.");
 		exit(0); }
 	ta_add("LOAD", $3, "R0", "");
