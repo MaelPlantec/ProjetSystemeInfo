@@ -16,6 +16,7 @@
 %type <nb> E
 %type <nb> Comparaison
 %type <nb> Condition
+%type <nb> tIF
 
 %right tEGAL
 %left tPLUS tMOINS
@@ -37,8 +38,8 @@ Instructions : Instruction Instructions
 Instruction : Declaration tPV
 		| Affectation tPV
 		| Print tPV
-		| If tPV
-		| While tPV
+		| If
+		| While
     ;
 
 Declaration : DConst
@@ -50,7 +51,7 @@ DConst : tCONST tINT DConstSuite DConstSuite2
 
 DConstSuite : tID tEGAL E {
 	int addr_id = ts_declaration($1, CONST_INT);
-	if(addr_id == 0) {
+	if(addr_id == -1) {
 		printf("Erreur : Déclaration, variable déjà créée.");
 		exit(0); }
 	ta_add("LOAD", 0, $3, -1);
@@ -68,13 +69,13 @@ DInt : tINT DIntSuite DIntSuite2
 		;
 
 DIntSuite : tID {
-	if(ts_declaration($1, CONST_INT) == 0) {
+	if(ts_declaration($1, CONST_INT) == -1) {
 		printf("Erreur : Déclaration, variable déjà créée.");
 		exit(0); }
 	}
 	| tID tEGAL E {
 		int addr_id = ts_declaration($1, INT);
-		if(addr_id == 0) {
+		if(addr_id == -1) {
 			printf("Erreur : Déclaration, variable déjà créée.");
 			exit(0); }
 			ta_add("LOAD", 0, $3, -1);
@@ -89,7 +90,7 @@ DIntSuite2 : tVIRG DIntSuite DIntSuite2
 
 Affectation : tID tEGAL E {
 	int addr_id = ts_get_addr($1);
-	if(addr_id == 0) {
+	if(addr_id == -1) {
 		printf("Erreur : Déclaration, variable non déclarée.");
 		exit(0); }
 	ta_add("LOAD", $3, 0, -1);
@@ -169,29 +170,28 @@ E : E tPLUS E {
 Print : tPTF tPARO E tPARF
 		;
 
+
 If : tIF Condition
 		{
 			ta_add("LOAD", 0, $2, -1);
-			ta_add("JMPC", ???, 0, -1); // on ne connaît pas encore l'addresse à laquelle on doit sauter
+			ta_add("JMPC", 0, 0, -1);
 			ts_pop();
 			$1 = ta_index - 1;
 		}
 	Body
 		{
-			ta_update_jmpc($1); // Pour mettre à jour l'addresse du jmpc
+			ta_add("JMP", 0, -1, -1);
+			ta_update_jmp($1);
+			$1 = ta_index - 1;
 		}
 	IfSuite
+		{
+			ta_update_jmp($1);
+		}
 	;
 
-Maël
-IfSuite : tELSE Body
-	| tELSE tIF Body IfSuite
-	|
-	;
-
-Laure
-IfSuite : tELSE Body
-	| tELSE tIF Body IfSuite
+IfSuite :
+ 	tELSE Body
 	|
 	;
 

@@ -7,6 +7,8 @@
 
 #define TAILLE 1024
 
+#define DEBUTPILE 0
+
 //void yyerror(char *);
 
 typedef enum Type Type;

@@ -9,33 +9,23 @@ void ts_init (void) {
 // Appelée à la déclaration d'une variable.
 // Renvoie 1 si la variable est déjà dans la table, 0 sinon.
 int ts_declaration(char* name, Type type) {
-  int addr = 0;
-  int i;
-  if(ts_index == 0) {
-    printf("Première déclaration.\n");
-    // Sinon on l'ajoute.
-    struct ligne_ts ligne;
-    ligne.ts_name = malloc(sizeof(char)*256);
-    strcpy(ligne.ts_name, name);
-    ligne.ts_type = type;
-    ligne.ts_addr = 0x0;
-    ligne.ts_profondeur = ts_profondeur_actuelle;
-    ts[0] = ligne;
-    ts_index++;
+  int addr = 1;
+  int i = 0;
+
+  for (i = 0; i < ts_index; i++) {
+      if ((strcmp(ts[i].ts_name, name) == 0) && (strcmp(name, "") != 0)) {
+        // La variable est déjà dans la table.
+        addr = -1;
+        printf("%s est déjà dans la table.\n", name);
+      }
   }
-  else {
-    for (i = 0; i < ts_index; i++) {
-        if ((strcmp(ts[i].ts_name, name) == 0) && (strcmp(name, "") != 0)) {
-          // La variable est déjà dans la table.
-          addr = 0;
-        }
-    }
-    // Sinon on l'ajoute.
+  if (addr != -1) {
+    printf("%s n'est pas dans la table.\n", name);
     struct ligne_ts ligne;
     ligne.ts_name = malloc(sizeof(char)*256);
     strcpy(ligne.ts_name, name);
     ligne.ts_type = type;
-    ligne.ts_addr = 0x0 + (ligne.ts_type*ts_index);
+    ligne.ts_addr = DEBUTPILE + (ligne.ts_type*ts_index);
     ligne.ts_profondeur = ts_profondeur_actuelle;
     ts[ts_index] = ligne;
     ts_index++;
@@ -86,7 +76,7 @@ int ts_add_tmp (void) {
   ligne.ts_name = malloc(sizeof(char)*256);
   strcpy(ligne.ts_name, "");
   ligne.ts_type = TMP;
-  ligne.ts_addr = 0x4000 + (ligne.ts_type*ts_index);
+  ligne.ts_addr = DEBUTPILE + (ligne.ts_type*ts_index);
   ligne.ts_profondeur = ts_profondeur_actuelle;
   ts[ts_index] = ligne;
   ts_index++;
@@ -108,7 +98,7 @@ void ts_text ()
       fputs(" = ", file);
 
       char a[10];
-      sprintf(a, "%d", ts[i].ts_addr);
+      sprintf(a, "%d\n", ts[i].ts_addr);
       fputs(a, file);
 
       i++;

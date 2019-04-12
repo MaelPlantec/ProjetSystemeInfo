@@ -18,6 +18,6 @@ void ta_init (void);
 
 void ta_add (char* OPE, int A, int B, int C);
 
-void ta_update_jmpc(int indice_jmpc);
+void ta_update_jmp(int indice_jmp);
 
 void ta_text (void);

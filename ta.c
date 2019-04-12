@@ -20,8 +20,8 @@ void ta_add (char* OPE, int A, int B, int C) {
   ta_index++;
 }
 
-void ta_update_jmpc(int indice_jmpc) {
-  ta[indice_jmpc].A = ta_index;
+void ta_update_jmp(int indice_jmp) {
+  ta[indice_jmp].A = ta_index;
 }
 
 void ta_text ()
@@ -42,14 +42,14 @@ void ta_text ()
 
       if (ta[i].B != -1)
       {
-        fputs(", ", file);
+        fputs(" ", file);
         char b[6];
         sprintf(b, "%d", ta[i].B);
         fputs(b, file);
       }
       if (ta[i].C != -1)
       {
-        fputs(", ", file);
+        fputs(" ", file);
         char c[6];
         sprintf(c, "%d", ta[i].C);
         fputs(c, file);

@@ -1,5 +1,9 @@
 int main () {
 	int a = 0;
 	int b;
-	b = a+1;
+	if(1<2) {
+		b = a+1;
+	} else {
+		b = 0;
+	}
 }
