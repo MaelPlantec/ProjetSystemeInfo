@@ -20,6 +20,10 @@ void ta_add (char* OPE, int A, int B, int C) {
   ta_index++;
 }
 
+void ta_update_jmpc(int indice_jmpc) {
+  ta[indice_jmpc].A = ta_index;
+}
+
 void ta_text ()
 {
   int i = 0;

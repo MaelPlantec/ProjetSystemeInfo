@@ -169,9 +169,27 @@ E : E tPLUS E {
 Print : tPTF tPARO E tPARF
 		;
 
-If : tIF Condition Body IfSuite
+If : tIF Condition
+		{
+			ta_add("LOAD", 0, $2, -1);
+			ta_add("JMPC", ???, 0, -1); // on ne connaît pas encore l'addresse à laquelle on doit sauter
+			ts_pop();
+			$1 = ta_index - 1;
+		}
+	Body
+		{
+			ta_update_jmpc($1); // Pour mettre à jour l'addresse du jmpc
+		}
+	IfSuite
 	;
 
+Maël
+IfSuite : tELSE Body
+	| tELSE tIF Body IfSuite
+	|
+	;
+
+Laure
 IfSuite : tELSE Body
 	| tELSE tIF Body IfSuite
 	|

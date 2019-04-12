@@ -18,7 +18,7 @@ int ts_declaration(char* name, Type type) {
     ligne.ts_name = malloc(sizeof(char)*256);
     strcpy(ligne.ts_name, name);
     ligne.ts_type = type;
-    ligne.ts_addr = 0x4000;
+    ligne.ts_addr = 0x0;
     ligne.ts_profondeur = ts_profondeur_actuelle;
     ts[0] = ligne;
     ts_index++;
@@ -35,7 +35,7 @@ int ts_declaration(char* name, Type type) {
     ligne.ts_name = malloc(sizeof(char)*256);
     strcpy(ligne.ts_name, name);
     ligne.ts_type = type;
-    ligne.ts_addr = 0x4000 + (ligne.ts_type*ts_index);
+    ligne.ts_addr = 0x0 + (ligne.ts_type*ts_index);
     ligne.ts_profondeur = ts_profondeur_actuelle;
     ts[ts_index] = ligne;
     ts_index++;
@@ -100,7 +100,7 @@ void ts_text ()
   int i = 0;
   FILE* file = NULL;
   file = fopen("variables.txt", "w");
-  if (file != NULL) 
+  if (file != NULL)
   {
     while (i < ts_index)
     {
@@ -108,7 +108,7 @@ void ts_text ()
       fputs(" = ", file);
 
       char a[10];
-      sprintf(a, "%d", ts[i].ts_addr);      
+      sprintf(a, "%d", ts[i].ts_addr);
       fputs(a, file);
 
       i++;
@@ -116,9 +116,3 @@ void ts_text ()
     fclose(file);
   }
 }
-
-
-
-
-
-
