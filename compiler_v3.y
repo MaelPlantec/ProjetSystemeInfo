@@ -99,6 +99,7 @@ E : E tPLUS E {
 	ta_add("LOAD", 0, $1, -1);
 	ta_add("LOAD", 1, $3, -1);
 	ta_add("ADD", 0, 0, 1);
+	ta_add("STORE", $1, 0, -1);
 	ts_pop();
 	}
     | E tMOINS E {
@@ -106,6 +107,7 @@ E : E tPLUS E {
 			ta_add("LOAD", 0, $1, -1);
 			ta_add("LOAD", 1, $3, -1);
 			ta_add("SOU", 0, 0, 1);
+			ta_add("STORE", $1, 0, -1);
 			ts_pop();
 		}
     | E tMUL E {
@@ -113,6 +115,7 @@ E : E tPLUS E {
 			ta_add("LOAD", 0, $1, -1);
 			ta_add("LOAD", 1, $3, -1);
 			ta_add("MUL", 0, 0, 1);
+			ta_add("STORE", $1, 0, -1);
 			ts_pop();
 		}
     | E tDIV E {
@@ -120,12 +123,14 @@ E : E tPLUS E {
 			ta_add("LOAD", 0, $1, -1);
 			ta_add("LOAD", 1, $3, -1);
 			ta_add("DIV", 0, 0, 1);
+			ta_add("STORE", $1, 0, -1);
 			ts_pop();
 		}
     | tMOINS E {
 			ta_add("LOAD", 0, $2, -1);
 			ta_add("AFC", 1, 0, -1);
 			ta_add("SOU", 0, 1, 0);
+			ta_add("STORE", $2, 0, -1);
 			$$ = $2;
 			}
 		| tPARO E tPARF {

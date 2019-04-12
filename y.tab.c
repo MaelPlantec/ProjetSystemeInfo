@@ -487,8 +487,8 @@ static const yytype_uint8 yyrline[] =
 {
        0,    23,    23,    25,    28,    28,    31,    32,    35,    36,
       37,    40,    41,    44,    47,    59,    60,    63,    66,    71,
-      82,    83,    86,    97,   104,   111,   118,   125,   131,   134,
-     139,   148
+      82,    83,    86,    97,   105,   113,   121,   129,   136,   139,
+     144,   153
 };
 #endif
 
@@ -1379,78 +1379,83 @@ yyreduce:
 	ta_add("LOAD", 0, (yyvsp[-2].nb), -1);
 	ta_add("LOAD", 1, (yyvsp[0].nb), -1);
 	ta_add("ADD", 0, 0, 1);
+	ta_add("STORE", (yyvsp[-2].nb), 0, -1);
 	ts_pop();
 	}
-#line 1385 "y.tab.c" /* yacc.c:1646  */
+#line 1386 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 24:
-#line 104 "compiler_v3.y" /* yacc.c:1646  */
+#line 105 "compiler_v3.y" /* yacc.c:1646  */
     {
 			(yyval.nb) = (yyvsp[-2].nb);
 			ta_add("LOAD", 0, (yyvsp[-2].nb), -1);
 			ta_add("LOAD", 1, (yyvsp[0].nb), -1);
 			ta_add("SOU", 0, 0, 1);
+			ta_add("STORE", (yyvsp[-2].nb), 0, -1);
 			ts_pop();
 		}
-#line 1397 "y.tab.c" /* yacc.c:1646  */
+#line 1399 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 25:
-#line 111 "compiler_v3.y" /* yacc.c:1646  */
+#line 113 "compiler_v3.y" /* yacc.c:1646  */
     {
 			(yyval.nb) = (yyvsp[-2].nb);
 			ta_add("LOAD", 0, (yyvsp[-2].nb), -1);
 			ta_add("LOAD", 1, (yyvsp[0].nb), -1);
 			ta_add("MUL", 0, 0, 1);
+			ta_add("STORE", (yyvsp[-2].nb), 0, -1);
 			ts_pop();
 		}
-#line 1409 "y.tab.c" /* yacc.c:1646  */
+#line 1412 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 26:
-#line 118 "compiler_v3.y" /* yacc.c:1646  */
+#line 121 "compiler_v3.y" /* yacc.c:1646  */
     {
 			(yyval.nb) = (yyvsp[-2].nb);
 			ta_add("LOAD", 0, (yyvsp[-2].nb), -1);
 			ta_add("LOAD", 1, (yyvsp[0].nb), -1);
 			ta_add("DIV", 0, 0, 1);
+			ta_add("STORE", (yyvsp[-2].nb), 0, -1);
 			ts_pop();
 		}
-#line 1421 "y.tab.c" /* yacc.c:1646  */
+#line 1425 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 27:
-#line 125 "compiler_v3.y" /* yacc.c:1646  */
+#line 129 "compiler_v3.y" /* yacc.c:1646  */
     {
 			ta_add("LOAD", 0, (yyvsp[0].nb), -1);
 			ta_add("AFC", 1, 0, -1);
 			ta_add("SOU", 0, 1, 0);
+			ta_add("STORE", (yyvsp[0].nb), 0, -1);
 			(yyval.nb) = (yyvsp[0].nb);
 			}
-#line 1432 "y.tab.c" /* yacc.c:1646  */
+#line 1437 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 28:
-#line 131 "compiler_v3.y" /* yacc.c:1646  */
+#line 136 "compiler_v3.y" /* yacc.c:1646  */
     {
 			(yyval.nb) = (yyvsp[-1].nb);
 		}
-#line 1440 "y.tab.c" /* yacc.c:1646  */
+#line 1445 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 29:
-#line 134 "compiler_v3.y" /* yacc.c:1646  */
+#line 139 "compiler_v3.y" /* yacc.c:1646  */
     {
 			ta_add("AFC", 0, (yyvsp[0].nb), -1);
 			int addr_nb = ts_add_tmp();
 			ta_add("STORE", addr_nb, 0, -1);
 		}
-#line 1450 "y.tab.c" /* yacc.c:1646  */
+#line 1455 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 30:
-#line 139 "compiler_v3.y" /* yacc.c:1646  */
+#line 144 "compiler_v3.y" /* yacc.c:1646  */
     {
 			int addr_id = ts_get_addr((yyvsp[0].str));
 			ta_add("LOAD", 0, addr_id, -1);
@@ -1458,11 +1463,11 @@ yyreduce:
 			ta_add("STORE", addr_tmp, 0, -1);
 			(yyval.nb) = addr_tmp;
 			}
-#line 1462 "y.tab.c" /* yacc.c:1646  */
+#line 1467 "y.tab.c" /* yacc.c:1646  */
     break;
 
 
-#line 1466 "y.tab.c" /* yacc.c:1646  */
+#line 1471 "y.tab.c" /* yacc.c:1646  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
