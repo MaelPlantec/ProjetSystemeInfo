@@ -103,17 +103,41 @@ Condition : tPARO Comparaison tPARF {
 	}
 		;
 
-Comparaison : E tEGAL tEGAL E
-	| E tINF E {
+Comparaison : E tEGAL tEGAL E {
 	ta_add("LOAD", 0, $1, -1);
 	ta_add("LOAD", 1, $3, -1);
 	ta_add("INF", 0, 0, 1);
 	$$ = $1;
 	ts_pop();
 	}
-		| E tSUP E
-		| E tINFEG E
-		| E tSUPEG E
+	| E tINF E {
+	ta_add("LOAD", 0, $1, -1);
+	ta_add("LOAD", 1, $3, -1);
+	ta_add("INFE", 0, 0, 1);
+	$$ = $1;
+	ts_pop();
+	}
+		| E tSUP E {
+		ta_add("LOAD", 0, $1, -1);
+		ta_add("LOAD", 1, $3, -1);
+		ta_add("INF", 0, 0, 1);
+		$$ = $1;
+		ts_pop();
+		}
+		| E tINFEG E {
+		ta_add("LOAD", 0, $1, -1);
+		ta_add("LOAD", 1, $3, -1);
+		ta_add("SUP", 0, 0, 1);
+		$$ = $1;
+		ts_pop();
+		}
+		| E tSUPEG E {
+		ta_add("LOAD", 0, $1, -1);
+		ta_add("LOAD", 1, $3, -1);
+		ta_add("SUPE", 0, 0, 1);
+		$$ = $1;
+		ts_pop();
+		}
 		;
 
 E : E tPLUS E {
@@ -167,9 +191,10 @@ E : E tPLUS E {
 			}
     ;
 
-Print : tPTF tPARO E tPARF
+Print : tPTF tPARO E tPARF {
+	ta_add("PRT", $3, -1, -1, -1);
+	}
 		;
-
 
 If : tIF Condition
 		{

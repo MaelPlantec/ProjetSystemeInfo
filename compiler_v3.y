@@ -150,5 +150,7 @@ E : E tPLUS E {
 			}
     ;
 
-Print : tPTF tPARO E tPARF
+Print : tPTF tPARO E tPARF {
+	ta_add("PRT", $3, -1, -1, -1);
+	}
 		;
