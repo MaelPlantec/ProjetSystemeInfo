@@ -12,6 +12,11 @@ int ts_declaration(char* name, Type type) {
   int addr = 1;
   int i = 0;
 
+  if (ts_index == TAILLE - 1) {
+    printf("Erreur : Stack Overflow (SO).\n");
+    exit(0);
+  }
+
   for (i = 0; i < ts_index; i++) {
       if ((strcmp(ts[i].ts_name, name) == 0) && (strcmp(name, "") != 0)) {
         // La variable est déjà dans la table.
