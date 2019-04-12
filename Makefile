@@ -8,7 +8,7 @@ y.tab.c : compiler_v3.y Makefile
 	yacc -d -t compiler_v3.y
 
 test : compiler
-	./compiler < input_string
+	./compiler_v3 < input_string
 
 clear :
 	rm lex.yy.c

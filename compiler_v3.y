@@ -72,13 +72,14 @@ DIntSuite : tID {
 		printf("Erreur : Déclaration, variable déjà créée.");
 		exit(0); }
 	}
-	| tID tEGAL tNB {
-		int addr_id = ts_declaration($1, CONST_INT);
+	| tID tEGAL E {
+		int addr_id = ts_declaration($1, INT);
 		if(addr_id == 0) {
 			printf("Erreur : Déclaration, variable déjà créée.");
 			exit(0); }
-		ta_add("AFC", 0, $3, -1);
-		ta_add("STORE", addr_id, 0, -1);
+			ta_add("LOAD", 0, $3, -1);
+			ta_add("STORE", addr_id, 0, -1);
+			ts_pop();
 		}
 	;
 

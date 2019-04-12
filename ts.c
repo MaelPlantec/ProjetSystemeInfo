@@ -94,17 +94,3 @@ int ts_add_tmp (void) {
 
   return addr;
 }
-
-// Tests
-int main(void) {
-  ts_init();
-  printf("index = %d\n", ts_index);
-  ts_declaration("a", INT);
-  printf("index = %d\n", ts_index);
-  ts_declaration("a",INT);
-  printf("index = %d\n", ts_index);
-  ts_declaration("c",CONST_INT);
-  printf("index = %d\n", ts_index);
-  printf("Fin du programme.\n");
-  return 0;
-}
