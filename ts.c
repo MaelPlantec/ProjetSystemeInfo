@@ -94,3 +94,30 @@ int ts_add_tmp (void) {
 
   return addr;
 }
+
+void ts_text ()
+{
+  int i = 0;
+  FILE* file = NULL;
+  file = fopen("variables.txt", "w");
+  if (file != NULL) 
+  {
+    while (i < ts_index)
+    {
+      fputs(ts[i].ts_name, file);
+      fputs(" = ", file);
+
+      sprintf(a, "%d", ts[i].ts_addr);      
+      fputs(a, file);
+
+      i++;
+    }
+    fclose(file);
+  }
+}
+
+
+
+
+
+

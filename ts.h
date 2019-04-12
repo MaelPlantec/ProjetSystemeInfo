@@ -37,6 +37,8 @@ void ts_depth_decr(void);
 
 void ts_pop (void);
 
-int ts_add_tmp ();
+int ts_add_tmp (void);
+
+void ts_text (void);
 
 #endif  /* TS_H */
