@@ -107,6 +107,7 @@ void ts_text ()
       fputs(ts[i].ts_name, file);
       fputs(" = ", file);
 
+      char a[10];
       sprintf(a, "%d", ts[i].ts_addr);      
       fputs(a, file);
 
