@@ -144,7 +144,7 @@ E : E tPLUS E {
 		}
     | tMOINS E {
 			ta_add("LOAD", 0, $2, -1);
-			ta_add("AFC", 1, 0);
+			ta_add("AFC", 1, 0, -1);
 			ta_add("SOU", 0, 1, 0);
 			$$ = $2;
 			}
