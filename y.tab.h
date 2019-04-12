@@ -45,71 +45,25 @@ extern int yydebug;
 # define YYTOKENTYPE
   enum yytokentype
   {
-    tMAIN = 258,
-    tACCO = 259,
-    tACCF = 260,
-    tCONST = 261,
-    tINT = 262,
-    tID = 263,
-    tNB = 264,
-    tPTF = 265,
-    tPLUS = 266,
-    tMOINS = 267,
-    tMUL = 268,
-    tDIV = 269,
-    tEGAL = 270,
-    tINF = 271,
-    tSUP = 272,
-    tINFEG = 273,
-    tSUPEG = 274,
-    tPARO = 275,
-    tPARF = 276,
-    tVIRG = 277,
-    tPV = 278,
-    tIF = 279,
-    tELSE = 280,
-    tWHILE = 281,
-    tERR = 282
+    tOPE = 258,
+    tNB = 259
   };
 #endif
 /* Tokens.  */
-#define tMAIN 258
-#define tACCO 259
-#define tACCF 260
-#define tCONST 261
-#define tINT 262
-#define tID 263
-#define tNB 264
-#define tPTF 265
-#define tPLUS 266
-#define tMOINS 267
-#define tMUL 268
-#define tDIV 269
-#define tEGAL 270
-#define tINF 271
-#define tSUP 272
-#define tINFEG 273
-#define tSUPEG 274
-#define tPARO 275
-#define tPARF 276
-#define tVIRG 277
-#define tPV 278
-#define tIF 279
-#define tELSE 280
-#define tWHILE 281
-#define tERR 282
+#define tOPE 258
+#define tNB 259
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 
 union YYSTYPE
 {
-#line 8 "compiler_v4.y" /* yacc.c:1909  */
+#line 8 "interpreteur.y" /* yacc.c:1909  */
 
 	int nb;
 	char* str;
 
-#line 113 "y.tab.h" /* yacc.c:1909  */
+#line 67 "y.tab.h" /* yacc.c:1909  */
 };
 
 typedef union YYSTYPE YYSTYPE;

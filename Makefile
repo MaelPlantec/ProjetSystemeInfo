@@ -1,5 +1,5 @@
 compiler : y.tab.c lex.yy.c y.int.c lex_int.yy.c
-	gcc lex.yy.c y.tab.c y.int.c lex_int.yy.c ts.c ta.c -o compiler_v4 interpreteur -ly -ll
+	gcc lex.yy.c y.tab.c y.int.c lex_int.yy.c ts.c ta.c interpreteur.c -o compiler_v4 interpreteur -ly -ll
 
 lex.yy.c : lex_v3.l Makefile
 	flex lex_v3.l

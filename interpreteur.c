@@ -1,9 +1,11 @@
 #include "interpreteur.h"
 
+int i = 0;
+
 interpreteur_init(struct ta_instru ta[TAILLE_I]) {
-  int i = 0;
-  for(i = 0; i<TAILLE; i++) {
+  while(i<TAILLE) {
     traitement(ta[i]);
+    ++i;
   }
 }
 
@@ -29,19 +31,37 @@ traitement(struct ta_instru instru){
         registres[instru.A] = 0;
       }
   } else if(strcmp(instru.OPE, "INF") == 0) {
-
+      if (registres[instru.B] < registres[instru.C]) {
+        registres[instru.A] = 1;
+      } else {
+        registres[instru.A] = 0;
+      }
   } else if(strcmp(instru.OPE, "INFE") == 0) {
-
+      if (registres[instru.B] <= registres[instru.C]) {
+        registres[instru.A] = 1;
+      } else {
+        registres[instru.A] = 0;
+      }
   } else if(strcmp(instru.OPE, "SUP") == 0) {
-
+      if (registres[instru.B] > registres[instru.C]) {
+        registres[instru.A] = 1;
+      } else {
+        registres[instru.A] = 0;
+      }
   } else if(strcmp(instru.OPE, "SUPE") == 0) {
-
+      if (registres[instru.B] >= registres[instru.C]) {
+        registres[instru.A] = 1;
+      } else {
+        registres[instru.A] = 0;
+      }
   } else if(strcmp(instru.OPE, "JMP") == 0) {
-
+      i = instru.A-1;
   } else if(strcmp(instru.OPE, "JMPC") == 0) {
-
+      if(registres[instru.B] == 0) {
+        i = instru.A-1;
+      }
   } else if(strcmp(instru.OPE, "PRT") == 0) {
-
+      printf("%d\n", memoire[instru.A]);
   } else {
     printf("Erreur : Instruction non reconnue.\n");
   }
