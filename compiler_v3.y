@@ -101,7 +101,7 @@ Condition : tPARO Comparaison tPARF {
 	}
 		;
 
-Comparaison : E tEGAT tEGAL E
+Comparaison : E tEGAL tEGAL E
 	| E tINF E {
 	ta_add("LOAD", 0, $1, -1);
 	ta_add("LOAD", 1, $3, -1);
