@@ -14,6 +14,8 @@
 %type  <nb> tNB
 %type <str> tID
 %type <nb> E
+%type <nb> Comparaison
+%type <nb> Condition
 
 %right tEGAL
 %left tPLUS tMOINS
@@ -22,7 +24,7 @@
 %%
 start : Code {ts_init();}
 
-Code : tINT tMAIN tPARO tPARF Body {ta_text(); ts_text();}
+Code : tINT tMAIN tPARO tPARF Body {ta_text();}
     ;
 
 Body : tACCO {ts_depth_incr();} Instructions tACCF {ts_depth_decr();}
@@ -35,6 +37,8 @@ Instructions : Instruction Instructions
 Instruction : Declaration tPV
 		| Affectation tPV
 		| Print tPV
+		| If tPV
+		| While tPV
     ;
 
 Declaration : DConst
@@ -90,8 +94,25 @@ Affectation : tID tEGAL E {
 		exit(0); }
 	ta_add("LOAD", $3, 0, -1);
 	ta_add("STORE", addr_id, 0, -1);
+	}
+		;
+
+Condition : tPARO Comparaison tPARF {
+	$$ = $2;
+	}
+		;
+
+Comparaison : E tEGAL tEGAL E
+	| E tINF E {
+	ta_add("LOAD", 0, $1, -1);
+	ta_add("LOAD", 1, $3, -1);
+	ta_add("INF", 0, 0, 1);
+	$$ = $1;
 	ts_pop();
 	}
+		| E tSUP E
+		| E tINFEG E
+		| E tSUPEG E
 		;
 
 E : E tPLUS E {
@@ -147,3 +168,14 @@ E : E tPLUS E {
 
 Print : tPTF tPARO E tPARF
 		;
+
+If : tIF Condition Body IfSuite
+	;
+
+IfSuite : tELSE Body
+	| tELSE tIF Body IfSuite
+	|
+	;
+
+While : tWHILE Condition Body
+	;

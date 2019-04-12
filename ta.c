@@ -25,7 +25,7 @@ void ta_text ()
   int i = 0;
   FILE* file = NULL;
   file = fopen("instructions.asm", "w");
-  if (file != NULL) 
+  if (file != NULL)
   {
     while (i < ta_index)
     {
@@ -33,21 +33,21 @@ void ta_text ()
       fputs("\t", file);
 
       char a[6];
-      sprintf(a, "%d", ta[i].A);      
+      sprintf(a, "%d", ta[i].A);
       fputs(a, file);
 
-      if (ta[i].B == -1)
+      if (ta[i].B != -1)
       {
-        fputs(",", file);
+        fputs(", ", file);
         char b[6];
         sprintf(b, "%d", ta[i].B);
         fputs(b, file);
       }
-      if (ta[i].C == -1)
+      if (ta[i].C != -1)
       {
-        fputs(",", file);
+        fputs(", ", file);
         char c[6];
-        sprintf(c, "%d", ta[i].B);
+        sprintf(c, "%d", ta[i].C);
         fputs(c, file);
       }
       fputs("\n", file);
