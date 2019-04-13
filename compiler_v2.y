@@ -9,7 +9,7 @@
 	char* str;
 }
 
-%token tMAIN tACCO tACCF tCONST tINT tID tNB tPTF tPLUS tMOINS tMUL tDIV tEGAL tINF tSUP tINFEG tSUPEG tPARO tPARF tVIRG tPV tERR
+%token tMAIN tACCO tACCF tCONST tINT tID tNB tPTF tPLUS tMOINS tMUL tDIV tEGAL tPARO tPARF tVIRG tPV tERR
 %type  <nb> tNB
 %type <str> tID
 %type <nb> E
@@ -19,7 +19,7 @@
 %left tMUL tDIV
 
 %%
-start : Code {ts_init();}
+start : Code
 
 Code : tINT tMAIN tPARO tPARF Body
     ;
@@ -59,15 +59,6 @@ DIntSuite2 : tVIRG DIntSuite DIntSuite2
 
 Affectation : tID tEGAL E
 		;
-		
-Conditions : tPARO Comparaisons tPARF
-		;
-
-Comparaison : E tINF E
-		| E tSUP E
-		| E tINFEG E
-		| E tSUPEG E
-		;
 
 E : E tPLUS E
     | E tMOINS E
@@ -82,3 +73,13 @@ E : E tPLUS E
 
 Print : tPTF tPARO E tPARF
 		;
+
+%%
+
+int main() {
+	ts_init();
+
+	yyparse();
+
+	ts_text();
+}

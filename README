@@ -1,0 +1,24 @@
+********** PROJET SYSTEME INFO **********
+* Laure Feuillet & Maël Plantec *
+
+compiler_v1 : Règles du langage C simplifié
+- déclarations (int et const int)
+- affectations
+- expressions arithmétiques
+- printf
+
+compiler_v2 : Gestion de la profondeur, et début de la table des symboles.
+--> Elle sert à rien cette version non ?
+
+compiler_v3 : Utilisation de la table des symboles et génération de l'assembleur.
+
+compiler_v4 : Ajout de
+- comparaisons
+- conditions
+- if/else
+- while
+
+Execution :
+Ecrire le code à tester dans le fichier input_string.c.
+Dans le terminal : make test.
+Détails : le code assembleur généré est dans le fichier instructions.asm.

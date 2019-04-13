@@ -10,7 +10,7 @@
 	char* str;
 }
 
-%token tMAIN tACCO tACCF tCONST tINT tID tNB tPTF tPLUS tMOINS tMUL tDIV tEGAL tINF tSUP tINFEG tSUPEG tPARO tPARF tVIRG tPV tIF tELSE tWHILE tERR
+%token tMAIN tACCO tACCF tCONST tINT tID tNB tPTF tPLUS tMOINS tMUL tDIV tEGAL tPARO tPARF tVIRG tPV tERR
 %type  <nb> tNB
 %type <str> tID
 %type <nb> E
@@ -20,9 +20,9 @@
 %left tMUL tDIV
 
 %%
-start : Code {ts_init();}
+start : Code
 
-Code : tINT tMAIN tPARO tPARF Body {ta_text(); ts_text();}
+Code : tINT tMAIN tPARO tPARF Body
     ;
 
 Body : tACCO {ts_depth_incr();} Instructions tACCF {ts_depth_decr();}
@@ -35,6 +35,8 @@ Instructions : Instruction Instructions
 Instruction : Declaration tPV
 		| Affectation tPV
 		| Print tPV
+		| If
+		| While
     ;
 
 Declaration : DConst
@@ -48,7 +50,7 @@ DConstSuite : tID tEGAL E {
 	ts_pop();
 	int addr_id = ts_declaration($1, CONST_INT);
 	if(addr_id == -1) {
-		printf("Erreur : Déclaration, variable déjà créée 1.");
+		printf("Erreur : Déclaration, variable déjà créée.");
 		exit(0); }
 	ta_add("LOAD", 0, $3, -1);
 	ta_add("STORE", addr_id, 0, -1);
@@ -65,14 +67,14 @@ DInt : tINT DIntSuite DIntSuite2
 
 DIntSuite : tID {
 	if(ts_declaration($1, INT) == -1) {
-		printf("Erreur : Déclaration, variable déjà créée 2.");
+		printf("Erreur : Déclaration, variable déjà créée.");
 		exit(0); }
 	}
 	| tID tEGAL E {
 		ts_pop();
 		int addr_id = ts_declaration($1, INT);
 		if(addr_id == -1) {
-			printf("Erreur : Déclaration, variable déjà créée 3.");
+			printf("Erreur : Déclaration, variable déjà créée.");
 			exit(0); }
 			ta_add("LOAD", 0, $3, -1);
 			ta_add("STORE", addr_id, 0, -1);
@@ -99,7 +101,6 @@ E : E tPLUS E {
 	ta_add("LOAD", 0, $1, -1);
 	ta_add("LOAD", 1, $3, -1);
 	ta_add("ADD", 0, 0, 1);
-	ta_add("STORE", $1, 0, -1);
 	ts_pop();
 	}
     | E tMOINS E {
@@ -107,7 +108,6 @@ E : E tPLUS E {
 			ta_add("LOAD", 0, $1, -1);
 			ta_add("LOAD", 1, $3, -1);
 			ta_add("SOU", 0, 0, 1);
-			ta_add("STORE", $1, 0, -1);
 			ts_pop();
 		}
     | E tMUL E {
@@ -115,7 +115,6 @@ E : E tPLUS E {
 			ta_add("LOAD", 0, $1, -1);
 			ta_add("LOAD", 1, $3, -1);
 			ta_add("MUL", 0, 0, 1);
-			ta_add("STORE", $1, 0, -1);
 			ts_pop();
 		}
     | E tDIV E {
@@ -123,14 +122,12 @@ E : E tPLUS E {
 			ta_add("LOAD", 0, $1, -1);
 			ta_add("LOAD", 1, $3, -1);
 			ta_add("DIV", 0, 0, 1);
-			ta_add("STORE", $1, 0, -1);
 			ts_pop();
 		}
     | tMOINS E {
 			ta_add("LOAD", 0, $2, -1);
 			ta_add("AFC", 1, 0, -1);
 			ta_add("SOU", 0, 1, 0);
-			ta_add("STORE", $2, 0, -1);
 			$$ = $2;
 			}
 		| tPARO E tPARF {
@@ -140,6 +137,7 @@ E : E tPLUS E {
 			ta_add("AFC", 0, $1, -1);
 			int addr_nb = ts_add_tmp();
 			ta_add("STORE", addr_nb, 0, -1);
+			$$ = addr_nb;
 		}
 		| tID {
 			int addr_id = ts_get_addr($1);
@@ -147,10 +145,26 @@ E : E tPLUS E {
 			int addr_tmp = ts_add_tmp();
 			ta_add("STORE", addr_tmp, 0, -1);
 			$$ = addr_tmp;
+			printf("Id : %s\n", $1);
+			printf("Addr tmp : %d\n", addr_tmp);
+			printf("Addr id : %d\n", addr_id);
 			}
     ;
 
-Print : tPTF tPARO E tPARF {
-	ta_add("PRT", $3, -1, -1, -1);
-	}
-		;
+	Print : tPTF tPARO E tPARF {
+		ts_pop();
+		ta_add("PRT", $3, -1, -1);
+		}
+			;
+
+%%
+
+int main() {
+	ta_init();
+	ts_init();
+
+	yyparse();
+
+	ta_text();
+	ts_text();
+}

@@ -12,7 +12,6 @@ lex.yy.c : lex_v3.l Makefile
 y.tab.c : compiler_v4.y Makefile
 	yacc -d -t compiler_v4.y
 
-
 lex_int.yy.c : interpreteur.l Makefile
 	flex -o lex_int.yy.c interpreteur.l
 
@@ -20,12 +19,12 @@ y.int.c : interpreteur.y Makefile
 	yacc -d -t interpreteur.y -o y.int.c
 
 
-test : compiler input_string
-	./compiler_v4 < input_string
+test : compiler input_string inter
+	./compiler_v4 < input_string.c
+	./interpreteur < instructions.asm
 
 clear :
-	rm lex.yy.c
-	rm lex_int.yy.c
-	rm y.int.*
-	rm y.tab.*
-	rm compiler
+	rm lex*
+	rm y.*
+	rm compiler_v4
+	rm interpreteur

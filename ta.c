@@ -17,8 +17,8 @@ void ta_add (char* OPE, int A, int B, int C) {
   ta_index++;
 }
 
-void ta_update_jmp(int indice_jmp) {
-  ta[indice_jmp].A = ta_index;
+void ta_update_jmp(int indice_jmp, int addr) {
+  ta[indice_jmp].A = addr;
 }
 
 void ta_text ()

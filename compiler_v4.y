@@ -17,6 +17,8 @@
 %type <nb> Comparaison
 %type <nb> Condition
 %type <nb> tIF
+%type <nb> While
+%type <nb> tWhile
 
 %right tEGAL
 %left tPLUS tMOINS
@@ -25,7 +27,7 @@
 %%
 start : Code
 
-Code : tINT tMAIN tPARO tPARF Body {ta_text();}
+Code : tINT tMAIN tPARO tPARF Body
     ;
 
 Body : tACCO {ts_depth_incr();} Instructions tACCF {ts_depth_decr();}
@@ -217,12 +219,12 @@ If : tIF Condition
 	Body
 		{
 			ta_add("JMP", 0, -1, -1);
-			ta_update_jmp($1);
+			ta_update_jmp($1, ta_index);
 			$1 = ta_index - 1;
 		}
 	IfSuite
 		{
-			ta_update_jmp($1);
+			ta_update_jmp($1, ta_index);
 		}
 	;
 
@@ -231,7 +233,22 @@ IfSuite :
 	|
 	;
 
-While : tWHILE Condition Body
+While : tWHILE
+	{
+		$$ = ta_index;
+	}
+	Condition
+	{
+		ta_add("LOAD", 0, $3, -1);
+		ta_add("JMPC", 0, 0);
+		ts_pop();
+		$1 = ta_index-1;
+	}
+	Body
+	{
+		ta_add("JMP", $$, -1, -1);
+		ta_update_jmp($1, ta_index);
+	}
 	;
 
 %%
@@ -241,4 +258,7 @@ int main() {
 	ts_init();
 
 	yyparse();
+
+	ta_text();
+	ts_text();
 }
