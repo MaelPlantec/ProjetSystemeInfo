@@ -1,6 +1,6 @@
 %{
-	#include "ts.h"
 	#include "ta.h"
+	#include "interpreteur.h"
 	int yylex(void);
 	void yyerror(char*);
 %}
@@ -15,16 +15,23 @@
 %type <str> tOPE
 
 %%
-start : Assembleur {ta_init();}
+start : Assembleur 
 
-Assembleur : Code {interpreteur_init(ta);}
-	;
-
-Code : tOPE tNB tNB tNB Suite {ta_add($1, $2, $3, $4);}
-	| tOPE tNB tNB Suite {ta_add($1, $2, $3, -1);}
-	| tOPE tNB Suite {ta_add($1, $2, -1, -1);}
-	;
-
-Suite : Code
+Assembleur : Suite Assembleur
 	|
 	;
+
+Suite : tOPE tNB tNB tNB {ta_add($1, $2, $3, $4);}
+	| tOPE tNB tNB {ta_add($1, $2, $3, -1);}
+	| tOPE tNB {ta_add($1, $2, -1, -1);}
+	;
+
+%%
+int main() {
+	ta_init();
+	printf("Before parse.");
+	yyparse();
+	printf("After parse.\n");
+	interpreteur_init(ta, ta_index);
+}
+
