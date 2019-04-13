@@ -2,14 +2,14 @@
 
 int i = 0;
 
-interpreteur_init(struct ta_instru ta[TAILLE_I]) {
-  while(i<TAILLE) {
+void interpreteur_init(struct ta_instru ta[TAILLE_I], int max) {
+  while(i<max) {
     traitement(ta[i]);
     ++i;
   }
 }
 
-traitement(struct ta_instru instru){
+void traitement(struct ta_instru instru){
   if(strcmp(instru.OPE, "ADD") == 0) {
       registres[instru.A] = registres[instru.B]+registres[instru.C];
   } else if(strcmp(instru.OPE, "MUL") == 0) {

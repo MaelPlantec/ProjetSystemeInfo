@@ -1,7 +1,7 @@
 %{
-	#include "y.tab.h"
+	#include "y.int.h"
 %}
 %%
 
-[A-Z]+ {return tOPE;}
-[0-9]+ {return tNB;} 
+[A-Z]+ {yylval.str = strdup(yytext); return tOPE;}
+[0-9]+ {yylval.nb = atoi(yytext); return tNB;} 

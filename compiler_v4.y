@@ -23,7 +23,7 @@
 %left tMUL tDIV
 
 %%
-start : Code {ts_init();}
+start : Code
 
 Code : tINT tMAIN tPARO tPARF Body {ta_text();}
     ;
@@ -105,7 +105,7 @@ Condition : tPARO Comparaison tPARF {
 
 Comparaison : E tEGAL tEGAL E {
 	ta_add("LOAD", 0, $1, -1);
-	ta_add("LOAD", 1, $3, -1);
+	ta_add("LOAD", 1, $4, -1);
 	ta_add("INF", 0, 0, 1);
 	$$ = $1;
 	ts_pop();
@@ -181,6 +181,7 @@ E : E tPLUS E {
 			ta_add("AFC", 0, $1, -1);
 			int addr_nb = ts_add_tmp();
 			ta_add("STORE", addr_nb, 0, -1);
+			$$ = addr_nb;
 		}
 		| tID {
 			int addr_id = ts_get_addr($1);
@@ -192,7 +193,8 @@ E : E tPLUS E {
     ;
 
 Print : tPTF tPARO E tPARF {
-	ta_add("PRT", $3, -1, -1, -1);
+	ta_add("PRT", $3, -1, -1);
+	ts_pop();
 	}
 		;
 
@@ -222,3 +224,13 @@ IfSuite :
 
 While : tWHILE Condition Body
 	;
+
+%%
+
+int main() {
+	ta_init();
+	ts_init();
+
+	yyparse();
+}
+

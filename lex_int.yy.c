@@ -448,7 +448,7 @@ int yy_flex_debug = 0;
 char *yytext;
 #line 1 "interpreteur.l"
 #line 2 "interpreteur.l"
-	#include "y.tab.h"
+	#include "y.int.h"
 #line 453 "lex_int.yy.c"
 
 #define INITIAL 0
@@ -720,12 +720,12 @@ do_action:	/* This label is used only to access EOF actions. */
 case 1:
 YY_RULE_SETUP
 #line 6 "interpreteur.l"
-{return tOPE;}
+{yylval.str = strdup(yytext); return tOPE;}
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
 #line 7 "interpreteur.l"
-{return tNB;} 
+{yylval.nb = atoi(yytext); return tNB;} 
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
