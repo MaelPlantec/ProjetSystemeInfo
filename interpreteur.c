@@ -55,10 +55,10 @@ void traitement(struct ta_instru instru){
         registres[instru.A] = 0;
       }
   } else if(strcmp(instru.OPE, "JMP") == 0) {
-      i = instru.A-1;
+      i = instru.A;
   } else if(strcmp(instru.OPE, "JMPC") == 0) {
       if(registres[instru.B] == 0) {
-        i = instru.A-1;
+        i = instru.A;
       }
   } else if(strcmp(instru.OPE, "PRT") == 0) {
       printf("%d\n", memoire[instru.A]);
