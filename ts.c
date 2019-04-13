@@ -46,7 +46,8 @@ int ts_get_addr(char* name) {
   int i;
   for (i = 0; i < ts_index; i++) {
       if ((strcmp(ts[i].ts_name, name) == 0) && (strcmp(name, "") != 0)) {
-        addr = ts[ts_index].ts_addr;
+        addr = ts[i].ts_addr;
+        break;
       }
   }
   return addr;

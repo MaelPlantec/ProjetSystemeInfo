@@ -1539,9 +1539,7 @@ yyreturn:
 
 int main() {
 	ta_init();
-	printf("Before parse.");
 	yyparse();
-	printf("After parse.\n");
 	interpreteur_init(ta, ta_index);
 }
 

@@ -29,9 +29,7 @@ Suite : tOPE tNB tNB tNB {ta_add($1, $2, $3, $4);}
 %%
 int main() {
 	ta_init();
-	printf("Before parse.");
 	yyparse();
-	printf("After parse.\n");
 	interpreteur_init(ta, ta_index);
 }
 

@@ -108,6 +108,7 @@ Comparaison : E tEGAL tEGAL E {
 	ta_add("LOAD", 0, $1, -1);
 	ta_add("LOAD", 1, $4, -1);
 	ta_add("INF", 0, 0, 1);
+	ta_add("STORE", $1, 0, -1);
 	$$ = $1;
 	ts_pop();
 	}
@@ -115,6 +116,7 @@ Comparaison : E tEGAL tEGAL E {
 	ta_add("LOAD", 0, $1, -1);
 	ta_add("LOAD", 1, $3, -1);
 	ta_add("INFE", 0, 0, 1);
+	ta_add("STORE", $1, 0, -1);
 	$$ = $1;
 	ts_pop();
 	}
@@ -122,6 +124,7 @@ Comparaison : E tEGAL tEGAL E {
 		ta_add("LOAD", 0, $1, -1);
 		ta_add("LOAD", 1, $3, -1);
 		ta_add("INF", 0, 0, 1);
+		ta_add("STORE", $1, 0, -1);
 		$$ = $1;
 		ts_pop();
 		}
@@ -129,6 +132,7 @@ Comparaison : E tEGAL tEGAL E {
 		ta_add("LOAD", 0, $1, -1);
 		ta_add("LOAD", 1, $3, -1);
 		ta_add("SUP", 0, 0, 1);
+		ta_add("STORE", $1, 0, -1);
 		$$ = $1;
 		ts_pop();
 		}
@@ -136,6 +140,7 @@ Comparaison : E tEGAL tEGAL E {
 		ta_add("LOAD", 0, $1, -1);
 		ta_add("LOAD", 1, $3, -1);
 		ta_add("SUPE", 0, 0, 1);
+		ta_add("STORE", $1, 0, -1);
 		$$ = $1;
 		ts_pop();
 		}
@@ -190,12 +195,15 @@ E : E tPLUS E {
 			int addr_tmp = ts_add_tmp();
 			ta_add("STORE", addr_tmp, 0, -1);
 			$$ = addr_tmp;
+			printf("Id : %s\n", $1);
+			printf("Addr tmp : %d\n", addr_tmp);
+			printf("Addr id : %d\n", addr_id);
 			}
     ;
 
 Print : tPTF tPARO E tPARF {
-	ta_add("PRT", $3, -1, -1);
 	ts_pop();
+	ta_add("PRT", $3, -1, -1);
 	}
 		;
 

@@ -475,9 +475,9 @@ static const yytype_uint8 yyrline[] =
 {
        0,    26,    26,    28,    31,    31,    34,    35,    38,    39,
       40,    41,    42,    45,    46,    49,    52,    64,    65,    68,
-      71,    76,    87,    88,    91,   101,   106,   113,   120,   127,
-     134,   143,   150,   157,   164,   171,   177,   180,   186,   195,
-     202,   209,   201,   221,   222,   225
+      71,    76,    87,    88,    91,   102,   107,   115,   123,   131,
+     139,   149,   156,   163,   170,   177,   183,   186,   192,   204,
+     211,   218,   210,   230,   231,   234
 };
 #endif
 
@@ -1454,20 +1454,20 @@ yyreduce:
   case 16:
 #line 52 "compiler_v4.y"
     {
+	ts_pop();
 	int addr_id = ts_declaration((yyvsp[(1) - (3)].str), CONST_INT);
 	if(addr_id == -1) {
 		printf("Erreur : Déclaration, variable déjà créée.");
 		exit(0); }
 	ta_add("LOAD", 0, (yyvsp[(3) - (3)].nb), -1);
 	ta_add("STORE", addr_id, 0, -1);
-	ts_pop();
 	}
     break;
 
   case 20:
 #line 71 "compiler_v4.y"
     {
-	if(ts_declaration((yyvsp[(1) - (1)].str), CONST_INT) == -1) {
+	if(ts_declaration((yyvsp[(1) - (1)].str), INT) == -1) {
 		printf("Erreur : Déclaration, variable déjà créée.");
 		exit(0); }
 	}
@@ -1476,19 +1476,20 @@ yyreduce:
   case 21:
 #line 76 "compiler_v4.y"
     {
+		ts_pop();
 		int addr_id = ts_declaration((yyvsp[(1) - (3)].str), INT);
 		if(addr_id == -1) {
 			printf("Erreur : Déclaration, variable déjà créée.");
 			exit(0); }
 			ta_add("LOAD", 0, (yyvsp[(3) - (3)].nb), -1);
 			ta_add("STORE", addr_id, 0, -1);
-			ts_pop();
 		}
     break;
 
   case 24:
 #line 91 "compiler_v4.y"
     {
+	ts_pop();
 	int addr_id = ts_get_addr((yyvsp[(1) - (3)].str));
 	if(addr_id == -1) {
 		printf("Erreur : Déclaration, variable non déclarée.");
@@ -1499,69 +1500,74 @@ yyreduce:
     break;
 
   case 25:
-#line 101 "compiler_v4.y"
+#line 102 "compiler_v4.y"
     {
 	(yyval.nb) = (yyvsp[(2) - (3)].nb);
 	}
     break;
 
   case 26:
-#line 106 "compiler_v4.y"
+#line 107 "compiler_v4.y"
     {
 	ta_add("LOAD", 0, (yyvsp[(1) - (4)].nb), -1);
 	ta_add("LOAD", 1, (yyvsp[(4) - (4)].nb), -1);
 	ta_add("INF", 0, 0, 1);
+	ta_add("STORE", (yyvsp[(1) - (4)].nb), 0, -1);
 	(yyval.nb) = (yyvsp[(1) - (4)].nb);
 	ts_pop();
 	}
     break;
 
   case 27:
-#line 113 "compiler_v4.y"
+#line 115 "compiler_v4.y"
     {
 	ta_add("LOAD", 0, (yyvsp[(1) - (3)].nb), -1);
 	ta_add("LOAD", 1, (yyvsp[(3) - (3)].nb), -1);
 	ta_add("INFE", 0, 0, 1);
+	ta_add("STORE", (yyvsp[(1) - (3)].nb), 0, -1);
 	(yyval.nb) = (yyvsp[(1) - (3)].nb);
 	ts_pop();
 	}
     break;
 
   case 28:
-#line 120 "compiler_v4.y"
+#line 123 "compiler_v4.y"
     {
 		ta_add("LOAD", 0, (yyvsp[(1) - (3)].nb), -1);
 		ta_add("LOAD", 1, (yyvsp[(3) - (3)].nb), -1);
 		ta_add("INF", 0, 0, 1);
+		ta_add("STORE", (yyvsp[(1) - (3)].nb), 0, -1);
 		(yyval.nb) = (yyvsp[(1) - (3)].nb);
 		ts_pop();
 		}
     break;
 
   case 29:
-#line 127 "compiler_v4.y"
+#line 131 "compiler_v4.y"
     {
 		ta_add("LOAD", 0, (yyvsp[(1) - (3)].nb), -1);
 		ta_add("LOAD", 1, (yyvsp[(3) - (3)].nb), -1);
 		ta_add("SUP", 0, 0, 1);
+		ta_add("STORE", (yyvsp[(1) - (3)].nb), 0, -1);
 		(yyval.nb) = (yyvsp[(1) - (3)].nb);
 		ts_pop();
 		}
     break;
 
   case 30:
-#line 134 "compiler_v4.y"
+#line 139 "compiler_v4.y"
     {
 		ta_add("LOAD", 0, (yyvsp[(1) - (3)].nb), -1);
 		ta_add("LOAD", 1, (yyvsp[(3) - (3)].nb), -1);
 		ta_add("SUPE", 0, 0, 1);
+		ta_add("STORE", (yyvsp[(1) - (3)].nb), 0, -1);
 		(yyval.nb) = (yyvsp[(1) - (3)].nb);
 		ts_pop();
 		}
     break;
 
   case 31:
-#line 143 "compiler_v4.y"
+#line 149 "compiler_v4.y"
     {
 	(yyval.nb) = (yyvsp[(1) - (3)].nb);
 	ta_add("LOAD", 0, (yyvsp[(1) - (3)].nb), -1);
@@ -1572,7 +1578,7 @@ yyreduce:
     break;
 
   case 32:
-#line 150 "compiler_v4.y"
+#line 156 "compiler_v4.y"
     {
 			(yyval.nb) = (yyvsp[(1) - (3)].nb);
 			ta_add("LOAD", 0, (yyvsp[(1) - (3)].nb), -1);
@@ -1583,7 +1589,7 @@ yyreduce:
     break;
 
   case 33:
-#line 157 "compiler_v4.y"
+#line 163 "compiler_v4.y"
     {
 			(yyval.nb) = (yyvsp[(1) - (3)].nb);
 			ta_add("LOAD", 0, (yyvsp[(1) - (3)].nb), -1);
@@ -1594,7 +1600,7 @@ yyreduce:
     break;
 
   case 34:
-#line 164 "compiler_v4.y"
+#line 170 "compiler_v4.y"
     {
 			(yyval.nb) = (yyvsp[(1) - (3)].nb);
 			ta_add("LOAD", 0, (yyvsp[(1) - (3)].nb), -1);
@@ -1605,7 +1611,7 @@ yyreduce:
     break;
 
   case 35:
-#line 171 "compiler_v4.y"
+#line 177 "compiler_v4.y"
     {
 			ta_add("LOAD", 0, (yyvsp[(2) - (2)].nb), -1);
 			ta_add("AFC", 1, 0, -1);
@@ -1615,14 +1621,14 @@ yyreduce:
     break;
 
   case 36:
-#line 177 "compiler_v4.y"
+#line 183 "compiler_v4.y"
     {
 			(yyval.nb) = (yyvsp[(2) - (3)].nb);
 		}
     break;
 
   case 37:
-#line 180 "compiler_v4.y"
+#line 186 "compiler_v4.y"
     {
 			ta_add("AFC", 0, (yyvsp[(1) - (1)].nb), -1);
 			int addr_nb = ts_add_tmp();
@@ -1632,26 +1638,29 @@ yyreduce:
     break;
 
   case 38:
-#line 186 "compiler_v4.y"
+#line 192 "compiler_v4.y"
     {
 			int addr_id = ts_get_addr((yyvsp[(1) - (1)].str));
 			ta_add("LOAD", 0, addr_id, -1);
 			int addr_tmp = ts_add_tmp();
 			ta_add("STORE", addr_tmp, 0, -1);
 			(yyval.nb) = addr_tmp;
+			printf("Id : %s\n", (yyvsp[(1) - (1)].str));
+			printf("Addr tmp : %d\n", addr_tmp);
+			printf("Addr id : %d\n", addr_id);
 			}
     break;
 
   case 39:
-#line 195 "compiler_v4.y"
+#line 204 "compiler_v4.y"
     {
-	ta_add("PRT", (yyvsp[(3) - (4)].nb), -1, -1);
 	ts_pop();
+	ta_add("PRT", (yyvsp[(3) - (4)].nb), -1, -1);
 	}
     break;
 
   case 40:
-#line 202 "compiler_v4.y"
+#line 211 "compiler_v4.y"
     {
 			ta_add("LOAD", 0, (yyvsp[(2) - (2)].nb), -1);
 			ta_add("JMPC", 0, 0, -1);
@@ -1661,7 +1670,7 @@ yyreduce:
     break;
 
   case 41:
-#line 209 "compiler_v4.y"
+#line 218 "compiler_v4.y"
     {
 			ta_add("JMP", 0, -1, -1);
 			ta_update_jmp((yyvsp[(1) - (4)].nb));
@@ -1670,7 +1679,7 @@ yyreduce:
     break;
 
   case 42:
-#line 215 "compiler_v4.y"
+#line 224 "compiler_v4.y"
     {
 			ta_update_jmp((yyvsp[(1) - (6)].nb));
 		}
@@ -1678,7 +1687,7 @@ yyreduce:
 
 
 /* Line 1267 of yacc.c.  */
-#line 1682 "y.tab.c"
+#line 1691 "y.tab.c"
       default: break;
     }
   YY_SYMBOL_PRINT ("-> $$ =", yyr1[yyn], &yyval, &yyloc);
@@ -1892,7 +1901,7 @@ yyreturn:
 }
 
 
-#line 228 "compiler_v4.y"
+#line 237 "compiler_v4.y"
 
 
 int main() {
@@ -1901,5 +1910,4 @@ int main() {
 
 	yyparse();
 }
-
 

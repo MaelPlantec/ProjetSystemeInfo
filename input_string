@@ -1,7 +1,6 @@
 int main () {
-	int a = 1;
-	int b = 2;
 
-	printf(a);
-	printf(b);
+	if(1>2) {
+		printf(1);
+	}
 }
