@@ -12,7 +12,7 @@
 //void yyerror(char *);
 
 typedef enum Type Type;
-enum Type {INT = 8, CONST_INT = 8, TMP = 8};
+enum Type {INT = 1, CONST_INT = 1, TMP = 1};
 
 struct ligne_ts {
   int ts_addr;

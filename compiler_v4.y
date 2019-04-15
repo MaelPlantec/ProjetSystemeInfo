@@ -17,8 +17,6 @@
 %type <nb> Comparaison
 %type <nb> Condition
 %type <nb> tIF
-%type <nb> While
-%type <nb> tWhile
 
 %right tEGAL
 %left tPLUS tMOINS
@@ -41,7 +39,6 @@ Instruction : Declaration tPV
 		| Affectation tPV
 		| Print tPV
 		| If
-		| While
     ;
 
 Declaration : DConst
@@ -55,7 +52,7 @@ DConstSuite : tID tEGAL E {
 	ts_pop();
 	int addr_id = ts_declaration($1, CONST_INT);
 	if(addr_id == -1) {
-		printf("Erreur : Déclaration, variable déjà créée.");
+		printf("Erreur : Déclaration, variable déjà créée.\n");
 		exit(0); }
 	ta_add("LOAD", 0, $3, -1);
 	ta_add("STORE", addr_id, 0, -1);
@@ -95,7 +92,8 @@ Affectation : tID tEGAL E {
 	int addr_id = ts_get_addr($1);
 	if(addr_id == -1) {
 		printf("Erreur : Déclaration, variable non déclarée.");
-		exit(0); }
+		exit(0);
+  }
 	ta_add("LOAD", $3, 0, -1);
 	ta_add("STORE", addr_id, 0, -1);
 	}
@@ -109,7 +107,7 @@ Condition : tPARO Comparaison tPARF {
 Comparaison : E tEGAL tEGAL E {
 	ta_add("LOAD", 0, $1, -1);
 	ta_add("LOAD", 1, $4, -1);
-	ta_add("INF", 0, 0, 1);
+	ta_add("EQU", 0, 0, 1);
 	ta_add("STORE", $1, 0, -1);
 	$$ = $1;
 	ts_pop();
@@ -117,7 +115,7 @@ Comparaison : E tEGAL tEGAL E {
 	| E tINF E {
 	ta_add("LOAD", 0, $1, -1);
 	ta_add("LOAD", 1, $3, -1);
-	ta_add("INFE", 0, 0, 1);
+	ta_add("INF", 0, 0, 1);
 	ta_add("STORE", $1, 0, -1);
 	$$ = $1;
 	ts_pop();
@@ -125,7 +123,7 @@ Comparaison : E tEGAL tEGAL E {
 		| E tSUP E {
 		ta_add("LOAD", 0, $1, -1);
 		ta_add("LOAD", 1, $3, -1);
-		ta_add("INF", 0, 0, 1);
+		ta_add("SUP", 0, 0, 1);
 		ta_add("STORE", $1, 0, -1);
 		$$ = $1;
 		ts_pop();
@@ -133,7 +131,7 @@ Comparaison : E tEGAL tEGAL E {
 		| E tINFEG E {
 		ta_add("LOAD", 0, $1, -1);
 		ta_add("LOAD", 1, $3, -1);
-		ta_add("SUP", 0, 0, 1);
+		ta_add("INFE", 0, 0, 1);
 		ta_add("STORE", $1, 0, -1);
 		$$ = $1;
 		ts_pop();
@@ -193,6 +191,10 @@ E : E tPLUS E {
 		}
 		| tID {
 			int addr_id = ts_get_addr($1);
+			if(addr_id == -1) {
+				printf("Erreur : Déclaration, variable non déclarée.");
+				exit(0);
+		  }
 			ta_add("LOAD", 0, addr_id, -1);
 			int addr_tmp = ts_add_tmp();
 			ta_add("STORE", addr_tmp, 0, -1);
@@ -230,26 +232,12 @@ If : tIF Condition
 
 IfSuite :
  	tELSE Body
+	| tELSE If
 	|
 	;
 
-While : tWHILE
-	{
-		$$ = ta_index;
-	}
-	Condition
-	{
-		ta_add("LOAD", 0, $3, -1);
-		ta_add("JMPC", 0, 0);
-		ts_pop();
-		$1 = ta_index-1;
-	}
-	Body
-	{
-		ta_add("JMP", $$, -1, -1);
-		ta_update_jmp($1, ta_index);
-	}
-	;
+
+
 
 %%
 
