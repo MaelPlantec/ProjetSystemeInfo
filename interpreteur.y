@@ -10,7 +10,7 @@
 	char* str;
 }
 
-%token tOPE tNB
+%token tOPE tNB tERR
 %type  <nb> tNB
 %type <str> tOPE
 
@@ -29,7 +29,9 @@ Suite : tOPE tNB tNB tNB {ta_add($1, $2, $3, $4);}
 %%
 int main() {
 	ta_init();
+
 	yyparse();
+	
 	interpreteur_init(ta, ta_index);
 }
 
