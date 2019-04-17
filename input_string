@@ -1,9 +1,4 @@
-int fonction (int b) {
-  return b;
-}
-
 
 int main () {
-  int x = fonction(0);
-  printf(x);
+  printf(1);
 }

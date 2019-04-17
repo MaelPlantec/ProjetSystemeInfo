@@ -55,8 +55,8 @@ DConstSuite : tID tEGAL E {
 	ts_pop();
 	int addr_id = ts_declaration($1, CONST_INT);
 	if(addr_id == -1) {
-		printf("Erreur : Déclaration, variable déjà créée.\n");
-		exit(0); }
+		yyerror("Erreur : Déclaration, variable déjà créée.");
+	}
 	ta_add("LOAD", 0, $3, -1);
 	ta_add("STORE", addr_id, 0, -1);
 	}
@@ -70,17 +70,18 @@ DConstSuite2 : tVIRG DConstSuite DConstSuite2
 DInt : tINT DIntSuite DIntSuite2
 		;
 
-DIntSuite : tID {
-	if(ts_declaration($1, INT) == -1) {
-		printf("Erreur : Déclaration, variable déjà créée.");
-		exit(0); }
+DIntSuite : tID
+	{
+		if(ts_declaration($1, INT) == -1) {
+			yyerror("Erreur : Déclaration, variable déjà créée.");
+		}
 	}
 	| tID tEGAL E {
 		ts_pop();
 		int addr_id = ts_declaration($1, INT);
 		if(addr_id == -1) {
-			printf("Erreur : Déclaration, variable déjà créée.");
-			exit(0); }
+			yyerror("Erreur : Déclaration, variable déjà créée.");
+		}
 			ta_add("LOAD", 0, $3, -1);
 			ta_add("STORE", addr_id, 0, -1);
 		}
@@ -94,8 +95,7 @@ Affectation : tID tEGAL E {
 	ts_pop();
 	int addr_id = ts_get_addr($1);
 	if(addr_id == -1) {
-		printf("Erreur : Déclaration, variable non déclarée.");
-		exit(0);
+		yyerror("Erreur : Déclaration, variable non déclarée.");
   }
 	ta_add("LOAD", $3, 0, -1);
 	ta_add("STORE", addr_id, 0, -1);
@@ -107,7 +107,14 @@ Condition : tPARO Comparaison tPARF {
 	}
 		;
 
-Comparaison : E tEGAL tEGAL E {
+Comparaison : E {
+	ta_add("LOAD", 0, $1, -1);
+	ta_add("AFC", 1, 1, -1);
+	ta_add("EQU", 0, 0, 1);
+	ta_add("STORE", $1, 0, -1);
+	$$ = $1;
+	}
+	| E tEGAL tEGAL E {
 	ta_add("LOAD", 0, $1, -1);
 	ta_add("LOAD", 1, $4, -1);
 	ta_add("EQU", 0, 0, 1);
@@ -196,8 +203,7 @@ E : E tPLUS E {
 		| tID {
 			int addr_id = ts_get_addr($1);
 			if(addr_id == -1) {
-				printf("Erreur : Déclaration, variable non déclarée.");
-				exit(0);
+				yyerror("Erreur : Déclaration, variable non déclarée.");
 		  }
 			ta_add("LOAD", 0, addr_id, -1);
 			int addr_tmp = ts_add_tmp();
@@ -262,6 +268,11 @@ Vide:
 	;
 
 %%
+
+void yyerror(char* msg) {
+	printf("%s\n", msg);
+	exit(1);
+}
 
 int main() {
 	ta_init();

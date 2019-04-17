@@ -19,6 +19,8 @@
 %type <nb> tIF
 %type <nb> tWHILE
 %type <nb> Vide
+%type <nb> tRET
+%type <nb> Return
 
 %right tEGAL
 %left tPLUS tMOINS
@@ -27,8 +29,12 @@
 %%
 start : Code
 
-Code : tINT tMAIN tPARO tPARF Body
+Code : Fonctions tINT tMAIN tPARO tPARF Body
     ;
+
+Fonctions : DFonction Fonctions
+	|
+	;
 
 Body : tACCO {ts_depth_incr();} Instructions tACCF {ts_depth_decr();}
     ;
@@ -36,7 +42,7 @@ Body : tACCO {ts_depth_incr();} Instructions tACCF {ts_depth_decr();}
 BodyF : tACCO {ts_depth_incr();} Instructions Return tACCF {ts_depth_decr();}
 		;
 
-Return : tRET E {$$ = $2;}
+Return : tRET E tPV
 		;
 
 Instructions : Instruction Instructions
@@ -47,7 +53,7 @@ Instruction : Declaration tPV
 		| Print tPV
 		| If
 		| While
-		| DFonction
+		| AFonction
     ;
 
 Declaration : DConst
@@ -91,7 +97,9 @@ DIntSuite2 : tVIRG DIntSuite DIntSuite2
 		|
 		;
 
-DFonction: tINT tID tPAR0 DParams tPARF BodyF
+DFonction: DParam
+	{yyerror("Erreur : Fonctions non implémentées.");}
+	tPARO DParams tPARF BodyF
 	;
 DParam: tINT tID
 	;
@@ -103,6 +111,7 @@ DParamSuite: tVIRG DParam DParamSuite
 	;
 
 AFonction: tID
+	{yyerror("Erreur : Fonctions non implémentées.");}
 	tPARO AParams tPARF tPV
 	;
 AParam: E
@@ -287,6 +296,11 @@ Vide:
 	;
 
 %%
+
+void yyerror(char* msg) {
+	printf("%s\n", msg);
+	exit(1);
+}
 
 int main() {
 	ta_init();
