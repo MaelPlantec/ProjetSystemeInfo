@@ -29,4 +29,6 @@ void ta_update_jmp(int indice_jmp, int addr);
 
 void ta_text (void);
 
+void ta_hexa (void);
+
 #endif  /* TA_H */
