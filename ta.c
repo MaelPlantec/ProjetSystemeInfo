@@ -25,7 +25,44 @@ void ta_text ()
 {
   int i = 0;
   FILE* file = NULL;
-  file = fopen("instructions.asm", "w");
+  file = fopen("asm.txt", "w");
+  if (file != NULL)
+  {
+    while (i < ta_index)
+    {
+      fputs(ta[i].OPE, file);
+      fputs("\t", file);
+
+      char a[6];
+      sprintf(a, "%d", ta[i].A);
+      fputs(a, file);
+
+      if (ta[i].B != -1)
+      {
+        fputs(" ", file);
+        char b[6];
+        sprintf(b, "%d", ta[i].B);
+        fputs(b, file);
+      }
+      if (ta[i].C != -1)
+      {
+        fputs(" ", file);
+        char c[6];
+        sprintf(c, "%d", ta[i].C);
+        fputs(c, file);
+      }
+      fputs("\n", file);
+      i++;
+    }
+    fclose(file);
+  }
+}
+
+void ta_hexa ()
+{
+  int i = 0;
+  FILE* file = NULL;
+  file = fopen("hexa.txt", "w");
   if (file != NULL)
   {
     while (i < ta_index)
