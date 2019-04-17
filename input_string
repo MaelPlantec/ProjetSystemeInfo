@@ -1,9 +1,9 @@
+int fonction (int b) {
+  return b;
+}
+
+
 int main () {
-  if(2 == 7) {
-		printf(3);
-  } else if (6 == 8) {
-		printf(4);
-	} else {
-		printf(5);
-	}
+  int x = fonction(0);
+  printf(x);
 }

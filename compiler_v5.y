@@ -10,7 +10,7 @@
 	char* str;
 }
 
-%token tMAIN tACCO tACCF tCONST tINT tID tNB tPTF tPLUS tMOINS tMUL tDIV tEGAL tINF tSUP tINFEG tSUPEG tPARO tPARF tVIRG tPV tIF tELSE tWHILE tERR
+%token tMAIN tACCO tACCF tCONST tINT tID tNB tPTF tPLUS tMOINS tMUL tDIV tEGAL tINF tSUP tINFEG tSUPEG tPARO tPARF tVIRG tPV tIF tELSE tWHILE tRET tERR
 %type  <nb> tNB
 %type <str> tID
 %type <nb> E
@@ -33,15 +33,21 @@ Code : tINT tMAIN tPARO tPARF Body
 Body : tACCO {ts_depth_incr();} Instructions tACCF {ts_depth_decr();}
     ;
 
+BodyF : tACCO {ts_depth_incr();} Instructions Return tACCF {ts_depth_decr();}
+		;
+
+Return : tRET E {$$ = $2;}
+		;
+
 Instructions : Instruction Instructions
 		|
     ;
-
 Instruction : Declaration tPV
 		| Affectation tPV
 		| Print tPV
 		| If
 		| While
+		| DFonction
     ;
 
 Declaration : DConst
@@ -50,7 +56,6 @@ Declaration : DConst
 
 DConst : tCONST tINT DConstSuite DConstSuite2
 		;
-
 DConstSuite : tID tEGAL E {
 	ts_pop();
 	int addr_id = ts_declaration($1, CONST_INT);
@@ -61,15 +66,12 @@ DConstSuite : tID tEGAL E {
 	ta_add("STORE", addr_id, 0, -1);
 	}
 	;
-
-
 DConstSuite2 : tVIRG DConstSuite DConstSuite2
 		|
 		;
 
 DInt : tINT DIntSuite DIntSuite2
 		;
-
 DIntSuite : tID {
 	if(ts_declaration($1, INT) == -1) {
 		printf("Erreur : Déclaration, variable déjà créée.");
@@ -85,10 +87,32 @@ DIntSuite : tID {
 			ta_add("STORE", addr_id, 0, -1);
 		}
 	;
-
 DIntSuite2 : tVIRG DIntSuite DIntSuite2
 		|
 		;
+
+DFonction: tINT tID tPAR0 DParams tPARF BodyF
+	;
+DParam: tINT tID
+	;
+DParams: DParam DParamSuite
+	|
+	;
+DParamSuite: tVIRG DParam DParamSuite
+	|
+	;
+
+AFonction: tID
+	tPARO AParams tPARF tPV
+	;
+AParam: E
+	;
+AParams: AParam AParamSuite
+	|
+	;
+AParamSuite: tVIRG AParam AParamSuite
+	|
+	;
 
 Affectation : tID tEGAL E {
 	ts_pop();
@@ -257,8 +281,9 @@ While : tWHILE Vide
         ta_update_jmp($1, ta_index);
     }
         ;
+
 Vide:
-{$$ = 0;}
+	{$$ = 0;}
 	;
 
 %%

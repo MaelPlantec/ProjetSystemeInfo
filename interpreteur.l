@@ -4,5 +4,9 @@
 %%
 
 [A-Z]+ {yylval.str = strdup(yytext); return tOPE;}
-[0-9]+ {yylval.nb = atoi(yytext); return tNB;} 
+[0-9]+ {yylval.nb = atoi(yytext); return tNB;}
+" " {}
+"\t" {}
+"\n" {}
+
 . {return tERR;}
