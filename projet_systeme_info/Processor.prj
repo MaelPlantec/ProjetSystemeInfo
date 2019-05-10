@@ -1,0 +1,3 @@
+vhdl work "ual.vhd"
+vhdl work "pipeline.vhd"
+vhdl work "processor.vhd"
