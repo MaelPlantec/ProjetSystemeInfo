@@ -30,22 +30,43 @@ use IEEE.NUMERIC_STD.ALL;
 --use UNISIM.VComponents.all;
 
 entity BR is
-	generic (Nreg:natural := 8; Nsys:natural := 16);
-   Port ( RST : in  STD_LOGIC;
+	generic (Nreg:natural := 16; Nsys:natural := 16);
+   Port (  Ck: in std_logic;
+			  RST : in  STD_LOGIC;
            addrA : in  STD_LOGIC_VECTOR(Nsys-1 downto 0);
            addrB : in  STD_LOGIC_VECTOR(Nsys-1 downto 0);
            QA : out  STD_LOGIC_VECTOR(Nsys-1 downto 0);
            QB : out  STD_LOGIC_VECTOR(Nsys-1 downto 0);
            addrW : in  STD_LOGIC_VECTOR(Nsys-1 downto 0);
            W : in  STD_LOGIC;
-           DATA : in  STD_LOGIC_VECTOR(Nsys-1 downto 0));
+           DATA : in  STD_LOGIC_VECTOR(Nsys-1 downto 0)
+			  );
+
 end BR;
 
 architecture Behavioral of BR is
-type registersType is array (3 downto 0) of STD_LOGIC_VECTOR(Nreg-1 downto 0);
+-- 16 registres de 8 bits, or 16 = 4*4bits
+type registersType is array (15 downto 0) of STD_LOGIC_VECTOR(Nreg-1 downto 0);
 signal registers : registersType;
 begin
-	QA <= registers(to_integer(unsigned(addrA)));
+
+	QA <= DATA when ((RST='1') and (W='1') and (addrA = addrW)) else 
+	registers(to_integer(unsigned(addrA)));
+	QB <= DATA when ((RST='1') and (W='1') and (addrB = addrW)) else 
+	registers(to_integer(unsigned(addrB)));
+	
+	-- RST et W sont synchrones à l'horloge
+	process
+	begin
+		wait until Ck'event and Ck='1';
+		-- Quand le signal RST est actif à '0', le contenu du BR est initialisé à 0x00.
+		if RST = '0' then
+			registers <= (others => x"0000");
+		else
+			-- Lorsque l'écriture est activée, si écriture et lecture sur le même registre, alors QX <= DATA
+			registers(to_integer(unsigned(addrW))) <= DATA;
+		end if;
+	end process;
 	
 end Behavioral;
 

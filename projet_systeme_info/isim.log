@@ -1,5 +1,5 @@
 ISim log file
-Running: /home/feuillet/Bureau/4A/S2/Projet info/projet_systeme_info/test_ual_isim_beh.exe -intstyle ise -gui -tclbatch isim.cmd -view /home/feuillet/Bureau/4A/S2/Projet info/projet_systeme_info/test_ual.wcfg -wdb /home/feuillet/Bureau/4A/S2/Projet info/projet_systeme_info/test_ual_isim_beh.wdb 
+Running: /home/feuillet/Bureau/4A/S2/Projet info/projet_systeme_info/test_BR_isim_beh.exe -intstyle ise -gui -tclbatch isim.cmd -view /home/feuillet/Bureau/4A/S2/Projet info/projet_systeme_info/test_ual.wcfg -wdb /home/feuillet/Bureau/4A/S2/Projet info/projet_systeme_info/test_BR_isim_beh.wdb 
 ISim O.87xd (signature 0x8ddf5b5d)
 ----------------------------------------------------------------------
 INFO:Security:50 - The XILINXD_LICENSE_FILE environment variable is set to '2100@srv-gei-ens1'.
@@ -18,7 +18,4 @@ Time resolution is 1 ps
 # onerror resume
 # run 1000 ns
 Simulator is doing circuit initialization process.
-at 0 ps, Instance /test_ual/ual_test/ : Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
 Finished circuit initialization process.
-# run 8105ns
-# exit 0

@@ -57,11 +57,21 @@ architecture Behavioral of Processor is
 	Signal a1,b1,c1,a2,b2,c2,a3,b3,c3,a4,b4,c4,a5,b5,c5 : std_logic_vector (N-1 downto 0);
 	Signal op1,op2,op3,op4,op5 : std_logic_vector (N/2-1 downto 0);
 	Signal ALUo : std_logic_vector(N-1 downto 0);
+	Signal W: STD_LOGIC;
 begin
-	MIBR: Pipeline	port map(Ck,op1,a1,b1,c1,op2,a2,b2,c2);
-	BRUAL: Pipeline port map(Ck,op2,a2,b2,c2,op3,a3,b3,c3);
+	-- Décodeur d'instructions
+	MI_BR: Pipeline port map(Ck,op1,a1,b1,c1,op2,a2,b2,c2);
+	-- Banc de registres
+	BR_UAL: Pipeline port map(Ck,op2,a2,b2,c2,op3,a3,b3,c3);
+	-- UAL
 	ALU: UAL port map(b3,c3,op3,ALUo);
 	c3 <= x"0000";
-	BRUAL: Pipeline port map(Ck,op3,a3,ALUo,c3,op4,a4,b4,c4);
+	UAL_MEM: Pipeline port map(Ck,op3,a3,ALUo,c3,op4,a4,b4,c4);
+	-- Mémoire
+	MEM_EBR: Pipeline port map (Ck, op4, a4, b4, c4, op5, a5, b5, c5);
+	-- W du BR
+	W <= '1' when op5=x"01" or op5=x"02" or op5=x"03" or op5=x"04" or op5=x"05" or op5=x"06" or op5=x"07" or op5=x"09" or op5=x"0A" or op5=x"0B" or op5=x"0C" or op5=x"0D" else 
+	'0';
+	-- écriture BR
 end Behavioral;
 

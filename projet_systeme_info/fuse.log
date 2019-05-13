@@ -1,24 +1,23 @@
-Running: /usr/local/insa/Xilinx.ISE/13.4/ISE_DS/ISE/bin/lin64/unwrapped/fuse -intstyle ise -incremental -lib secureip -o /home/feuillet/Bureau/4A/S2/Projet info/projet_systeme_info/test_ual_isim_beh.exe -prj /home/feuillet/Bureau/4A/S2/Projet info/projet_systeme_info/test_ual_beh.prj work.test_ual 
+Running: /usr/local/insa/Xilinx.ISE/13.4/ISE_DS/ISE/bin/lin64/unwrapped/fuse -intstyle ise -incremental -lib secureip -o /home/feuillet/Bureau/4A/S2/Projet info/projet_systeme_info/test_BR_isim_beh.exe -prj /home/feuillet/Bureau/4A/S2/Projet info/projet_systeme_info/test_BR_beh.prj work.test_BR 
 ISim O.87xd (signature 0x8ddf5b5d)
 Number of CPUs detected in this system: 4
 Turning on mult-threading, number of parallel sub-compilation jobs: 8 
 Determining compilation order of HDL files
-Parsing VHDL file "/home/feuillet/Bureau/4A/S2/Projet info/projet_systeme_info/ual.vhd" into library work
-Parsing VHDL file "/home/feuillet/Bureau/4A/S2/Projet info/projet_systeme_info/test_ual.vhd" into library work
+Parsing VHDL file "/home/feuillet/Bureau/4A/S2/Projet info/projet_systeme_info/BR.vhd" into library work
+Parsing VHDL file "/home/feuillet/Bureau/4A/S2/Projet info/projet_systeme_info/test_BR.vhd" into library work
 Starting static elaboration
 Completed static elaboration
-Fuse Memory Usage: 96112 KB
-Fuse CPU Usage: 870 ms
+Fuse Memory Usage: 96384 KB
+Fuse CPU Usage: 940 ms
 Compiling package standard
 Compiling package std_logic_1164
-Compiling package std_logic_arith
-Compiling package std_logic_unsigned
-Compiling architecture behavioral of entity ual [\ual(16,8)\]
-Compiling architecture behavior of entity test_ual
+Compiling package numeric_std
+Compiling architecture behavioral of entity BR [\BR(16,16)\]
+Compiling architecture behavior of entity test_br
 Time Resolution for simulation is 1ps.
 Waiting for 1 sub-compilation(s) to finish...
-Compiled 7 VHDL Units
-Built simulation executable /home/feuillet/Bureau/4A/S2/Projet info/projet_systeme_info/test_ual_isim_beh.exe
-Fuse Memory Usage: 668332 KB
-Fuse CPU Usage: 930 ms
-GCC CPU Usage: 160 ms
+Compiled 6 VHDL Units
+Built simulation executable /home/feuillet/Bureau/4A/S2/Projet info/projet_systeme_info/test_BR_isim_beh.exe
+Fuse Memory Usage: 667892 KB
+Fuse CPU Usage: 1000 ms
+GCC CPU Usage: 1110 ms
