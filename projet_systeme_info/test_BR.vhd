@@ -38,34 +38,38 @@ END test_BR;
 ARCHITECTURE behavior OF test_BR IS 
  
     -- Component Declaration for the Unit Under Test (UUT)
- 
-    COMPONENT BR
-    PORT(
-			Ck : IN std_logic;
-         RST : IN  std_logic;
-         addrA : IN  std_logic_vector(15 downto 0);
-         addrB : IN  std_logic_vector(15 downto 0);
-         QA : OUT  std_logic_vector(15 downto 0);
-         QB : OUT  std_logic_vector(15 downto 0);
-         addrW : IN  std_logic_vector(15 downto 0);
-         W : IN  std_logic;
-         DATA : IN  std_logic_vector(15 downto 0)
-        );
-    END COMPONENT;
+		 
+	COMPONENT BR
+		generic (Nsys:natural := 16; Naddr:natural := 4);
+		Port (  Ck: in std_logic;
+				  RST : in  STD_LOGIC;
+				  addrA : in  STD_LOGIC_VECTOR(Naddr-1 downto 0);
+				  addrB : in  STD_LOGIC_VECTOR(Naddr-1 downto 0);
+				  QA : out  STD_LOGIC_VECTOR(Nsys-1 downto 0);
+				  QB : out  STD_LOGIC_VECTOR(Nsys-1 downto 0);
+				  addrW : in  STD_LOGIC_VECTOR(Naddr-1 downto 0);
+				  W : in  STD_LOGIC;
+				  DATA : in  STD_LOGIC_VECTOR(Nsys-1 downto 0)
+				  );
+
+	END COMPONENT;
     
 
    --Inputs
+	constant Nsys:natural:=16;
+	constant Naddr:natural:=4;
+	
 	signal Ck : std_logic := '0';
    signal RST : std_logic := '0';
-   signal addrA : std_logic_vector(15 downto 0) := (others => '0');
-   signal addrB : std_logic_vector(15 downto 0) := (others => '0');
-   signal addrW : std_logic_vector(15 downto 0) := (others => '0');
+   signal addrA : std_logic_vector(Naddr-1 downto 0) := (others => '0');
+   signal addrB : std_logic_vector(Naddr-1 downto 0) := (others => '0');
+   signal addrW : std_logic_vector(Naddr-1 downto 0) := (others => '0');
    signal W : std_logic := '0';
-   signal DATA : std_logic_vector(15 downto 0) := (others => '0');
+   signal DATA : std_logic_vector(Nsys-1 downto 0) := (others => '0');
 
  	--Outputs
-   signal QA : std_logic_vector(15 downto 0);
-   signal QB : std_logic_vector(15 downto 0);
+   signal QA : std_logic_vector(Nsys-1 downto 0);
+   signal QB : std_logic_vector(Nsys-1 downto 0);
    -- No clocks detected in port list. Replace <clock> below with 
    -- appropriate port name 
 	
@@ -74,7 +78,8 @@ ARCHITECTURE behavior OF test_BR IS
 BEGIN
  
 	-- Instantiate the Unit Under Test (UUT)
-   uut: BR PORT MAP (
+   uut: BR
+	PORT MAP (
 			 Ck => Ck,
           RST => RST,
           addrA => addrA,
@@ -106,31 +111,31 @@ BEGIN
 		wait for 100 ns;
 		
 		-- QA = 0000
-		addrA <= x"0001";
+		addrA <= x"1";
 		-- QB = 0000
-		addrB <= x"0002";
+		addrB <= x"2";
 		
 		wait for 100 ns;
 		
 		-- Rien
 		W <= '1';
-		addrA <= x"0000";
-		addrW <= x"0001";
+		addrA <= x"3";
+		addrW <= x"4";
 		DATA <= x"1111";
 		
 		wait for 100 ns;
 		
 		-- QA = x"1111"
 		W <= '0';
-		addrA <= x"0001";
+		addrA <= x"4";
 		
 		wait for 100 ns;
 		
 		-- QB = 3333
 		W <= '1';
-		addrA <= x"0000";
-		addrW <= x"0002";
-		addrB <= x"0002";
+		addrA <= x"5";
+		addrW <= x"6";
+		addrB <= x"6";
 		DATA <= x"3333";
 		
 		wait for 100 ns;

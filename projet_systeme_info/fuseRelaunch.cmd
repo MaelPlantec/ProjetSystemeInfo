@@ -1,1 +1,1 @@
--intstyle "ise" -incremental -lib "secureip" -o "/home/feuillet/Bureau/4A/S2/Projet info/projet_systeme_info/test_BR_isim_beh.exe" -prj "/home/feuillet/Bureau/4A/S2/Projet info/projet_systeme_info/test_BR_beh.prj" "work.test_BR" 
+-intstyle "ise" -incremental -lib "secureip" -o "/home/feuillet/Bureau/4A/S2/Projet info/projet_systeme_info/test_mux_isim_beh.exe" -prj "/home/feuillet/Bureau/4A/S2/Projet info/projet_systeme_info/test_mux_beh.prj" "work.test_mux" 

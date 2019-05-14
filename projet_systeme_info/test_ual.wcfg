@@ -12,53 +12,53 @@
       </db_ref>
    </db_ref_list>
    <WVObjectSize size="8" />
-   <wvobject fp_name="/test_br/addra" type="array" db_ref_id="1">
-      <obj_property name="ElementShortName">addra[15:0]</obj_property>
-      <obj_property name="ObjectShortName">addra[15:0]</obj_property>
+   <wvobject fp_name="/test_br/uut/addra" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">addra[3:0]</obj_property>
+      <obj_property name="ObjectShortName">addra[3:0]</obj_property>
       <obj_property name="Radix">HEXRADIX</obj_property>
       <obj_property name="UseCustomSignalColor">true</obj_property>
       <obj_property name="CustomSignalColor">#0000ff</obj_property>
    </wvobject>
-   <wvobject fp_name="/test_br/addrb" type="array" db_ref_id="1">
-      <obj_property name="ElementShortName">addrb[15:0]</obj_property>
-      <obj_property name="ObjectShortName">addrb[15:0]</obj_property>
+   <wvobject fp_name="/test_br/uut/addrb" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">addrb[3:0]</obj_property>
+      <obj_property name="ObjectShortName">addrb[3:0]</obj_property>
       <obj_property name="Radix">HEXRADIX</obj_property>
       <obj_property name="UseCustomSignalColor">true</obj_property>
       <obj_property name="CustomSignalColor">#0000ff</obj_property>
    </wvobject>
-   <wvobject fp_name="/test_br/qa" type="array" db_ref_id="1">
+   <wvobject fp_name="/test_br/uut/qa" type="array" db_ref_id="1">
       <obj_property name="ElementShortName">qa[15:0]</obj_property>
       <obj_property name="ObjectShortName">qa[15:0]</obj_property>
       <obj_property name="Radix">HEXRADIX</obj_property>
    </wvobject>
-   <wvobject fp_name="/test_br/qb" type="array" db_ref_id="1">
+   <wvobject fp_name="/test_br/uut/qb" type="array" db_ref_id="1">
       <obj_property name="ElementShortName">qb[15:0]</obj_property>
       <obj_property name="ObjectShortName">qb[15:0]</obj_property>
       <obj_property name="Radix">HEXRADIX</obj_property>
    </wvobject>
-   <wvobject fp_name="/test_br/addrw" type="array" db_ref_id="1">
-      <obj_property name="ElementShortName">addrw[15:0]</obj_property>
-      <obj_property name="ObjectShortName">addrw[15:0]</obj_property>
+   <wvobject fp_name="/test_br/uut/addrw" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">addrw[3:0]</obj_property>
+      <obj_property name="ObjectShortName">addrw[3:0]</obj_property>
       <obj_property name="Radix">HEXRADIX</obj_property>
       <obj_property name="UseCustomSignalColor">true</obj_property>
-      <obj_property name="CustomSignalColor">#ffff00</obj_property>
+      <obj_property name="CustomSignalColor">#ffa500</obj_property>
    </wvobject>
-   <wvobject fp_name="/test_br/data" type="array" db_ref_id="1">
+   <wvobject fp_name="/test_br/uut/data" type="array" db_ref_id="1">
       <obj_property name="ElementShortName">data[15:0]</obj_property>
       <obj_property name="ObjectShortName">data[15:0]</obj_property>
       <obj_property name="Radix">HEXRADIX</obj_property>
       <obj_property name="UseCustomSignalColor">true</obj_property>
       <obj_property name="CustomSignalColor">#ffa500</obj_property>
    </wvobject>
+   <wvobject fp_name="/test_br/uut/w" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">w</obj_property>
+      <obj_property name="ObjectShortName">w</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+      <obj_property name="CustomSignalColor">#ff00ff</obj_property>
+   </wvobject>
    <wvobject fp_name="/test_br/rst" type="logic" db_ref_id="1">
       <obj_property name="ElementShortName">rst</obj_property>
       <obj_property name="ObjectShortName">rst</obj_property>
-      <obj_property name="UseCustomSignalColor">true</obj_property>
-      <obj_property name="CustomSignalColor">#ff0000</obj_property>
-   </wvobject>
-   <wvobject fp_name="/test_br/w" type="logic" db_ref_id="1">
-      <obj_property name="ElementShortName">w</obj_property>
-      <obj_property name="ObjectShortName">w</obj_property>
       <obj_property name="UseCustomSignalColor">true</obj_property>
       <obj_property name="CustomSignalColor">#ff00ff</obj_property>
    </wvobject>
