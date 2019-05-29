@@ -68,27 +68,27 @@ void ta_hexa ()
     while (i < ta_index)
     {
       char ope[2];
-      switch (ta[i].OP) {
+      switch (ta[i].OPE) {
         case "ADD" :
-          ope = "01";
+		  strcpy(ope, "01");
           break;
         case "MUL" :
-          ope = "02";
+		  strcpy(ope, "02");
           break;
         case "SOU" :
-          ope = "03";
+		  strcpy(ope, "03");
           break;
         case "DIV" :
-          ope = "04";
+		  strcpy(ope, "04");
           break;
         case "AFC" :
-          ope = "06";
+		  strcpy(ope, "06");
           break;
         case "LOAD" :
-          ope = "07";
+		  strcpy(ope, "07");
           break;
         case "STORE" :
-          ope = "08";
+          strcpy(ope, "08");
           break;
       }
       fputs(ope, file);
