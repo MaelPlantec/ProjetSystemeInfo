@@ -2,12 +2,12 @@ Command line:
    test_BR_isim_beh.exe
      -simmode  gui
      -simrunnum  0
-     -socket  46397
+     -socket  35658
 
-Tue May 14 09:02:49 2019
+Tue May 28 14:08:15 2019
 
 
- Elaboration Time: 0.01 sec
+ Elaboration Time: 0.02 sec
 
  Current Memory Usage: 203.784 Meg
 
@@ -24,5 +24,5 @@ Tue May 14 09:02:49 2019
 
  Current Memory Usage: 279.286 Meg
 
-Tue May 14 09:05:03 2019
+Tue May 28 14:08:19 2019
 

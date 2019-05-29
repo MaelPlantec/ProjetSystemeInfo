@@ -23,6 +23,9 @@ use IEEE.STD_LOGIC_1164.ALL;
 -- Uncomment the following library declaration if using
 -- arithmetic functions with Signed or Unsigned values
 --use IEEE.NUMERIC_STD.ALL;
+use IEEE.STD_LOGIC_ARITH.ALL;
+use IEEE.STD_LOGIC_UNSIGNED.ALL;
+
 
 -- Uncomment the following library declaration if instantiating
 -- any Xilinx primitives in this code.
@@ -30,10 +33,22 @@ use IEEE.STD_LOGIC_1164.ALL;
 --use UNISIM.VComponents.all;
 
 entity Processor is
-	 generic (Nsys:natural := 16; Naddr:natural := 4; Nop:natural := 8);
+	 generic (Nsys:natural := 16; Naddr:natural := 4; Npartie:natural := 8; Nins:natural := 32);
+	 Port(
+		Ck: in STD_LOGIC;
+		--ins_di: in STD_LOGIC_VECTOR(Nins-1 downto 0);
+		addrWout: out STD_LOGIC_VECTOR(Naddr-1 downto 0);
+		Wout: out STD_LOGIC;
+		DATAout: out STD_LOGIC_VECTOR(Nsys-1 downto 0)
+	 );
 end Processor;
 
 architecture Behavioral of Processor is
+	Component memIns is
+		generic (TmemI:natural := 256);
+		 Port ( ins_a : in  STD_LOGIC_VECTOR(Nsys-1 downto 0);
+				  ins_di : out  STD_LOGIC_VECTOR(Nins-1 downto 0));
+	end Component;
 	Component Pipeline Port ( 
 			  Ck : in std_logic;
 			  OPi : in  std_logic_vector(Nsys/2-1 downto 0);
@@ -49,8 +64,8 @@ architecture Behavioral of Processor is
 	Component UAL port(
 		A: in std_logic_vector (Nsys-1 downto 0);
 		B: in std_logic_vector (Nsys-1 downto 0);
-		Op: in std_logic_vector (Nsys/2-1 downto 0);
-		S: out std_logic_vector (Nsys-1 downto 0);
+		OPE: in std_logic_vector (Nsys/2-1 downto 0);
+		Sout: out std_logic_vector (Nsys-1 downto 0);
 		N, O, C, Z: out std_logic
 	);
 	end Component;
@@ -73,65 +88,111 @@ architecture Behavioral of Processor is
            Sout : out  STD_LOGIC_VECTOR(Nsys-1 downto 0)
 			  );
 	end Component;
+	Component decodeur
+    Port ( ins : in  STD_LOGIC_VECTOR(Nins-1 downto 0);
+           OP : out  STD_LOGIC_VECTOR(Npartie-1 downto 0);
+           A : out  STD_LOGIC_VECTOR(Nsys-1 downto 0);
+           B : out  STD_LOGIC_VECTOR(Nsys-1 downto 0);
+           C : out  STD_LOGIC_VECTOR(Nsys-1 downto 0)
+			  );
+	end Component;
+	Component memoireDonnees is
+	generic (Tmem:natural := 256);
+   Port (  Ck: in std_logic;
+			  data_out : in  STD_LOGIC_VECTOR(Nsys-1 downto 0);
+           data_addr : in  STD_LOGIC_VECTOR(Nsys-1 downto 0);
+           data_write : in  STD_LOGIC;
+           data_in : out  STD_LOGIC_VECTOR(Nsys-1 downto 0)
+			  );
+	end Component;
 	
 	-- Pour créer les signaux intermédiaires plus facilement
 	type FormatDeDonnees is record
-		op: std_logic_vector(Nop-1 downto 0);
+		op: std_logic_vector(Npartie-1 downto 0);
 		a, b, c: std_logic_vector(Nsys-1 downto 0);
 	end record;
 	
-	Signal MI_BRout, BRout, muxBRout, muxEBRout, BR_UALout, ALUout, muxALUout, UAL_MEMout, MEM_EBRout: FormatDeDonnees;
-	Signal W, RST, selecBR, selecALU, selecEBR: STD_LOGIC;
+	constant undefined: STD_LOGIC_VECTOR(Nsys-1 downto 0) := (others => 'X');
+	
+	Signal MI_BRout, BRout, muxBRout, muxEBRout, BR_UALout, ALUout, muxALUout, UAL_MEMout, MEMout, muxMEMout, MEM_EBRout, DECout : FormatDeDonnees;
+	Signal W, RST, selecBR, selecALU, selecEBR, dataW, selecMEM: STD_LOGIC;
+	Signal IP: STD_LOGIC_VECTOR(Nsys-1 downto 0) ;
+	Signal ins_di: STD_LOGIC_VECTOR(Nins-1 downto 0);
+	-- Signal ins_di: STD_LOGIC_VECTOR(Nins-1 downto 0);
 begin
+	-- Mise à jour de IP
+	process
+	begin
+		wait until Ck'event and Ck='1';
+		-- Puisqu'on n'a pas de jump, on incrémente juste de 1 
+		IP <= IP + x"01";
+	end process;
+	
+	-- Mémoire d'instructions
+	-- in ins_a, out ins_di
+	MEMinstru: memIns port map(IP, ins_di);
+		
 	-- Décodeur d'instructions
+	-- in ins, out OP, out A, out B, out C
+	DEC: decodeur port map(ins_di, DECout.op, DECout.a, DECout.b, DECout.c);
 	
 	-- Pipeline MI <-> BR
-	MI_BR: Pipeline port map(dec.op, dec.a, dec.b, dec.c, MI_BRout.op, MI_BRout.a, MI_BRout.b, MI_BRout.c);
+	MI_BR: Pipeline port map(Ck, DECout.op, DECout.a, DECout.b, DECout.c, MI_BRout.op, MI_BRout.a, MI_BRout.b, MI_BRout.c);
 	
 	-- Banc de registres
 	-- in Ck, in RST, in addrA, in addrB, out QA, out QB, in addrW, in W, in DATA
 	-- Il faut prendre les 4 bits de poids faible pour les addresses
-	BancRegistres: BR port map(Ck, RST, MI_BRout.b(Naddr-1 downto 0), MI_BRout.b(Naddr-1 downto 0), BRout.b, BRout.c, MEM_EBRout.a, W, muxEBRout.c);
+	BancRegistres: BR port map(Ck, RST, MI_BRout.b(Naddr-1 downto 0), MI_BRout.c(Naddr-1 downto 0), BRout.b, BRout.c, MEM_EBRout.a(Naddr-1 downto 0), W, muxEBRout.b);
 	
 	-- MUX BR
 	-- Il faut transformer l'opérande en sélectionneur pour le MUX
-	-- Attention : Il manque surement des instructions !
 	-- in selec, in0, in1, Sout
-	selecBR <= '0' when MI_BRout.op = x"06" or MI_BRout.op = x"07" else
-		'1';
+	selecBR <= '1' when MI_BRout.op = x"01" or MI_BRout.op = x"02" or MI_BRout.op = x"03" or MI_BRout.op = x"04" or MI_BRout.op = x"05" or MI_BRout.op = x"08" or MI_BRout.op = x"05" or MI_BRout.op = x"09" or MI_BRout.op = x"0A" or MI_BRout.op = x"0B" or MI_BRout.op = x"0C" or MI_BRout.op = x"0D" else
+		'0';
 	muxBR: MUX port map(selecBR, MI_BRout.b, BRout.b, muxBRout.b);
 	
 	-- Pipeline BR <-> UAL
-	BR_UAL: Pipeline port map(MI_BRout.op, MI_BRout.a, muxBRout.b, BRout.c, BR_UALout.op, BR_UALout.a, BR_UALout.b, BR_UALout.c);
+	BR_UAL: Pipeline port map(Ck, MI_BRout.op, MI_BRout.a, muxBRout.b, BRout.c, BR_UALout.op, BR_UALout.a, BR_UALout.b, BR_UALout.c);
 	
 	-- UAL
 	-- in A, in B, in Op, out S, N, O, C, Z
-	ALU: UAL port map(BR_UALout.b, BR_UALout.c, BR_UALout.op, UALout.b);
+	ALU: UAL port map(BR_UALout.b, BR_UALout.c, BR_UALout.op, ALUout.b);
 	
 	-- MUX ALU
 	selecALU <= '1' when BR_UALout.op=x"01" or BR_UALout.op=x"02" or BR_UALout.op=x"03" else
 		'0';
-	muxALU: MUX port map(selecALU, BR_ALUout.b, ALUout.b, muxALUout.b);
+	muxALU: MUX port map(selecALU, BR_UALout.b, ALUout.b, muxALUout.b);
 	
 	-- Pipeline UAL <-> MEM
-	UAL_MEM: Pipeline port map(BR_UALout.op, BR_UALout.a, muxALUout.b, x"0000", UAL_MEMout.op, UAL_MEMout.a, UAL_MEMout.b, x"0000");
+	UAL_MEM: Pipeline port map(Ck, BR_UALout.op, BR_UALout.a, muxALUout.b, x"0000", UAL_MEMout.op, UAL_MEMout.a, UAL_MEMout.b, open);
+	
+	-- MUX MEM
+	selecMEM <= '1' when UAL_MEMout.op = x"07" else 
+		'0';
+	muxMEM: MUX port map(selecMEM, UAL_MEMout.a, UAL_MEMout.b, muxMEMout.b);
 	
 	-- Mémoire
-	-- Je comprends pas trop comment ça se passe ici
-	
+	dataW <= '1' when UAL_MEMout.op=x"08" else
+		'0';
+	-- data_out, data_addr, data_write, data_in
+	MEM: memoireDonnees port map(Ck, UAL_MEMout.b, muxMEMout.b, dataW, MEMout.b);
 	-- Pipeline MEM <-> écriture BR
-	MEM_EBR: Pipeline port map (UAL_MEMout.op, UAL_MEMout.a, UAL_MEMout.b, x"0000", MEM_EBRout.op, MEM_EBRout.a, MEM_EBRout.b, x"0000");
+	MEM_EBR: Pipeline port map (Ck, UAL_MEMout.op, UAL_MEMout.a, UAL_MEMout.b, x"0000", MEM_EBRout.op, MEM_EBRout.a, MEM_EBRout.b, open);
 	
 	-- écriture BR
 	-- W du BR
 	W <= '1' when MEM_EBRout.op=x"01" or MEM_EBRout.op=x"02" or MEM_EBRout.op=x"03" or MEM_EBRout.op=x"04" or MEM_EBRout.op=x"05" or MEM_EBRout.op=x"06" or MEM_EBRout.op=x"07" or MEM_EBRout.op=x"09" or MEM_EBRout.op=x"0A" or MEM_EBRout.op=x"0B" or MEM_EBRout.op=x"0C" or MEM_EBRout.op=x"0D" else 
 	'0';
 	-- MUX écriture BR
-	-- On passe la DATA dans le bus de données que si on fait un STORE
-	selecEBR <= '1' when x"08" else 
+	-- On passe la DATA dans le bus de données que si on fait une lecture dans la mémoire 
+	selecEBR <= '1' when MEM_EBRout.op=x"07" else 
 		'0';
-	-- C'est quoi DATA_DI ?
-	muxEBR: MUX port map(selecEBR, MEM_EBRout.b, DATA_DI);
+	-- MUX EBR
+	muxEBR: MUX port map(selecEBR, MEM_EBRout.b, MEMout.b, muxEBRout.b);
 	
+	addrWout <=  MEM_EBRout.a(Naddr-1 downto 0);
+	Wout <=  W;
+	DATAout <=  muxEBRout.b;
+		
 end Behavioral;
 

@@ -45,7 +45,7 @@ entity BR is
 end BR;
 
 architecture Behavioral of BR is
--- 16 registres de  bits
+-- 16 registres de 16 bits
 type registersType is array (2**Naddr-1 downto 0) of STD_LOGIC_VECTOR(Nsys-1 downto 0);
 signal registers : registersType;
 begin
@@ -63,8 +63,10 @@ begin
 		if RST = '0' then
 			registers <= (others => x"0000");
 		else
+			if W = '1' then
 			-- Lorsque l'écriture est activée, si écriture et lecture sur le même registre, alors QX <= DATA
-			registers(to_integer(unsigned(addrW(3 downto 0)))) <= DATA;
+			registers(to_integer(unsigned(addrW))) <= DATA;
+			end if;
 		end if;
 	end process;
 	

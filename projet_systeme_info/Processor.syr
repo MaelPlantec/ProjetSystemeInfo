@@ -4,15 +4,15 @@ Copyright (c) 1995-2011 Xilinx, Inc.  All rights reserved.
 Parameter TMPDIR set to xst/projnav.tmp
 
 
-Total REAL time to Xst completion: 0.00 secs
-Total CPU time to Xst completion: 0.08 secs
+Total REAL time to Xst completion: 1.00 secs
+Total CPU time to Xst completion: 0.09 secs
  
 --> 
 Parameter xsthdpdir set to xst
 
 
-Total REAL time to Xst completion: 0.00 secs
-Total CPU time to Xst completion: 0.08 secs
+Total REAL time to Xst completion: 1.00 secs
+Total CPU time to Xst completion: 0.09 secs
  
 --> 
 Reading design: Processor.prj
@@ -109,27 +109,652 @@ INFO:Xst - Part-select index evaluated to out of bound value may lead to incorre
 =========================================================================
 *                          HDL Parsing                                  *
 =========================================================================
+Parsing VHDL file "/home/feuillet/Bureau/4A/S2/Projet info/projet_systeme_info/common.vhd" into library work
+Parsing package <common>.
+Parsing package body <common>.
 Parsing VHDL file "/home/feuillet/Bureau/4A/S2/Projet info/projet_systeme_info/ual.vhd" into library work
 Parsing entity <ual>.
 Parsing architecture <Behavioral> of entity <ual>.
 Parsing VHDL file "/home/feuillet/Bureau/4A/S2/Projet info/projet_systeme_info/pipeline.vhd" into library work
 Parsing entity <Pipeline>.
 Parsing architecture <Behavioral> of entity <pipeline>.
+Parsing VHDL file "/home/feuillet/Bureau/4A/S2/Projet info/projet_systeme_info/MUX.vhd" into library work
+Parsing entity <MUX>.
+Parsing architecture <Behavioral> of entity <mux>.
+Parsing VHDL file "/home/feuillet/Bureau/4A/S2/Projet info/projet_systeme_info/memoireDonnees.vhd" into library work
+Parsing entity <memoireDonnees>.
+Parsing architecture <Behavioral> of entity <memoiredonnees>.
+Parsing VHDL file "/home/feuillet/Bureau/4A/S2/Projet info/projet_systeme_info/memIns.vhd" into library work
+Parsing entity <memIns>.
+Parsing architecture <Behavioral> of entity <memins>.
+Parsing VHDL file "/home/feuillet/Bureau/4A/S2/Projet info/projet_systeme_info/decodeur.vhd" into library work
+Parsing entity <decodeur>.
+Parsing architecture <Behavioral> of entity <decodeur>.
+Parsing VHDL file "/home/feuillet/Bureau/4A/S2/Projet info/projet_systeme_info/BR.vhd" into library work
+Parsing entity <BR>.
+Parsing architecture <Behavioral> of entity <br>.
 Parsing VHDL file "/home/feuillet/Bureau/4A/S2/Projet info/projet_systeme_info/processor.vhd" into library work
 Parsing entity <Processor>.
 Parsing architecture <Behavioral> of entity <processor>.
-ERROR:HDLCompiler:69 - "/home/feuillet/Bureau/4A/S2/Projet info/projet_systeme_info/processor.vhd" Line 63: <ck> is not declared.
-ERROR:HDLCompiler:69 - "/home/feuillet/Bureau/4A/S2/Projet info/projet_systeme_info/processor.vhd" Line 65: <ck> is not declared.
-ERROR:HDLCompiler:69 - "/home/feuillet/Bureau/4A/S2/Projet info/projet_systeme_info/processor.vhd" Line 69: <ck> is not declared.
-ERROR:HDLCompiler:1728 - "/home/feuillet/Bureau/4A/S2/Projet info/projet_systeme_info/processor.vhd" Line 71: Type error near op4 ; current type std_logic_vector; expected type std_logic
-ERROR:HDLCompiler:854 - "/home/feuillet/Bureau/4A/S2/Projet info/projet_systeme_info/processor.vhd" Line 36: Unit <behavioral> ignored due to previous errors.
-VHDL file /home/feuillet/Bureau/4A/S2/Projet info/projet_systeme_info/processor.vhd ignored due to errors
+
+=========================================================================
+*                            HDL Elaboration                            *
+=========================================================================
+
+Elaborating entity <Processor> (architecture <Behavioral>) with generics from library <work>.
+WARNING:HDLCompiler:746 - "/home/feuillet/Bureau/4A/S2/Projet info/projet_systeme_info/common.vhd" Line 25: Range is empty (null range)
+
+Elaborating entity <memIns> (architecture <Behavioral>) with generics from library <work>.
+
+Elaborating entity <decodeur> (architecture <Behavioral>) with generics from library <work>.
+
+Elaborating entity <Pipeline> (architecture <Behavioral>) with generics from library <work>.
+
+Elaborating entity <BR> (architecture <Behavioral>) with generics from library <work>.
+
+Elaborating entity <MUX> (architecture <Behavioral>) with generics from library <work>.
+
+Elaborating entity <ual> (architecture <Behavioral>) with generics from library <work>.
+
+Elaborating entity <memoireDonnees> (architecture <Behavioral>) with generics from library <work>.
+WARNING:HDLCompiler:634 - "/home/feuillet/Bureau/4A/S2/Projet info/projet_systeme_info/processor.vhd" Line 118: Net <RST> does not have a driver.
+
+=========================================================================
+*                           HDL Synthesis                               *
+=========================================================================
+
+Synthesizing Unit <Processor>.
+    Related source file is "/home/feuillet/Bureau/4A/S2/Projet info/projet_systeme_info/processor.vhd".
+        Nsys = 16
+        Naddr = 4
+        Npartie = 8
+        Nins = 32
+INFO:Xst:3210 - "/home/feuillet/Bureau/4A/S2/Projet info/projet_systeme_info/processor.vhd" line 159: Output port <N> of the instance <ALU> is unconnected or connected to loadless signal.
+INFO:Xst:3210 - "/home/feuillet/Bureau/4A/S2/Projet info/projet_systeme_info/processor.vhd" line 159: Output port <O> of the instance <ALU> is unconnected or connected to loadless signal.
+INFO:Xst:3210 - "/home/feuillet/Bureau/4A/S2/Projet info/projet_systeme_info/processor.vhd" line 159: Output port <C> of the instance <ALU> is unconnected or connected to loadless signal.
+INFO:Xst:3210 - "/home/feuillet/Bureau/4A/S2/Projet info/projet_systeme_info/processor.vhd" line 159: Output port <Z> of the instance <ALU> is unconnected or connected to loadless signal.
+INFO:Xst:3210 - "/home/feuillet/Bureau/4A/S2/Projet info/projet_systeme_info/processor.vhd" line 167: Output port <Co> of the instance <UAL_MEM> is unconnected or connected to loadless signal.
+INFO:Xst:3210 - "/home/feuillet/Bureau/4A/S2/Projet info/projet_systeme_info/processor.vhd" line 180: Output port <Co> of the instance <MEM_EBR> is unconnected or connected to loadless signal.
+WARNING:Xst:653 - Signal <RST> is used but never assigned. This sourceless signal will be automatically connected to value GND.
+    Found 16-bit register for signal <IP>.
+    Found 16-bit adder for signal <IP[15]_GND_5_o_add_0_OUT> created at line 128.
+    Summary:
+	inferred   1 Adder/Subtractor(s).
+	inferred  16 D-type flip-flop(s).
+Unit <Processor> synthesized.
+
+Synthesizing Unit <memIns>.
+    Related source file is "/home/feuillet/Bureau/4A/S2/Projet info/projet_systeme_info/memIns.vhd".
+        Nins = 32
+        Nsys = 16
+        TmemI = 256
+WARNING:Xst:647 - Input <ins_a<15:0>> is never used. This port will be preserved and left unconnected if it belongs to a top-level block or it belongs to a sub-block and the hierarchy of this sub-block is preserved.
+WARNING:Xst:653 - Signal <ins_di> is used but never assigned. This sourceless signal will be automatically connected to value GND.
+    Summary:
+	no macro.
+Unit <memIns> synthesized.
+
+Synthesizing Unit <decodeur>.
+    Related source file is "/home/feuillet/Bureau/4A/S2/Projet info/projet_systeme_info/decodeur.vhd".
+        Nins = 32
+        Nsys = 16
+        Npartie = 8
+    Summary:
+	inferred   3 Multiplexer(s).
+Unit <decodeur> synthesized.
+
+Synthesizing Unit <Pipeline>.
+    Related source file is "/home/feuillet/Bureau/4A/S2/Projet info/projet_systeme_info/pipeline.vhd".
+        N = 16
+    Found 16-bit register for signal <Ao>.
+    Found 16-bit register for signal <Bo>.
+    Found 16-bit register for signal <Co>.
+    Found 8-bit register for signal <OPo>.
+    Summary:
+	inferred  56 D-type flip-flop(s).
+Unit <Pipeline> synthesized.
+
+Synthesizing Unit <BR>.
+    Related source file is "/home/feuillet/Bureau/4A/S2/Projet info/projet_systeme_info/BR.vhd".
+        Nsys = 16
+        Naddr = 4
+    WARNING:Xst:2404 -  FFs/Latches <registers<14><15:0>> (without init value) have a constant value of 0 in block <BR>.
+    WARNING:Xst:2404 -  FFs/Latches <registers<4><15:0>> (without init value) have a constant value of 0 in block <BR>.
+    WARNING:Xst:2404 -  FFs/Latches <registers<8><15:0>> (without init value) have a constant value of 0 in block <BR>.
+    WARNING:Xst:2404 -  FFs/Latches <registers<5><15:0>> (without init value) have a constant value of 0 in block <BR>.
+    WARNING:Xst:2404 -  FFs/Latches <registers<9><15:0>> (without init value) have a constant value of 0 in block <BR>.
+    WARNING:Xst:2404 -  FFs/Latches <registers<15><15:0>> (without init value) have a constant value of 0 in block <BR>.
+    WARNING:Xst:2404 -  FFs/Latches <registers<10><15:0>> (without init value) have a constant value of 0 in block <BR>.
+    WARNING:Xst:2404 -  FFs/Latches <registers<3><15:0>> (without init value) have a constant value of 0 in block <BR>.
+    WARNING:Xst:2404 -  FFs/Latches <registers<2><15:0>> (without init value) have a constant value of 0 in block <BR>.
+    WARNING:Xst:2404 -  FFs/Latches <registers<11><15:0>> (without init value) have a constant value of 0 in block <BR>.
+    WARNING:Xst:2404 -  FFs/Latches <registers<1><15:0>> (without init value) have a constant value of 0 in block <BR>.
+    WARNING:Xst:2404 -  FFs/Latches <registers<13><15:0>> (without init value) have a constant value of 0 in block <BR>.
+    WARNING:Xst:2404 -  FFs/Latches <registers<12><15:0>> (without init value) have a constant value of 0 in block <BR>.
+    WARNING:Xst:2404 -  FFs/Latches <registers<7><15:0>> (without init value) have a constant value of 0 in block <BR>.
+    WARNING:Xst:2404 -  FFs/Latches <registers<6><15:0>> (without init value) have a constant value of 0 in block <BR>.
+    WARNING:Xst:2404 -  FFs/Latches <registers<0><15:0>> (without init value) have a constant value of 0 in block <BR>.
+    Summary:
+	no macro.
+Unit <BR> synthesized.
+
+Synthesizing Unit <MUX>.
+    Related source file is "/home/feuillet/Bureau/4A/S2/Projet info/projet_systeme_info/MUX.vhd".
+        Nsys = 16
+    Summary:
+	inferred   2 Multiplexer(s).
+Unit <MUX> synthesized.
+
+Synthesizing Unit <ual>.
+    Related source file is "/home/feuillet/Bureau/4A/S2/Projet info/projet_systeme_info/ual.vhd".
+        Nsys = 16
+        Nope = 8
+    Found 17-bit adder for signal <GND_15_o_GND_15_o_add_7_OUT> created at line 48.
+    Found 16-bit subtractor for signal <GND_15_o_GND_15_o_sub_4_OUT<15:0>> created at line 50.
+    Found 16x16-bit multiplier for signal <A[15]_B[15]_MuLt_5_OUT> created at line 49.
+    Found 32-bit 4-to-1 multiplexer for signal <_n0051> created at line 46.
+    Summary:
+	inferred   1 Multiplier(s).
+	inferred   2 Adder/Subtractor(s).
+	inferred   2 Multiplexer(s).
+Unit <ual> synthesized.
+
+Synthesizing Unit <memoireDonnees>.
+    Related source file is "/home/feuillet/Bureau/4A/S2/Projet info/projet_systeme_info/memoireDonnees.vhd".
+        Nsys = 16
+        Tmem = 256
+WARNING:Xst:647 - Input <data_addr<15:8>> is never used. This port will be preserved and left unconnected if it belongs to a top-level block or it belongs to a sub-block and the hierarchy of this sub-block is preserved.
+    Found 256x16-bit single-port RAM <Mram_memoire> for signal <memoire>.
+    Found 16-bit register for signal <data_in>.
+    Summary:
+	inferred   1 RAM(s).
+	inferred  16 D-type flip-flop(s).
+Unit <memoireDonnees> synthesized.
+
+=========================================================================
+HDL Synthesis Report
+
+Macro Statistics
+# RAMs                                                 : 1
+ 256x16-bit single-port RAM                            : 1
+# Multipliers                                          : 1
+ 16x16-bit multiplier                                  : 1
+# Adders/Subtractors                                   : 3
+ 16-bit adder                                          : 1
+ 16-bit subtractor                                     : 1
+ 17-bit adder                                          : 1
+# Registers                                            : 18
+ 16-bit register                                       : 14
+ 8-bit register                                        : 4
+# Multiplexers                                         : 13
+ 1-bit 2-to-1 multiplexer                              : 1
+ 16-bit 2-to-1 multiplexer                             : 11
+ 32-bit 4-to-1 multiplexer                             : 1
+# Xors                                                 : 4
+ 1-bit xor2                                            : 4
+
+=========================================================================
+
+=========================================================================
+*                       Advanced HDL Synthesis                          *
+=========================================================================
+
+WARNING:Xst:1710 - FF/Latch <Co_8> (without init value) has a constant value of 0 in block <BR_UAL>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1710 - FF/Latch <Co_9> (without init value) has a constant value of 0 in block <BR_UAL>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1710 - FF/Latch <Co_10> (without init value) has a constant value of 0 in block <BR_UAL>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1710 - FF/Latch <Co_11> (without init value) has a constant value of 0 in block <BR_UAL>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1710 - FF/Latch <Co_12> (without init value) has a constant value of 0 in block <BR_UAL>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1710 - FF/Latch <Co_13> (without init value) has a constant value of 0 in block <BR_UAL>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1710 - FF/Latch <Co_14> (without init value) has a constant value of 0 in block <BR_UAL>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1710 - FF/Latch <Co_15> (without init value) has a constant value of 0 in block <BR_UAL>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1710 - FF/Latch <OPo_0> (without init value) has a constant value of 0 in block <UAL_MEM>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1710 - FF/Latch <OPo_1> (without init value) has a constant value of 0 in block <UAL_MEM>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1710 - FF/Latch <OPo_2> (without init value) has a constant value of 0 in block <UAL_MEM>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1710 - FF/Latch <OPo_3> (without init value) has a constant value of 0 in block <UAL_MEM>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1710 - FF/Latch <OPo_4> (without init value) has a constant value of 0 in block <UAL_MEM>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1710 - FF/Latch <OPo_5> (without init value) has a constant value of 0 in block <UAL_MEM>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1710 - FF/Latch <OPo_6> (without init value) has a constant value of 0 in block <UAL_MEM>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1710 - FF/Latch <OPo_7> (without init value) has a constant value of 0 in block <UAL_MEM>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1710 - FF/Latch <OPo_0> (without init value) has a constant value of 0 in block <MEM_EBR>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1710 - FF/Latch <OPo_1> (without init value) has a constant value of 0 in block <MEM_EBR>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1710 - FF/Latch <OPo_2> (without init value) has a constant value of 0 in block <MEM_EBR>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1710 - FF/Latch <OPo_3> (without init value) has a constant value of 0 in block <MEM_EBR>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1710 - FF/Latch <OPo_4> (without init value) has a constant value of 0 in block <MEM_EBR>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1710 - FF/Latch <OPo_5> (without init value) has a constant value of 0 in block <MEM_EBR>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1710 - FF/Latch <OPo_6> (without init value) has a constant value of 0 in block <MEM_EBR>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1710 - FF/Latch <OPo_7> (without init value) has a constant value of 0 in block <MEM_EBR>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1710 - FF/Latch <OPo_0> (without init value) has a constant value of 0 in block <MI_BR>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1710 - FF/Latch <OPo_1> (without init value) has a constant value of 0 in block <MI_BR>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1710 - FF/Latch <OPo_2> (without init value) has a constant value of 0 in block <MI_BR>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1710 - FF/Latch <OPo_3> (without init value) has a constant value of 0 in block <MI_BR>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1710 - FF/Latch <OPo_4> (without init value) has a constant value of 0 in block <MI_BR>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1710 - FF/Latch <OPo_5> (without init value) has a constant value of 0 in block <MI_BR>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1710 - FF/Latch <OPo_6> (without init value) has a constant value of 0 in block <MI_BR>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1710 - FF/Latch <OPo_7> (without init value) has a constant value of 0 in block <MI_BR>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1710 - FF/Latch <OPo_0> (without init value) has a constant value of 0 in block <BR_UAL>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1710 - FF/Latch <OPo_1> (without init value) has a constant value of 0 in block <BR_UAL>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1710 - FF/Latch <OPo_2> (without init value) has a constant value of 0 in block <BR_UAL>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1710 - FF/Latch <OPo_3> (without init value) has a constant value of 0 in block <BR_UAL>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1710 - FF/Latch <OPo_4> (without init value) has a constant value of 0 in block <BR_UAL>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1710 - FF/Latch <OPo_5> (without init value) has a constant value of 0 in block <BR_UAL>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1710 - FF/Latch <OPo_6> (without init value) has a constant value of 0 in block <BR_UAL>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1710 - FF/Latch <OPo_7> (without init value) has a constant value of 0 in block <BR_UAL>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1710 - FF/Latch <Co_0> (without init value) has a constant value of 0 in block <BR_UAL>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1710 - FF/Latch <Co_1> (without init value) has a constant value of 0 in block <BR_UAL>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1710 - FF/Latch <Co_2> (without init value) has a constant value of 0 in block <BR_UAL>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1710 - FF/Latch <Co_3> (without init value) has a constant value of 0 in block <BR_UAL>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1710 - FF/Latch <Co_4> (without init value) has a constant value of 0 in block <BR_UAL>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1710 - FF/Latch <Co_5> (without init value) has a constant value of 0 in block <BR_UAL>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1710 - FF/Latch <Co_6> (without init value) has a constant value of 0 in block <BR_UAL>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1710 - FF/Latch <Co_7> (without init value) has a constant value of 0 in block <BR_UAL>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:2677 - Node <Ao_4> of sequential type is unconnected in block <MEM_EBR>.
+WARNING:Xst:2677 - Node <Ao_5> of sequential type is unconnected in block <MEM_EBR>.
+WARNING:Xst:2677 - Node <Ao_6> of sequential type is unconnected in block <MEM_EBR>.
+WARNING:Xst:2677 - Node <Ao_7> of sequential type is unconnected in block <MEM_EBR>.
+WARNING:Xst:2677 - Node <Ao_8> of sequential type is unconnected in block <MEM_EBR>.
+WARNING:Xst:2677 - Node <Ao_9> of sequential type is unconnected in block <MEM_EBR>.
+WARNING:Xst:2677 - Node <Ao_10> of sequential type is unconnected in block <MEM_EBR>.
+WARNING:Xst:2677 - Node <Ao_11> of sequential type is unconnected in block <MEM_EBR>.
+WARNING:Xst:2677 - Node <Ao_12> of sequential type is unconnected in block <MEM_EBR>.
+WARNING:Xst:2677 - Node <Ao_13> of sequential type is unconnected in block <MEM_EBR>.
+WARNING:Xst:2677 - Node <Ao_14> of sequential type is unconnected in block <MEM_EBR>.
+WARNING:Xst:2677 - Node <Ao_15> of sequential type is unconnected in block <MEM_EBR>.
+
+Synthesizing (advanced) Unit <Processor>.
+The following registers are absorbed into counter <IP>: 1 register on signal <IP>.
+Unit <Processor> synthesized (advanced).
+
+Synthesizing (advanced) Unit <memoireDonnees>.
+INFO:Xst:3226 - The RAM <Mram_memoire> will be implemented as a BLOCK RAM, absorbing the following register(s): <data_in>
+    -----------------------------------------------------------------------
+    | ram_type           | Block                               |          |
+    -----------------------------------------------------------------------
+    | Port A                                                              |
+    |     aspect ratio   | 256-word x 16-bit                   |          |
+    |     mode           | read-first                          |          |
+    |     clkA           | connected to signal <Ck>            | rise     |
+    |     weA            | connected to signal <data_write>    | high     |
+    |     addrA          | connected to signal <data_addr>     |          |
+    |     diA            | connected to signal <data_out>      |          |
+    |     doA            | connected to signal <data_in>       |          |
+    |     dorstA         | connected to signal <data_write>    | high     |
+    | reset value        | 1111111111111111                               |
+    -----------------------------------------------------------------------
+    | optimization       | speed                               |          |
+    -----------------------------------------------------------------------
+Unit <memoireDonnees> synthesized (advanced).
+
+=========================================================================
+Advanced HDL Synthesis Report
+
+Macro Statistics
+# RAMs                                                 : 1
+ 256x16-bit single-port block RAM                      : 1
+# Multipliers                                          : 1
+ 16x16-bit multiplier                                  : 1
+# Adders/Subtractors                                   : 2
+ 16-bit subtractor                                     : 1
+ 17-bit adder                                          : 1
+# Counters                                             : 1
+ 16-bit up counter                                     : 1
+# Registers                                            : 224
+ Flip-Flops                                            : 224
+# Multiplexers                                         : 13
+ 1-bit 2-to-1 multiplexer                              : 1
+ 16-bit 2-to-1 multiplexer                             : 11
+ 32-bit 4-to-1 multiplexer                             : 1
+# Xors                                                 : 4
+ 1-bit xor2                                            : 4
+
+=========================================================================
+
+=========================================================================
+*                         Low Level Synthesis                           *
+=========================================================================
+
+Optimizing unit <Pipeline> ...
+
+Optimizing unit <Processor> ...
+
+Optimizing unit <ual> ...
+WARNING:Xst:1710 - FF/Latch <MI_BR/Bo_15> (without init value) has a constant value of 0 in block <Processor>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <BR_UAL/Bo_0> (without init value) has a constant value of 0 in block <Processor>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <BR_UAL/Bo_1> (without init value) has a constant value of 0 in block <Processor>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <BR_UAL/Bo_2> (without init value) has a constant value of 0 in block <Processor>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <BR_UAL/Bo_3> (without init value) has a constant value of 0 in block <Processor>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <BR_UAL/Bo_4> (without init value) has a constant value of 0 in block <Processor>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <BR_UAL/Bo_5> (without init value) has a constant value of 0 in block <Processor>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <BR_UAL/Bo_6> (without init value) has a constant value of 0 in block <Processor>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <BR_UAL/Bo_7> (without init value) has a constant value of 0 in block <Processor>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <BR_UAL/Bo_8> (without init value) has a constant value of 0 in block <Processor>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <BR_UAL/Bo_9> (without init value) has a constant value of 0 in block <Processor>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <BR_UAL/Bo_10> (without init value) has a constant value of 0 in block <Processor>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <BR_UAL/Bo_11> (without init value) has a constant value of 0 in block <Processor>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <BR_UAL/Bo_12> (without init value) has a constant value of 0 in block <Processor>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <BR_UAL/Bo_13> (without init value) has a constant value of 0 in block <Processor>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <BR_UAL/Bo_14> (without init value) has a constant value of 0 in block <Processor>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <BR_UAL/Bo_15> (without init value) has a constant value of 0 in block <Processor>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <BR_UAL/Co_0> (without init value) has a constant value of 0 in block <Processor>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <BR_UAL/Co_1> (without init value) has a constant value of 0 in block <Processor>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <BR_UAL/Co_2> (without init value) has a constant value of 0 in block <Processor>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <BR_UAL/Co_3> (without init value) has a constant value of 0 in block <Processor>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <BR_UAL/Co_4> (without init value) has a constant value of 0 in block <Processor>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <BR_UAL/Co_5> (without init value) has a constant value of 0 in block <Processor>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <BR_UAL/Co_6> (without init value) has a constant value of 0 in block <Processor>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <BR_UAL/Co_7> (without init value) has a constant value of 0 in block <Processor>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <BR_UAL/Co_8> (without init value) has a constant value of 0 in block <Processor>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <BR_UAL/Co_9> (without init value) has a constant value of 0 in block <Processor>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <BR_UAL/Co_10> (without init value) has a constant value of 0 in block <Processor>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <BR_UAL/Co_11> (without init value) has a constant value of 0 in block <Processor>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <BR_UAL/Co_12> (without init value) has a constant value of 0 in block <Processor>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <BR_UAL/Co_13> (without init value) has a constant value of 0 in block <Processor>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <MI_BR/OPo_0> (without init value) has a constant value of 0 in block <Processor>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <MI_BR/OPo_1> (without init value) has a constant value of 0 in block <Processor>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <MI_BR/OPo_2> (without init value) has a constant value of 0 in block <Processor>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <MI_BR/OPo_3> (without init value) has a constant value of 0 in block <Processor>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <MI_BR/OPo_4> (without init value) has a constant value of 0 in block <Processor>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <MI_BR/OPo_5> (without init value) has a constant value of 0 in block <Processor>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <MI_BR/OPo_6> (without init value) has a constant value of 0 in block <Processor>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <MI_BR/OPo_7> (without init value) has a constant value of 0 in block <Processor>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <MI_BR/Ao_0> (without init value) has a constant value of 0 in block <Processor>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <MI_BR/Ao_1> (without init value) has a constant value of 0 in block <Processor>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <MI_BR/Ao_2> (without init value) has a constant value of 0 in block <Processor>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <MI_BR/Ao_3> (without init value) has a constant value of 0 in block <Processor>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <MI_BR/Ao_4> (without init value) has a constant value of 0 in block <Processor>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <MI_BR/Ao_5> (without init value) has a constant value of 0 in block <Processor>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <MI_BR/Ao_6> (without init value) has a constant value of 0 in block <Processor>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <MI_BR/Ao_7> (without init value) has a constant value of 0 in block <Processor>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <MI_BR/Bo_0> (without init value) has a constant value of 0 in block <Processor>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <MI_BR/Bo_1> (without init value) has a constant value of 0 in block <Processor>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <MI_BR/Bo_2> (without init value) has a constant value of 0 in block <Processor>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <MI_BR/Bo_3> (without init value) has a constant value of 0 in block <Processor>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <MI_BR/Bo_4> (without init value) has a constant value of 0 in block <Processor>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <MI_BR/Bo_5> (without init value) has a constant value of 0 in block <Processor>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <MI_BR/Bo_6> (without init value) has a constant value of 0 in block <Processor>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <MI_BR/Bo_7> (without init value) has a constant value of 0 in block <Processor>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <MI_BR/Bo_8> (without init value) has a constant value of 0 in block <Processor>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <MI_BR/Bo_9> (without init value) has a constant value of 0 in block <Processor>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <MI_BR/Bo_10> (without init value) has a constant value of 0 in block <Processor>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <MI_BR/Bo_11> (without init value) has a constant value of 0 in block <Processor>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <MI_BR/Bo_12> (without init value) has a constant value of 0 in block <Processor>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <MI_BR/Bo_13> (without init value) has a constant value of 0 in block <Processor>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <MI_BR/Bo_14> (without init value) has a constant value of 0 in block <Processor>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <UAL_MEM/Bo_12> (without init value) has a constant value of 0 in block <Processor>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <UAL_MEM/Bo_13> (without init value) has a constant value of 0 in block <Processor>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <UAL_MEM/Bo_14> (without init value) has a constant value of 0 in block <Processor>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <UAL_MEM/Bo_15> (without init value) has a constant value of 0 in block <Processor>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <UAL_MEM/Bo_11> (without init value) has a constant value of 0 in block <Processor>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <UAL_MEM/Bo_10> (without init value) has a constant value of 0 in block <Processor>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <UAL_MEM/Bo_9> (without init value) has a constant value of 0 in block <Processor>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <UAL_MEM/Bo_8> (without init value) has a constant value of 0 in block <Processor>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <UAL_MEM/Bo_7> (without init value) has a constant value of 0 in block <Processor>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <UAL_MEM/Bo_6> (without init value) has a constant value of 0 in block <Processor>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <UAL_MEM/Bo_5> (without init value) has a constant value of 0 in block <Processor>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <UAL_MEM/Bo_4> (without init value) has a constant value of 0 in block <Processor>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <UAL_MEM/Bo_3> (without init value) has a constant value of 0 in block <Processor>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <UAL_MEM/Bo_2> (without init value) has a constant value of 0 in block <Processor>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <UAL_MEM/Bo_1> (without init value) has a constant value of 0 in block <Processor>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <UAL_MEM/Bo_0> (without init value) has a constant value of 0 in block <Processor>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <BR_UAL/Co_14> (without init value) has a constant value of 0 in block <Processor>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <BR_UAL/Co_15> (without init value) has a constant value of 0 in block <Processor>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <BR_UAL/OPo_5> (without init value) has a constant value of 0 in block <Processor>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <BR_UAL/OPo_4> (without init value) has a constant value of 0 in block <Processor>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <BR_UAL/OPo_3> (without init value) has a constant value of 0 in block <Processor>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <BR_UAL/OPo_2> (without init value) has a constant value of 0 in block <Processor>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <BR_UAL/OPo_1> (without init value) has a constant value of 0 in block <Processor>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <BR_UAL/OPo_0> (without init value) has a constant value of 0 in block <Processor>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <MEM_EBR/Bo_15> (without init value) has a constant value of 0 in block <Processor>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <MEM_EBR/Bo_14> (without init value) has a constant value of 0 in block <Processor>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <MEM_EBR/Bo_13> (without init value) has a constant value of 0 in block <Processor>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <MEM_EBR/Bo_12> (without init value) has a constant value of 0 in block <Processor>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <MEM_EBR/Bo_11> (without init value) has a constant value of 0 in block <Processor>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <MEM_EBR/Bo_10> (without init value) has a constant value of 0 in block <Processor>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <MEM_EBR/Bo_9> (without init value) has a constant value of 0 in block <Processor>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <MEM_EBR/Bo_8> (without init value) has a constant value of 0 in block <Processor>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <MEM_EBR/Bo_7> (without init value) has a constant value of 0 in block <Processor>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <MEM_EBR/Bo_6> (without init value) has a constant value of 0 in block <Processor>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <MEM_EBR/Bo_5> (without init value) has a constant value of 0 in block <Processor>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <MEM_EBR/Bo_4> (without init value) has a constant value of 0 in block <Processor>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <MEM_EBR/Bo_3> (without init value) has a constant value of 0 in block <Processor>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <MEM_EBR/Bo_2> (without init value) has a constant value of 0 in block <Processor>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <MEM_EBR/Bo_0> (without init value) has a constant value of 0 in block <Processor>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <MEM_EBR/Bo_1> (without init value) has a constant value of 0 in block <Processor>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <BR_UAL/Ao_7> (without init value) has a constant value of 0 in block <Processor>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <BR_UAL/Ao_6> (without init value) has a constant value of 0 in block <Processor>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <BR_UAL/Ao_5> (without init value) has a constant value of 0 in block <Processor>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <BR_UAL/Ao_4> (without init value) has a constant value of 0 in block <Processor>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <BR_UAL/Ao_3> (without init value) has a constant value of 0 in block <Processor>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <BR_UAL/Ao_2> (without init value) has a constant value of 0 in block <Processor>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <BR_UAL/Ao_1> (without init value) has a constant value of 0 in block <Processor>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <BR_UAL/Ao_0> (without init value) has a constant value of 0 in block <Processor>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <BR_UAL/OPo_7> (without init value) has a constant value of 0 in block <Processor>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <BR_UAL/OPo_6> (without init value) has a constant value of 0 in block <Processor>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <UAL_MEM/Ao_5> (without init value) has a constant value of 0 in block <Processor>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <UAL_MEM/Ao_4> (without init value) has a constant value of 0 in block <Processor>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <UAL_MEM/Ao_3> (without init value) has a constant value of 0 in block <Processor>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <UAL_MEM/Ao_2> (without init value) has a constant value of 0 in block <Processor>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <UAL_MEM/Ao_1> (without init value) has a constant value of 0 in block <Processor>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <UAL_MEM/Ao_0> (without init value) has a constant value of 0 in block <Processor>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <UAL_MEM/OPo_7> (without init value) has a constant value of 0 in block <Processor>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <UAL_MEM/OPo_6> (without init value) has a constant value of 0 in block <Processor>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <UAL_MEM/OPo_5> (without init value) has a constant value of 0 in block <Processor>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <UAL_MEM/OPo_4> (without init value) has a constant value of 0 in block <Processor>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <UAL_MEM/OPo_3> (without init value) has a constant value of 0 in block <Processor>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <UAL_MEM/OPo_2> (without init value) has a constant value of 0 in block <Processor>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <UAL_MEM/OPo_1> (without init value) has a constant value of 0 in block <Processor>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <UAL_MEM/OPo_0> (without init value) has a constant value of 0 in block <Processor>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <UAL_MEM/Ao_6> (without init value) has a constant value of 0 in block <Processor>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <UAL_MEM/Ao_7> (without init value) has a constant value of 0 in block <Processor>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <MEM_EBR/Ao_3> (without init value) has a constant value of 0 in block <Processor>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <MEM_EBR/Ao_2> (without init value) has a constant value of 0 in block <Processor>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <MEM_EBR/Ao_1> (without init value) has a constant value of 0 in block <Processor>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <MEM_EBR/Ao_0> (without init value) has a constant value of 0 in block <Processor>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <MEM_EBR/OPo_7> (without init value) has a constant value of 0 in block <Processor>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <MEM_EBR/OPo_6> (without init value) has a constant value of 0 in block <Processor>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <MEM_EBR/OPo_5> (without init value) has a constant value of 0 in block <Processor>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <MEM_EBR/OPo_4> (without init value) has a constant value of 0 in block <Processor>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <MEM_EBR/OPo_3> (without init value) has a constant value of 0 in block <Processor>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <MEM_EBR/OPo_2> (without init value) has a constant value of 0 in block <Processor>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <MEM_EBR/OPo_1> (without init value) has a constant value of 0 in block <Processor>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <MEM_EBR/OPo_0> (without init value) has a constant value of 0 in block <Processor>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:2677 - Node <MEM_EBR/Co_15> of sequential type is unconnected in block <Processor>.
+WARNING:Xst:2677 - Node <MEM_EBR/Co_14> of sequential type is unconnected in block <Processor>.
+WARNING:Xst:2677 - Node <MEM_EBR/Co_13> of sequential type is unconnected in block <Processor>.
+WARNING:Xst:2677 - Node <MEM_EBR/Co_12> of sequential type is unconnected in block <Processor>.
+WARNING:Xst:2677 - Node <MEM_EBR/Co_11> of sequential type is unconnected in block <Processor>.
+WARNING:Xst:2677 - Node <MEM_EBR/Co_10> of sequential type is unconnected in block <Processor>.
+WARNING:Xst:2677 - Node <MEM_EBR/Co_9> of sequential type is unconnected in block <Processor>.
+WARNING:Xst:2677 - Node <MEM_EBR/Co_8> of sequential type is unconnected in block <Processor>.
+WARNING:Xst:2677 - Node <MEM_EBR/Co_7> of sequential type is unconnected in block <Processor>.
+WARNING:Xst:2677 - Node <MEM_EBR/Co_6> of sequential type is unconnected in block <Processor>.
+WARNING:Xst:2677 - Node <MEM_EBR/Co_5> of sequential type is unconnected in block <Processor>.
+WARNING:Xst:2677 - Node <MEM_EBR/Co_4> of sequential type is unconnected in block <Processor>.
+WARNING:Xst:2677 - Node <MEM_EBR/Co_3> of sequential type is unconnected in block <Processor>.
+WARNING:Xst:2677 - Node <MEM_EBR/Co_2> of sequential type is unconnected in block <Processor>.
+WARNING:Xst:2677 - Node <MEM_EBR/Co_1> of sequential type is unconnected in block <Processor>.
+WARNING:Xst:2677 - Node <MEM_EBR/Co_0> of sequential type is unconnected in block <Processor>.
+WARNING:Xst:2677 - Node <MEM_EBR/Ao_15> of sequential type is unconnected in block <Processor>.
+WARNING:Xst:2677 - Node <MEM_EBR/Ao_14> of sequential type is unconnected in block <Processor>.
+WARNING:Xst:2677 - Node <MEM_EBR/Ao_13> of sequential type is unconnected in block <Processor>.
+WARNING:Xst:2677 - Node <MEM_EBR/Ao_12> of sequential type is unconnected in block <Processor>.
+WARNING:Xst:2677 - Node <MEM_EBR/Ao_11> of sequential type is unconnected in block <Processor>.
+WARNING:Xst:2677 - Node <MEM_EBR/Ao_10> of sequential type is unconnected in block <Processor>.
+WARNING:Xst:2677 - Node <MEM_EBR/Ao_9> of sequential type is unconnected in block <Processor>.
+WARNING:Xst:2677 - Node <MEM_EBR/Ao_8> of sequential type is unconnected in block <Processor>.
+WARNING:Xst:2677 - Node <MEM_EBR/Ao_7> of sequential type is unconnected in block <Processor>.
+WARNING:Xst:2677 - Node <MEM_EBR/Ao_6> of sequential type is unconnected in block <Processor>.
+WARNING:Xst:2677 - Node <MEM_EBR/Ao_5> of sequential type is unconnected in block <Processor>.
+WARNING:Xst:2677 - Node <MEM_EBR/Ao_4> of sequential type is unconnected in block <Processor>.
+WARNING:Xst:2677 - Node <UAL_MEM/Co_15> of sequential type is unconnected in block <Processor>.
+WARNING:Xst:2677 - Node <UAL_MEM/Co_14> of sequential type is unconnected in block <Processor>.
+WARNING:Xst:2677 - Node <UAL_MEM/Co_13> of sequential type is unconnected in block <Processor>.
+WARNING:Xst:2677 - Node <UAL_MEM/Co_12> of sequential type is unconnected in block <Processor>.
+WARNING:Xst:2677 - Node <UAL_MEM/Co_11> of sequential type is unconnected in block <Processor>.
+WARNING:Xst:2677 - Node <UAL_MEM/Co_10> of sequential type is unconnected in block <Processor>.
+WARNING:Xst:2677 - Node <UAL_MEM/Co_9> of sequential type is unconnected in block <Processor>.
+WARNING:Xst:2677 - Node <UAL_MEM/Co_8> of sequential type is unconnected in block <Processor>.
+WARNING:Xst:2677 - Node <UAL_MEM/Co_7> of sequential type is unconnected in block <Processor>.
+WARNING:Xst:2677 - Node <UAL_MEM/Co_6> of sequential type is unconnected in block <Processor>.
+WARNING:Xst:2677 - Node <UAL_MEM/Co_5> of sequential type is unconnected in block <Processor>.
+WARNING:Xst:2677 - Node <UAL_MEM/Co_4> of sequential type is unconnected in block <Processor>.
+WARNING:Xst:2677 - Node <UAL_MEM/Co_3> of sequential type is unconnected in block <Processor>.
+WARNING:Xst:2677 - Node <UAL_MEM/Co_2> of sequential type is unconnected in block <Processor>.
+WARNING:Xst:2677 - Node <UAL_MEM/Co_1> of sequential type is unconnected in block <Processor>.
+WARNING:Xst:2677 - Node <UAL_MEM/Co_0> of sequential type is unconnected in block <Processor>.
+WARNING:Xst:2677 - Node <UAL_MEM/Ao_15> of sequential type is unconnected in block <Processor>.
+WARNING:Xst:2677 - Node <UAL_MEM/Ao_14> of sequential type is unconnected in block <Processor>.
+WARNING:Xst:2677 - Node <UAL_MEM/Ao_13> of sequential type is unconnected in block <Processor>.
+WARNING:Xst:2677 - Node <UAL_MEM/Ao_12> of sequential type is unconnected in block <Processor>.
+WARNING:Xst:2677 - Node <UAL_MEM/Ao_11> of sequential type is unconnected in block <Processor>.
+WARNING:Xst:2677 - Node <UAL_MEM/Ao_10> of sequential type is unconnected in block <Processor>.
+WARNING:Xst:2677 - Node <UAL_MEM/Ao_9> of sequential type is unconnected in block <Processor>.
+WARNING:Xst:2677 - Node <UAL_MEM/Ao_8> of sequential type is unconnected in block <Processor>.
+WARNING:Xst:2677 - Node <BR_UAL/Ao_15> of sequential type is unconnected in block <Processor>.
+WARNING:Xst:2677 - Node <BR_UAL/Ao_14> of sequential type is unconnected in block <Processor>.
+WARNING:Xst:2677 - Node <BR_UAL/Ao_13> of sequential type is unconnected in block <Processor>.
+WARNING:Xst:2677 - Node <BR_UAL/Ao_12> of sequential type is unconnected in block <Processor>.
+WARNING:Xst:2677 - Node <BR_UAL/Ao_11> of sequential type is unconnected in block <Processor>.
+WARNING:Xst:2677 - Node <BR_UAL/Ao_10> of sequential type is unconnected in block <Processor>.
+WARNING:Xst:2677 - Node <BR_UAL/Ao_9> of sequential type is unconnected in block <Processor>.
+WARNING:Xst:2677 - Node <BR_UAL/Ao_8> of sequential type is unconnected in block <Processor>.
+WARNING:Xst:2677 - Node <MI_BR/Co_15> of sequential type is unconnected in block <Processor>.
+WARNING:Xst:2677 - Node <MI_BR/Co_14> of sequential type is unconnected in block <Processor>.
+WARNING:Xst:2677 - Node <MI_BR/Co_13> of sequential type is unconnected in block <Processor>.
+WARNING:Xst:2677 - Node <MI_BR/Co_12> of sequential type is unconnected in block <Processor>.
+WARNING:Xst:2677 - Node <MI_BR/Co_11> of sequential type is unconnected in block <Processor>.
+WARNING:Xst:2677 - Node <MI_BR/Co_10> of sequential type is unconnected in block <Processor>.
+WARNING:Xst:2677 - Node <MI_BR/Co_9> of sequential type is unconnected in block <Processor>.
+WARNING:Xst:2677 - Node <MI_BR/Co_8> of sequential type is unconnected in block <Processor>.
+WARNING:Xst:2677 - Node <MI_BR/Co_7> of sequential type is unconnected in block <Processor>.
+WARNING:Xst:2677 - Node <MI_BR/Co_6> of sequential type is unconnected in block <Processor>.
+WARNING:Xst:2677 - Node <MI_BR/Co_5> of sequential type is unconnected in block <Processor>.
+WARNING:Xst:2677 - Node <MI_BR/Co_4> of sequential type is unconnected in block <Processor>.
+WARNING:Xst:2677 - Node <MI_BR/Co_3> of sequential type is unconnected in block <Processor>.
+WARNING:Xst:2677 - Node <MI_BR/Co_2> of sequential type is unconnected in block <Processor>.
+WARNING:Xst:2677 - Node <MI_BR/Co_1> of sequential type is unconnected in block <Processor>.
+WARNING:Xst:2677 - Node <MI_BR/Co_0> of sequential type is unconnected in block <Processor>.
+WARNING:Xst:2677 - Node <MI_BR/Ao_15> of sequential type is unconnected in block <Processor>.
+WARNING:Xst:2677 - Node <MI_BR/Ao_14> of sequential type is unconnected in block <Processor>.
+WARNING:Xst:2677 - Node <MI_BR/Ao_13> of sequential type is unconnected in block <Processor>.
+WARNING:Xst:2677 - Node <MI_BR/Ao_12> of sequential type is unconnected in block <Processor>.
+WARNING:Xst:2677 - Node <MI_BR/Ao_11> of sequential type is unconnected in block <Processor>.
+WARNING:Xst:2677 - Node <MI_BR/Ao_10> of sequential type is unconnected in block <Processor>.
+WARNING:Xst:2677 - Node <MI_BR/Ao_9> of sequential type is unconnected in block <Processor>.
+WARNING:Xst:2677 - Node <MI_BR/Ao_8> of sequential type is unconnected in block <Processor>.
+WARNING:Xst:1898 - Due to constant pushing, FF/Latch <MEM/Mram_memoire> is unconnected in block <Processor>.
+WARNING:Xst:1898 - Due to constant pushing, FF/Latch <ALU/Mmult_A[15]_B[15]_MuLt_5_OUT> is unconnected in block <Processor>.
+
+Mapping all equations...
+Building and optimizing final netlist ...
+Found area constraint ratio of 100 (+ 5) on block Processor, actual ratio is 0.
+
+Final Macro Processing ...
+
+=========================================================================
+Final Register Report
+
+Found no macro
+=========================================================================
+
+=========================================================================
+*                           Partition Report                            *
+=========================================================================
+
+Partition Implementation Status
+-------------------------------
+
+  No Partitions were found in this design.
+
+-------------------------------
+
+=========================================================================
+*                            Design Summary                             *
+=========================================================================
+
+Top Level Output File Name         : Processor.ngc
+
+Primitive and Black Box Usage:
+------------------------------
+# BELS                             : 1
+#      GND                         : 1
+# IO Buffers                       : 21
+#      OBUF                        : 21
+
+Device utilization summary:
+---------------------------
+
+Selected Device : 7a8csg324-3 
+
+
+Slice Logic Utilization: 
+
+Slice Logic Distribution: 
+ Number of LUT Flip Flop pairs used:      0
+   Number with an unused Flip Flop:       0  out of      0         
+   Number with an unused LUT:             0  out of      0         
+   Number of fully used LUT-FF pairs:     0  out of      0         
+   Number of unique control sets:         0
+
+IO Utilization: 
+ Number of IOs:                          22
+ Number of bonded IOBs:                  21  out of    200    10%  
+
+Specific Feature Utilization:
+
+---------------------------
+Partition Resource Summary:
+---------------------------
+
+  No Partitions were found in this design.
+
+---------------------------
+
+
+=========================================================================
+Timing Report
+
+NOTE: THESE TIMING NUMBERS ARE ONLY A SYNTHESIS ESTIMATE.
+      FOR ACCURATE TIMING INFORMATION PLEASE REFER TO THE TRACE REPORT
+      GENERATED AFTER PLACE-and-ROUTE.
+
+Clock Information:
+------------------
+No clock signals found in this design
+
+Asynchronous Control Signals Information:
+----------------------------------------
+No asynchronous control signals found in this design
+
+Timing Summary:
+---------------
+Speed Grade: -3
+
+   Minimum period: No path found
+   Minimum input arrival time before clock: No path found
+   Maximum output required time after clock: No path found
+   Maximum combinational path delay: No path found
+
+Timing Details:
+---------------
+All values displayed in nanoseconds (ns)
+
+=========================================================================
+
+Cross Clock Domains Report:
+--------------------------
+
+=========================================================================
+
+
+Total REAL time to Xst completion: 9.00 secs
+Total CPU time to Xst completion: 8.32 secs
+ 
 --> 
 
 
-Total memory usage is 345296 kilobytes
+Total memory usage is 506896 kilobytes
 
-Number of errors   :    5 (   0 filtered)
-Number of warnings :    0 (   0 filtered)
-Number of infos    :    1 (   0 filtered)
+Number of errors   :    0 (   0 filtered)
+Number of warnings :  308 (   0 filtered)
+Number of infos    :    8 (   0 filtered)
 

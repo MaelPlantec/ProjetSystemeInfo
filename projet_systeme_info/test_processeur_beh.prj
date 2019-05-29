@@ -1,0 +1,8 @@
+vhdl work "ual.vhd"
+vhdl work "pipeline.vhd"
+vhdl work "MUX.vhd"
+vhdl work "memoireDonnees.vhd"
+vhdl work "decodeur.vhd"
+vhdl work "BR.vhd"
+vhdl work "processor.vhd"
+vhdl work "test_processeur.vhd"

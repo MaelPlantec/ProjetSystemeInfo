@@ -41,14 +41,18 @@ end decodeur;
 
 architecture Behavioral of decodeur is
 	Signal opInter: STD_LOGIC_VECTOR(Npartie-1 downto 0);
-	constant zero: STD_LOGIC_VECTOR(Nsys-1 downto 0):= (others => '0');
+	constant zero: STD_LOGIC_VECTOR(Nsys-1 downto 0) := (others => '0');
+	constant undefined: STD_LOGIC_VECTOR(Nsys-1 downto 0) := (others => 'X');
 begin
-	opInter <= ins(Nins-1 downto Nins-1-Npartie);
+	opInter <= ins((Nins-1) downto (Nins-Npartie));
 	OP <= opInter;
-	A <= ins(Nins-1-Npartie downto Nins-1-3*Npartie) when opInter=x"08" or opInter=x"0E" or opInter=x"0F" else 
-		zero(Npartie-1 downto 0) & ins(Nins-1-Npartie downto Nins-1-2*Npartie);
-	B <= 
-	C <= 
+	A <= ins(Nins-1-Npartie downto Nins-3*Npartie) when opInter=x"08" or opInter=x"0E" or opInter=x"0F" else 
+		zero(Npartie-1 downto 0) & ins(Nins-1-Npartie downto Nins-2*Npartie);
+	B <= undefined when opInter=x"0E" or opInter=x"0F" else
+		ins(Nins-1-2*Npartie downto 0) when opInter=x"06" or opInter=x"07" else
+		zero(Npartie-1 downto 0) & ins(Nins-1-3*Npartie downto 0) when opInter=x"08" else
+		zero(Npartie-1 downto 0) & ins(Nins-1-2*Npartie downto Nins-3*Npartie);
+	C <= undefined when opInter=x"05" or opInter=x"0E" or opInter=x"06" or opInter=x"07" or opInter=x"08" else
+		zero(Npartie-1 downto 0) & ins(Nins-1-3*Npartie downto 0);
 
 end Behavioral;
-
