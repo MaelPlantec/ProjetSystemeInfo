@@ -30,25 +30,46 @@ void ta_text ()
   {
     while (i < ta_index)
     {
-      fputs(ta[i].OPE, file);
-      fputs("\t", file);
+      char ope[2];
+      switch (ta[i].OP) {
+        case "ADD" :
+          ope = "01";
+          break;
+        case "MUL" :
+          ope = "02";
+          break;
+        case "SOU" :
+          ope = "03";
+          break;
+        case "DIV" :
+          ope = "04";
+          break;
+        case "AFC" :
+          ope = "06";
+          break;
+        case "LOAD" :
+          ope = "07";
+          break;
+        case "STORE" :
+          ope = "08";
+          break;
+      }
+      fputs(ope, file);
 
-      char a[6];
-      sprintf(a, "%d", ta[i].A);
+      char a[2];
+      sprintf(a, "%02d", ta[i].A);
       fputs(a, file);
 
       if (ta[i].B != -1)
       {
-        fputs(" ", file);
-        char b[6];
-        sprintf(b, "%d", ta[i].B);
+        char b[2];
+        sprintf(b, "%02d", ta[i].B);
         fputs(b, file);
       }
       if (ta[i].C != -1)
       {
-        fputs(" ", file);
-        char c[6];
-        sprintf(c, "%d", ta[i].C);
+        char c[2];
+        sprintf(c, "%02d", ta[i].C);
         fputs(c, file);
       }
       fputs("\n", file);
