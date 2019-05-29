@@ -39,7 +39,8 @@ entity Processor is
 		--ins_di: in STD_LOGIC_VECTOR(Nins-1 downto 0);
 		addrWout: out STD_LOGIC_VECTOR(Naddr-1 downto 0);
 		Wout: out STD_LOGIC;
-		DATAout: out STD_LOGIC_VECTOR(Nsys-1 downto 0)
+		DATAout: out STD_LOGIC_VECTOR(Nsys-1 downto 0);
+		EN: in STD_LOGIC
 	 );
 end Processor;
 
@@ -116,7 +117,7 @@ architecture Behavioral of Processor is
 	
 	Signal MI_BRout, BRout, muxBRout, muxEBRout, BR_UALout, ALUout, muxALUout, UAL_MEMout, MEMout, muxMEMout, MEM_EBRout, DECout : FormatDeDonnees;
 	Signal W, RST, selecBR, selecALU, selecEBR, dataW, selecMEM: STD_LOGIC;
-	Signal IP: STD_LOGIC_VECTOR(Nsys-1 downto 0) ;
+	Signal IP: STD_LOGIC_VECTOR(Nsys-1 downto 0) := (others => '0');
 	Signal ins_di: STD_LOGIC_VECTOR(Nins-1 downto 0);
 	-- Signal ins_di: STD_LOGIC_VECTOR(Nins-1 downto 0);
 begin
@@ -125,7 +126,9 @@ begin
 	begin
 		wait until Ck'event and Ck='1';
 		-- Puisqu'on n'a pas de jump, on incrémente juste de 1 
-		IP <= IP + x"01";
+		if EN = '1' then
+			IP <= IP + x"01";
+		end if;
 	end process;
 	
 	-- Mémoire d'instructions

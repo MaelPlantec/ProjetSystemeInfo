@@ -4,18 +4,18 @@ Copyright (c) 1995-2011 Xilinx, Inc.  All rights reserved.
 Parameter TMPDIR set to /home/feuillet/Bureau/4A/S2/Projet info/projet_systeme_info/xst/projnav.tmp
 
 
-Total REAL time to Xst completion: 0.00 secs
-Total CPU time to Xst completion: 0.07 secs
+Total REAL time to Xst completion: 1.00 secs
+Total CPU time to Xst completion: 0.08 secs
  
 --> 
 Parameter xsthdpdir set to /home/feuillet/Bureau/4A/S2/Projet info/projet_systeme_info/xst
 
 
-Total REAL time to Xst completion: 0.00 secs
-Total CPU time to Xst completion: 0.07 secs
+Total REAL time to Xst completion: 1.00 secs
+Total CPU time to Xst completion: 0.08 secs
  
 --> 
-Reading design: Processor.prj
+Reading design: memIns.prj
 
 TABLE OF CONTENTS
   1) Synthesis Options Summary
@@ -46,39 +46,18 @@ INFO:Xst - Part-select index evaluated to out of bound value may lead to incorre
 Parsing VHDL file "/home/feuillet/Bureau/4A/S2/Projet info/projet_systeme_info/common.vhd" into library work
 Parsing package <common>.
 Parsing package body <common>.
-Parsing VHDL file "/home/feuillet/Bureau/4A/S2/Projet info/projet_systeme_info/ual.vhd" into library work
-Parsing entity <ual>.
-Parsing architecture <Behavioral> of entity <ual>.
-Parsing VHDL file "/home/feuillet/Bureau/4A/S2/Projet info/projet_systeme_info/pipeline.vhd" into library work
-Parsing entity <Pipeline>.
-Parsing architecture <Behavioral> of entity <pipeline>.
-Parsing VHDL file "/home/feuillet/Bureau/4A/S2/Projet info/projet_systeme_info/MUX.vhd" into library work
-Parsing entity <MUX>.
-Parsing architecture <Behavioral> of entity <mux>.
-Parsing VHDL file "/home/feuillet/Bureau/4A/S2/Projet info/projet_systeme_info/memoireDonnees.vhd" into library work
-Parsing entity <memoireDonnees>.
-Parsing architecture <Behavioral> of entity <memoiredonnees>.
 Parsing VHDL file "/home/feuillet/Bureau/4A/S2/Projet info/projet_systeme_info/memIns.vhd" into library work
 Parsing entity <memIns>.
 Parsing architecture <Behavioral> of entity <memins>.
-Parsing VHDL file "/home/feuillet/Bureau/4A/S2/Projet info/projet_systeme_info/decodeur.vhd" into library work
-Parsing entity <decodeur>.
-Parsing architecture <Behavioral> of entity <decodeur>.
-Parsing VHDL file "/home/feuillet/Bureau/4A/S2/Projet info/projet_systeme_info/BR.vhd" into library work
-Parsing entity <BR>.
-Parsing architecture <Behavioral> of entity <br>.
-Parsing VHDL file "/home/feuillet/Bureau/4A/S2/Projet info/projet_systeme_info/processor.vhd" into library work
-Parsing entity <Processor>.
-Parsing architecture <Behavioral> of entity <processor>.
 
 
 Total REAL time to Xst completion: 6.00 secs
-Total CPU time to Xst completion: 5.20 secs
+Total CPU time to Xst completion: 5.06 secs
  
 --> 
 
 
-Total memory usage is 337092 kilobytes
+Total memory usage is 335896 kilobytes
 
 Number of errors   :    0 (   0 filtered)
 Number of warnings :    0 (   0 filtered)

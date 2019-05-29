@@ -42,17 +42,14 @@ ARCHITECTURE behavior OF test_processeur IS
     COMPONENT Processor
     PORT(
          Ck : IN  std_logic;
-         ins_di : IN  std_logic_vector(31 downto 0)
+			EN: in STD_LOGIC
         );
     END COMPONENT;
     
 
    --Inputs
    signal Ck : std_logic := '0';
-   signal ins_di : std_logic_vector(31 downto 0) := (others => '0');
-   -- No clocks detected in port list. Replace <clock> below with 
-   -- appropriate port name 
- 
+	signal EN : std_logic := '0';
    constant Ck_period : time := 10 ns;
  
 BEGIN
@@ -60,7 +57,7 @@ BEGIN
 	-- Instantiate the Unit Under Test (UUT)
    uut: Processor PORT MAP (
           Ck => Ck,
-          ins_di => ins_di
+			 EN => EN
         );
 
    -- Clock process definitions
@@ -78,22 +75,9 @@ BEGIN
    begin		
       -- hold reset state for 100 ns.
       wait for 100 ns;	
-		-- AFC R1 0005
-		ins_di <= x"06010005";
+		EN <= '1';
 		
-		wait for 100 ns;	
-		-- AFC R2 000a
-		ins_di <= x"0602000a";
-
-		wait for 100ns;
-		-- ADD R3 = R1 + R2
-		ins_di <= x"01030102";
-		
-		wait for 100 ns;	
-		-- STORE 00 R3
-		ins_di <= x"08000003";
-		
-
+		wait for Ck_period*5;
       wait;
    end process;
 

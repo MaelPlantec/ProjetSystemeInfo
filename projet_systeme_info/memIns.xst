@@ -2,7 +2,7 @@ set -tmpdir "/home/feuillet/Bureau/4A/S2/Projet info/projet_systeme_info/xst/pro
 set -xsthdpdir "/home/feuillet/Bureau/4A/S2/Projet info/projet_systeme_info/xst"
 run -compileonly yes
 -p xc7a8-3-csg324
--top Processor
+-top memIns
 -opt_mode Speed
 -opt_level 1
 -power NO
@@ -47,4 +47,4 @@ run -compileonly yes
 -iob Auto
 -equivalent_register_removal YES
 -slice_utilization_ratio_maxmargin 5
--ifn Processor.prj
+-ifn memIns.prj
