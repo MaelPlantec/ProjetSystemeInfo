@@ -50,8 +50,6 @@ begin
 		-- On lit si on n'écrit pas
 		if data_write = '0' then 
 			data_in <= memoire(to_integer(unsigned(data_addr)));
-		else 
-		data_in <= x"FFFF";
 		end if;
 		-- Si w='1', on écrit
 		if data_write = '1' then

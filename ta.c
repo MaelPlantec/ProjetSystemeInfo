@@ -63,12 +63,11 @@ void ta_hexa ()
   int i = 0;
   FILE* file = NULL;
   file = fopen("hexa.txt", "w");
-  if (file != NULL)
+  if (file != NULL) {
   char nope[8];
   strcpy(nope, "FFFFFFFF");
   fputs(nope, file);
-  fputs("\n",file)
-  {
+  fputs("\n",file);
     while (i < ta_index)
     {
       char ope[2];

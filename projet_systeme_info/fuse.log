@@ -15,7 +15,7 @@ Parsing VHDL file "/home/feuillet/Bureau/4A/S2/Projet info/projet_systeme_info/p
 Parsing VHDL file "/home/feuillet/Bureau/4A/S2/Projet info/projet_systeme_info/test_processeur.vhd" into library work
 Starting static elaboration
 Completed static elaboration
-Fuse Memory Usage: 98448 KB
+Fuse Memory Usage: 98316 KB
 Fuse CPU Usage: 1030 ms
 Compiling package standard
 Compiling package std_logic_1164
@@ -38,6 +38,6 @@ Time Resolution for simulation is 1ps.
 Waiting for 1 sub-compilation(s) to finish...
 Compiled 25 VHDL Units
 Built simulation executable /home/feuillet/Bureau/4A/S2/Projet info/projet_systeme_info/test_processeur_isim_beh.exe
-Fuse Memory Usage: 680884 KB
+Fuse Memory Usage: 680872 KB
 Fuse CPU Usage: 1240 ms
-GCC CPU Usage: 120 ms
+GCC CPU Usage: 130 ms

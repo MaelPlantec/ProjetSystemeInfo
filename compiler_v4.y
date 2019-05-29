@@ -280,6 +280,6 @@ int main() {
 
 	yyparse();
 
-	ta_text();
+	ta_hexa();
 	ts_text();
 }
