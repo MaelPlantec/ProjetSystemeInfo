@@ -20,7 +20,7 @@ y.int.c : interpreteur.y Makefile
 
 
 test : compiler input_string inter
-	./compiler_v4 < input_string.c
+	./compiler_v4 < input_string
 	./interpreteur < instructions.asm
 
 clear :

@@ -1,0 +1,22 @@
+Running: /usr/local/insa/Xilinx.ISE/13.4/ISE_DS/ISE/bin/lin64/unwrapped/fuse -intstyle ise -incremental -lib secureip -o /home/feuillet/Bureau/4A/S2/Projet info/projet_systeme_info/test_mux_isim_beh.exe -prj /home/feuillet/Bureau/4A/S2/Projet info/projet_systeme_info/test_mux_beh.prj work.test_mux 
+ISim O.87xd (signature 0x8ddf5b5d)
+Number of CPUs detected in this system: 4
+Turning on mult-threading, number of parallel sub-compilation jobs: 8 
+Determining compilation order of HDL files
+Parsing VHDL file "/home/feuillet/Bureau/4A/S2/Projet info/projet_systeme_info/MUX.vhd" into library work
+Parsing VHDL file "/home/feuillet/Bureau/4A/S2/Projet info/projet_systeme_info/test_mux.vhd" into library work
+Starting static elaboration
+Completed static elaboration
+Fuse Memory Usage: 94612 KB
+Fuse CPU Usage: 830 ms
+Compiling package standard
+Compiling package std_logic_1164
+Compiling architecture behavioral of entity MUX [\MUX(16)\]
+Compiling architecture behavior of entity test_mux
+Time Resolution for simulation is 1ps.
+Waiting for 1 sub-compilation(s) to finish...
+Compiled 5 VHDL Units
+Built simulation executable /home/feuillet/Bureau/4A/S2/Projet info/projet_systeme_info/test_mux_isim_beh.exe
+Fuse Memory Usage: 660332 KB
+Fuse CPU Usage: 850 ms
+GCC CPU Usage: 110 ms

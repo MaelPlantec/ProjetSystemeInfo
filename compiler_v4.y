@@ -17,8 +17,8 @@
 %type <nb> Comparaison
 %type <nb> Condition
 %type <nb> tIF
-%type <nb> While
-%type <nb> tWhile
+%type <nb> tWHILE
+%type <nb> Vide
 
 %right tEGAL
 %left tPLUS tMOINS
@@ -55,8 +55,8 @@ DConstSuite : tID tEGAL E {
 	ts_pop();
 	int addr_id = ts_declaration($1, CONST_INT);
 	if(addr_id == -1) {
-		printf("Erreur : Déclaration, variable déjà créée.");
-		exit(0); }
+		yyerror("Erreur : Déclaration, variable déjà créée.");
+	}
 	ta_add("LOAD", 0, $3, -1);
 	ta_add("STORE", addr_id, 0, -1);
 	}
@@ -70,17 +70,18 @@ DConstSuite2 : tVIRG DConstSuite DConstSuite2
 DInt : tINT DIntSuite DIntSuite2
 		;
 
-DIntSuite : tID {
-	if(ts_declaration($1, INT) == -1) {
-		printf("Erreur : Déclaration, variable déjà créée.");
-		exit(0); }
+DIntSuite : tID
+	{
+		if(ts_declaration($1, INT) == -1) {
+			yyerror("Erreur : Déclaration, variable déjà créée.");
+		}
 	}
 	| tID tEGAL E {
 		ts_pop();
 		int addr_id = ts_declaration($1, INT);
 		if(addr_id == -1) {
-			printf("Erreur : Déclaration, variable déjà créée.");
-			exit(0); }
+			yyerror("Erreur : Déclaration, variable déjà créée.");
+		}
 			ta_add("LOAD", 0, $3, -1);
 			ta_add("STORE", addr_id, 0, -1);
 		}
@@ -94,8 +95,8 @@ Affectation : tID tEGAL E {
 	ts_pop();
 	int addr_id = ts_get_addr($1);
 	if(addr_id == -1) {
-		printf("Erreur : Déclaration, variable non déclarée.");
-		exit(0); }
+		yyerror("Erreur : Déclaration, variable non déclarée.");
+  }
 	ta_add("LOAD", $3, 0, -1);
 	ta_add("STORE", addr_id, 0, -1);
 	}
@@ -106,10 +107,17 @@ Condition : tPARO Comparaison tPARF {
 	}
 		;
 
-Comparaison : E tEGAL tEGAL E {
+Comparaison : E {
+	ta_add("LOAD", 0, $1, -1);
+	ta_add("AFC", 1, 1, -1);
+	ta_add("EQU", 0, 0, 1);
+	ta_add("STORE", $1, 0, -1);
+	$$ = $1;
+	}
+	| E tEGAL tEGAL E {
 	ta_add("LOAD", 0, $1, -1);
 	ta_add("LOAD", 1, $4, -1);
-	ta_add("INF", 0, 0, 1);
+	ta_add("EQU", 0, 0, 1);
 	ta_add("STORE", $1, 0, -1);
 	$$ = $1;
 	ts_pop();
@@ -117,7 +125,7 @@ Comparaison : E tEGAL tEGAL E {
 	| E tINF E {
 	ta_add("LOAD", 0, $1, -1);
 	ta_add("LOAD", 1, $3, -1);
-	ta_add("INFE", 0, 0, 1);
+	ta_add("INF", 0, 0, 1);
 	ta_add("STORE", $1, 0, -1);
 	$$ = $1;
 	ts_pop();
@@ -125,7 +133,7 @@ Comparaison : E tEGAL tEGAL E {
 		| E tSUP E {
 		ta_add("LOAD", 0, $1, -1);
 		ta_add("LOAD", 1, $3, -1);
-		ta_add("INF", 0, 0, 1);
+		ta_add("SUP", 0, 0, 1);
 		ta_add("STORE", $1, 0, -1);
 		$$ = $1;
 		ts_pop();
@@ -133,7 +141,7 @@ Comparaison : E tEGAL tEGAL E {
 		| E tINFEG E {
 		ta_add("LOAD", 0, $1, -1);
 		ta_add("LOAD", 1, $3, -1);
-		ta_add("SUP", 0, 0, 1);
+		ta_add("INFE", 0, 0, 1);
 		ta_add("STORE", $1, 0, -1);
 		$$ = $1;
 		ts_pop();
@@ -180,6 +188,7 @@ E : E tPLUS E {
 			ta_add("LOAD", 0, $2, -1);
 			ta_add("AFC", 1, 0, -1);
 			ta_add("SOU", 0, 1, 0);
+			ta_add("STORE", $2, 0, -1);
 			$$ = $2;
 			}
 		| tPARO E tPARF {
@@ -193,6 +202,9 @@ E : E tPLUS E {
 		}
 		| tID {
 			int addr_id = ts_get_addr($1);
+			if(addr_id == -1) {
+				yyerror("Erreur : Déclaration, variable non déclarée.");
+		  }
 			ta_add("LOAD", 0, addr_id, -1);
 			int addr_tmp = ts_add_tmp();
 			ta_add("STORE", addr_tmp, 0, -1);
@@ -230,28 +242,37 @@ If : tIF Condition
 
 IfSuite :
  	tELSE Body
+	| tELSE If
 	|
 	;
 
-While : tWHILE
-	{
-		$$ = ta_index;
-	}
-	Condition
-	{
-		ta_add("LOAD", 0, $3, -1);
-		ta_add("JMPC", 0, 0);
-		ts_pop();
-		$1 = ta_index-1;
-	}
-	Body
-	{
-		ta_add("JMP", $$, -1, -1);
-		ta_update_jmp($1, ta_index);
-	}
+While : tWHILE Vide
+    {
+        $2 = ta_index;
+    }
+    Condition
+    {
+        ta_add("LOAD", 0, $4, -1);
+        ta_add("JMPC", 0, 0, -1);
+        ts_pop();
+        $1 = ta_index-1;
+    }
+    Body
+    {
+        ta_add("JMP", $2, -1, -1);
+        ta_update_jmp($1, ta_index);
+    }
+        ;
+Vide:
+{$$ = 0;}
 	;
 
 %%
+
+void yyerror(char* msg) {
+	printf("%s\n", msg);
+	exit(1);
+}
 
 int main() {
 	ta_init();

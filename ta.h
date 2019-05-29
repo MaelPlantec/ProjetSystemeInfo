@@ -25,8 +25,10 @@ void ta_init (void);
 
 void ta_add (char* OPE, int A, int B, int C);
 
-void ta_update_jmp(int indice_jmp);
+void ta_update_jmp(int indice_jmp, int addr);
 
 void ta_text (void);
+
+void ta_hexa (void);
 
 #endif  /* TA_H */

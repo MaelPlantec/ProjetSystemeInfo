@@ -8,7 +8,6 @@ compiler_v1 : Règles du langage C simplifié
 - printf
 
 compiler_v2 : Gestion de la profondeur, et début de la table des symboles.
---> Elle sert à rien cette version non ?
 
 compiler_v3 : Utilisation de la table des symboles et génération de l'assembleur.
 
