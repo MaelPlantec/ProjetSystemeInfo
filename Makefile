@@ -1,4 +1,4 @@
-all: compiler interpreteur
+all: compiler inter
 
 compiler : y.tab.c lex.yy.c ts.c ta.c
 	gcc lex.yy.c y.tab.c ts.c ta.c -o compiler_v4 -ly -ll
@@ -21,7 +21,7 @@ y.int.c : interpreteur.y Makefile
 
 test : compiler input_string inter
 	./compiler_v4 < input_string
-	./interpreteur < instructions.asm
+	./interpreteur < asm.txt
 
 clear :
 	rm lex*

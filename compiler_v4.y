@@ -278,8 +278,11 @@ int main() {
 	ta_init();
 	ts_init();
 
+
 	yyparse();
 
+
+	ta_text();
 	ta_hexa();
 	ts_text();
 }

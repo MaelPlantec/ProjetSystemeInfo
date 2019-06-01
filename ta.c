@@ -64,13 +64,19 @@ void ta_hexa ()
   FILE* file = NULL;
   file = fopen("hexa.txt", "w");
   if (file != NULL) {
-  char nope[8];
+  char nope[9];
+      printf("DEBUG : hexa - 0.\n");
   strcpy(nope, "FFFFFFFF");
+      printf("DEBUG : hexa - 1.\n");
+
   fputs(nope, file);
+      printf("DEBUG : hexa - 2.\n");
+
   fputs("\n",file);
+
     while (i < ta_index)
     {
-      char ope[2];
+      char ope[3];
       if (strcmp(ta[i].OPE, "ADD") == 0) {
         strcpy(ope, "01");
       }
@@ -94,19 +100,20 @@ void ta_hexa ()
       }
       fputs(ope, file);
 
-      char a[2];
+
+      char a[3];
       sprintf(a, "%02d", ta[i].A);
       fputs(a, file);
 
       if (ta[i].B != -1)
       {
-        char b[2];
+        char b[3];
         sprintf(b, "%02d", ta[i].B);
         fputs(b, file);
       }
       if (ta[i].C != -1)
       {
-        char c[2];
+        char c[3];
         sprintf(c, "%02d", ta[i].C);
         fputs(c, file);
       }

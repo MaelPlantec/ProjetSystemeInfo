@@ -1,3 +1,0 @@
-AFC	0 1
-STORE	0 0
-PRT	0
