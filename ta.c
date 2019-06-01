@@ -65,12 +65,9 @@ void ta_hexa ()
   file = fopen("hexa.txt", "w");
   if (file != NULL) {
   char nope[9];
-      printf("DEBUG : hexa - 0.\n");
   strcpy(nope, "FFFFFFFF");
-      printf("DEBUG : hexa - 1.\n");
 
   fputs(nope, file);
-      printf("DEBUG : hexa - 2.\n");
 
   fputs("\n",file);
 
@@ -111,10 +108,20 @@ void ta_hexa ()
         sprintf(b, "%02d", ta[i].B);
         fputs(b, file);
       }
+      else {
+        char b[3];
+        strcpy(b, "00");
+        fputs(b, file);
+      }
       if (ta[i].C != -1)
       {
         char c[3];
         sprintf(c, "%02d", ta[i].C);
+        fputs(c, file);
+      }
+      else {
+        char c[3];
+        strcpy(c, "00");
         fputs(c, file);
       }
       fputs("\n", file);
