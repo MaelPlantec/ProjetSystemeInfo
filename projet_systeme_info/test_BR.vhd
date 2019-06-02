@@ -1,44 +1,18 @@
---------------------------------------------------------------------------------
--- Company: 
--- Engineer:
+----------------------------------------------------------------------------------
+-- Ecole : 					INSA Toulouse
+-- Etudiants : 			Laure FEUILLET et Maël PLANTEC
 --
--- Create Date:   08:40:14 05/13/2019
--- Design Name:   
--- Module Name:   /home/feuillet/Bureau/4A/S2/Projet info/projet_systeme_info/test_BR.vhd
--- Project Name:  projet_systeme_info
--- Target Device:  
--- Tool versions:  
--- Description:   
--- 
--- VHDL Test Bench Created by ISE for module: BR
--- 
--- Dependencies:
--- 
--- Revision:
--- Revision 0.01 - File Created
--- Additional Comments:
---
--- Notes: 
--- This testbench has been automatically generated using types std_logic and
--- std_logic_vector for the ports of the unit under test.  Xilinx recommends
--- that these types always be used for the top-level I/O of a design in order
--- to guarantee that the testbench will bind correctly to the post-implementation 
--- simulation model.
---------------------------------------------------------------------------------
+-- Nom du projet :	Projet Système Informatique
+-- Module :	        Test du banc de registres
+----------------------------------------------------------------------------------
 LIBRARY ieee;
 USE ieee.std_logic_1164.ALL;
- 
--- Uncomment the following library declaration if using
--- arithmetic functions with Signed or Unsigned values
---USE ieee.numeric_std.ALL;
- 
+
 ENTITY test_BR IS
 END test_BR;
- 
-ARCHITECTURE behavior OF test_BR IS 
- 
+
+ARCHITECTURE behavior OF test_BR IS
     -- Component Declaration for the Unit Under Test (UUT)
-		 
 	COMPONENT BR
 		generic (Nsys:natural := 16; Naddr:natural := 4);
 		Port (  Ck: in std_logic;
@@ -53,34 +27,29 @@ ARCHITECTURE behavior OF test_BR IS
 				  );
 
 	END COMPONENT;
-    
 
-   --Inputs
-	constant Nsys:natural:=16;
-	constant Naddr:natural:=4;
-	
+  -- Constantes
+  constant Nsys:natural := 16;
+	constant Naddr:natural := 4;
+  -- Inputs
 	signal Ck : std_logic := '0';
-   signal RST : std_logic := '0';
-   signal addrA : std_logic_vector(Naddr-1 downto 0) := (others => '0');
-   signal addrB : std_logic_vector(Naddr-1 downto 0) := (others => '0');
-   signal addrW : std_logic_vector(Naddr-1 downto 0) := (others => '0');
-   signal W : std_logic := '0';
-   signal DATA : std_logic_vector(Nsys-1 downto 0) := (others => '0');
-
- 	--Outputs
-   signal QA : std_logic_vector(Nsys-1 downto 0);
-   signal QB : std_logic_vector(Nsys-1 downto 0);
-   -- No clocks detected in port list. Replace <clock> below with 
-   -- appropriate port name 
-	
+  signal RST : std_logic := '0';
+  signal addrA : std_logic_vector(Naddr-1 downto 0) := (others => '0');
+  signal addrB : std_logic_vector(Naddr-1 downto 0) := (others => '0');
+  signal addrW : std_logic_vector(Naddr-1 downto 0) := (others => '0');
+  signal W : std_logic := '0';
+  signal DATA : std_logic_vector(Nsys-1 downto 0) := (others => '0');
+ 	-- Outputs
+  signal QA : std_logic_vector(Nsys-1 downto 0);
+  signal QB : std_logic_vector(Nsys-1 downto 0);
+  -- Clock
 	constant Ck_period : time := 10 ns;
-  
+
 BEGIN
- 
 	-- Instantiate the Unit Under Test (UUT)
-   uut: BR
+  uut: BR
 	PORT MAP (
-			 Ck => Ck,
+			    Ck => Ck,
           RST => RST,
           addrA => addrA,
           addrB => addrB,
@@ -88,9 +57,8 @@ BEGIN
           QB => QB,
           addrW => addrW,
           W => W,
-          DATA => DATA
-        );
-	
+          DATA => DATA);
+
 	-- Clock process definitions
    Ck_process :process
    begin
@@ -102,49 +70,41 @@ BEGIN
 
    -- Stimulus process
    stim_proc: process
-   begin		
-      -- hold reset state for 100 ns.
-      wait for 100 ns;	
-		
+   begin
+    -- hold reset state for 100 ns.
+    wait for 100 ns;
 		RST <= '1';
-		
-		wait for 100 ns;
-		
+
+    wait for 100 ns;
 		-- QA = 0000
 		addrA <= x"1";
 		-- QB = 0000
 		addrB <= x"2";
-		
-		wait for 100 ns;
-		
+
+    wait for 100 ns;
 		-- Rien
 		W <= '1';
 		addrA <= x"3";
 		addrW <= x"4";
 		DATA <= x"1111";
-		
-		wait for 100 ns;
-		
+
+    wait for 100 ns;
 		-- QA = x"1111"
 		W <= '0';
 		addrA <= x"4";
-		
 		wait for 100 ns;
-		
+
 		-- QB = 3333
 		W <= '1';
 		addrA <= x"5";
 		addrW <= x"6";
 		addrB <= x"6";
 		DATA <= x"3333";
-		
-		wait for 100 ns;
-		
+
+    wait for 100 ns;
 		RST <= '0';
 		-- QA = 0000
 		-- QB = 0000
-
-      wait;
+    wait;
    end process;
-
 END;

@@ -1,34 +1,16 @@
 ----------------------------------------------------------------------------------
--- Company: 
--- Engineer: 
--- 
--- Create Date:    10:03:41 05/29/2019 
--- Design Name: 
--- Module Name:    memIns - Behavioral 
--- Project Name: 
--- Target Devices: 
--- Tool versions: 
--- Description: 
+-- Ecole : 					INSA Toulouse
+-- Etudiants : 			Laure FEUILLET et Maël PLANTEC
 --
--- Dependencies: 
---
--- Revision: 
--- Revision 0.01 - File Created
--- Additional Comments: 
---
+-- Nom du module :	Mémoire d'instructions
+-- Nom du projet :	Projet Système Informatique
+-- Description:			Mémoire des instructions situées dans le fichier "ins.asm"
+--									jusqu'à 256 instructions stockées
+--									accessibles via le pointeur d'instruction ins_a
 ----------------------------------------------------------------------------------
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
-
--- Uncomment the following library declaration if using
--- arithmetic functions with Signed or Unsigned values
 use IEEE.NUMERIC_STD.ALL;
-
--- Uncomment the following library declaration if instantiating
--- any Xilinx primitives in this code.
---library UNISIM;
---use UNISIM.VComponents.all;
-
 use work.common.ALL;
 
 entity memIns is
@@ -38,11 +20,9 @@ entity memIns is
 end memIns;
 
 architecture Behavioral of memIns is
--- 256 lignes d'instructions 
+-- 256 lignes d'instructions
 type memoireIType is array (TmemI-1 downto 0) of STD_LOGIC_VECTOR(Nins-1 downto 0);
 signal memoireI : instrArray := init_rom("ins.asm");
 begin
 	ins_di <= memoireI(to_integer(unsigned(ins_a)));
-
 end Behavioral;
-

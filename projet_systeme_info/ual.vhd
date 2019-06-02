@@ -1,35 +1,15 @@
 ----------------------------------------------------------------------------------
--- Company: 
--- Engineer: 
--- 
--- Create Date:    14:35:27 04/19/2019 
--- Design Name: 
--- Module Name:    ual - Behavioral 
--- Project Name: 
--- Target Devices: 
--- Tool versions: 
--- Description: 
+-- Ecole : 					INSA Toulouse
+-- Etudiants : 			Laure FEUILLET et Maël PLANTEC
 --
--- Dependencies: 
---
--- Revision: 
--- Revision 0.01 - File Created
--- Additional Comments: 
---
+-- Nom du projet :	Projet Système Informatique
+-- Nom du module :	Unité Arithmétique et Logique
+-- Description:			Réalise les opérations arithmétiques
 ----------------------------------------------------------------------------------
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.STD_LOGIC_ARITH.ALL;
 use IEEE.STD_LOGIC_UNSIGNED.ALL;
-
--- Uncomment the following library declaration if using
--- arithmetic functions with Signed or Unsigned values
---use IEEE.NUMERIC_STD.ALL;
-
--- Uncomment the following library declaration if instantiating
--- any Xilinx primitives in this code.
---library UNISIM;
---use UNISIM.VComponents.all;
 
 entity ual is
 	generic (Nsys:natural := 16; Nope:natural := 8);
@@ -43,21 +23,29 @@ entity ual is
 end ual;
 
 architecture Behavioral of ual is
+	-- Sortie temporaire sur 32 bits pour la multiplication
 	signal Stmp : STD_LOGIC_VECTOR(2*Nsys-1 downto 0);
 begin
+	-- Opérations arithmétiques avec padding si nécessaire
 	Stmp <= 	'0' & '0' & '0' & x"000" & (('0'&A)+('0'&B)) when OPE=x"01" else
-				A*B when OPE=x"02" else 
+				A*B when OPE=x"02" else
 				x"0000" & (A-B) when OPE=x"03" else
-				x"ffffffff";	
+				x"ffffffff";
+	-- On sort que 16 bits
 	Sout <= Stmp(Nsys-1 downto 0);
+	
+	-- Flags
+	-- -- Négatif
 	N <= Stmp(Nsys-1);
-	C <= Stmp(Nsys) when OPE=x"01" else 
+	-- -- Carry
+	C <= Stmp(Nsys) when OPE=x"01" else
 		'0';
+	-- -- Overflow
 	O <= '1' when ((A(Nsys-1) = B(Nsys-1)) and (Stmp(Nsys-1) /= A(Nsys-1)) and (OPE=x"01")) or
-	((A(Nsys-1) /= B(Nsys-1)) and (Stmp(Nsys-1) = B(Nsys-1)) and (OPE=x"03")) or 
+	((A(Nsys-1) /= B(Nsys-1)) and (Stmp(Nsys-1) = B(Nsys-1)) and (OPE=x"03")) or
 	((Stmp(2*Nsys-1 downto Nsys) /= x"00") and (OPE=x"02")) else
 		'0';
+	-- -- Zeros
 	Z <= '1' when (Stmp = x"0000") else
 		'0';
-
 end Behavioral;
