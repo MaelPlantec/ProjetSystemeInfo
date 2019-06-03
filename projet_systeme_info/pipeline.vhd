@@ -1,37 +1,17 @@
 ----------------------------------------------------------------------------------
--- Company: 
--- Engineer: 
--- 
--- Create Date:    11:18:20 05/07/2019 
--- Design Name: 
--- Module Name:    Pipeline - Behavioral 
--- Project Name: 
--- Target Devices: 
--- Tool versions: 
--- Description: 
+-- Ecole : 					INSA Toulouse
+-- Etudiants : 			Laure FEUILLET et Maël PLANTEC
 --
--- Dependencies: 
---
--- Revision: 
--- Revision 0.01 - File Created
--- Additional Comments: 
---
+-- Nom du projet :	Projet Système Informatique
+-- Nom du module :	Pipeline
+-- Description:			Propage les entrées à chaque clock d'horloge
 ----------------------------------------------------------------------------------
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 
--- Uncomment the following library declaration if using
--- arithmetic functions with Signed or Unsigned values
---use IEEE.NUMERIC_STD.ALL;
-
--- Uncomment the following library declaration if instantiating
--- any Xilinx primitives in this code.
---library UNISIM;
---use UNISIM.VComponents.all;
-
 entity Pipeline is
 	 generic (N: natural := 16);
-    Port ( 
+    Port (
 			  Ck : in std_logic;
 			  OPi : in  std_logic_vector(N/2-1 downto 0);
            Ai : in  std_logic_vector(N-1 downto 0);
@@ -45,7 +25,6 @@ entity Pipeline is
 end Pipeline;
 
 architecture Behavioral of Pipeline is
-
 begin
 	process
 	begin
@@ -56,4 +35,3 @@ begin
 		Co <= Ci;
 	end process;
 end Behavioral;
-

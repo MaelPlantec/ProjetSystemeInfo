@@ -1,44 +1,18 @@
---------------------------------------------------------------------------------
--- Company: 
--- Engineer:
+----------------------------------------------------------------------------------
+-- Ecole : 					INSA Toulouse
+-- Etudiants : 			Laure FEUILLET et Maël PLANTEC
 --
--- Create Date:   14:58:05 04/19/2019
--- Design Name:   
--- Module Name:   /home/feuillet/projet_systeme_info/test_ual.vhd
--- Project Name:  projet_systeme_info
--- Target Device:  
--- Tool versions:  
--- Description:   
--- 
--- VHDL Test Bench Created by ISE for module: ual
--- 
--- Dependencies:
--- 
--- Revision:
--- Revision 0.01 - File Created
--- Additional Comments:
---
--- Notes: 
--- This testbench has been automatically generated using types std_logic and
--- std_logic_vector for the ports of the unit under test.  Xilinx recommends
--- that these types always be used for the top-level I/O of a design in order
--- to guarantee that the testbench will bind correctly to the post-implementation 
--- simulation model.
---------------------------------------------------------------------------------
+-- Nom du projet :	Projet Système Informatique
+-- Module :	        Test de l'UAL
+----------------------------------------------------------------------------------
 LIBRARY ieee;
 USE ieee.std_logic_1164.ALL;
- 
--- Uncomment the following library declaration if using
--- arithmetic functions with Signed or Unsigned values
---USE ieee.numeric_std.ALL;
- 
+
 ENTITY test_ual IS
 END test_ual;
- 
-ARCHITECTURE behavior OF test_ual IS 
- 
+
+ARCHITECTURE behavior OF test_ual IS
     -- Component Declaration for the Unit Under Test (UUT)
- 
     COMPONENT ual
     PORT(
          OPE : IN  std_logic_vector(7 downto 0);
@@ -48,7 +22,6 @@ ARCHITECTURE behavior OF test_ual IS
 			N, O, C, Z : out std_logic -- Flags
         );
     END COMPONENT;
-    
 
    --Inputs
    signal OPE : std_logic_vector(7 downto 0) := (others => '0');
@@ -58,14 +31,10 @@ ARCHITECTURE behavior OF test_ual IS
 	signal O : std_logic := '0';
 	signal C : std_logic := '0';
 	signal Z : std_logic := '0';
-
  	--Outputs
    signal Sout : std_logic_vector(15 downto 0);
-   -- No clocks detected in port list. Replace <clock> below with 
-   -- appropriate port name 
- 
+
 BEGIN
- 
 	-- Instantiate the Unit Under Test (UUT)
    ual_test: ual PORT MAP (
           OPE => OPE,
@@ -77,26 +46,22 @@ BEGIN
 			 C => C,
 			 Z => Z
         );
- 
 
    -- Stimulus process
    stim_proc: process
-   begin		
-      -- hold reset state for 5 ns.
-		
+   begin
 		-- Tests de 8105 ns
-		
 		-- Tests basiques, sans flags
-      wait for 5 ns;	
+    wait for 5 ns;
 		-- 0025
 		A <= x"0012";
 		B <= x"0013";
 		OPE <= x"01";
-      wait for 300 ns;
+    wait for 300 ns;
 		-- 0156
 		A <= x"0012";
 		B <= x"0013";
-		OPE <= x"02";	
+		OPE <= x"02";
       wait for 300 ns;
 		-- 0009
 		A <= x"0010";
@@ -112,7 +77,7 @@ BEGIN
 		A <= x"0005";
 		B <= x"FFFF";
 		OPE <= x"03";
-		
+
 		-- Tests carry
 		-- we are at 1505 ns
 		wait for 300 ns;
@@ -135,7 +100,7 @@ BEGIN
 		A <= x"FFFB";
 		B <= x"0000";
 		OPE <= x"01";
-		
+
 		-- Tests négatif
 		-- We are at 2705 ns
 		wait for 300 ns;
@@ -168,9 +133,9 @@ BEGIN
 		A <= x"FFFF";
 		B <= x"FFFb";
 		OPE <= x"03";
-		
+
 		-- Tests zeros
-		-- We are 
+		-- We are
 		wait for 300 ns;
 		-- 0000, Z='1'
 		A <= x"0000";
@@ -206,7 +171,7 @@ BEGIN
 		A <= x"0003";
 		B <= x"0003";
 		OPE <= x"02";
-		
+
 		-- Tests overflow
 		wait for 300 ns;
 		-- FFFE, O = '1'
@@ -233,8 +198,7 @@ BEGIN
 		A <= x"8000";
 		B <= x"7FFF";
 		OPE <= x"03";
-		
+
       wait;
    end process;
-
 END;
