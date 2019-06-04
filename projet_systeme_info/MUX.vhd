@@ -22,5 +22,5 @@ architecture Behavioral of MUX is
 begin
 	Sout <= in0 when selec='0' else
 	in1 when selec='1' else
-	x"FFFF";
+	x"0000";
 end Behavioral;

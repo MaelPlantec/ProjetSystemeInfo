@@ -15,6 +15,7 @@ entity Processor is
 	 generic (Nsys:natural := 16; Naddr:natural := 4; Npartie:natural := 8; Nins:natural := 32);
 	 Port(
 		Ck: in STD_LOGIC;
+		RST: in STD_LOGIC;
 		addrWout: out STD_LOGIC_VECTOR(Naddr-1 downto 0);
 		Wout: out STD_LOGIC;
 		DATAout: out STD_LOGIC_VECTOR(Nsys-1 downto 0);
@@ -94,11 +95,12 @@ architecture Behavioral of Processor is
 
 	-- Structure des signaux de sortie des pipelines
 	type FormatDeDonnees is record
-		op: std_logic_vector(Npartie-1 downto 0);
-		a, b, c: std_logic_vector(Nsys-1 downto 0);
+		op : std_logic_vector(Npartie-1 downto 0);
+		a, b, c : std_logic_vector(Nsys-1 downto 0);
 	end record;
-	Signal MI_BRout, BRout, muxBRout, muxEBRout, BR_UALout, ALUout, muxALUout, UAL_MEMout, MEMout, muxMEMout, MEM_EBRout, DECout : FormatDeDonnees;
-	Signal W, RST, selecBR, selecALU, selecEBR, dataW, selecMEM: STD_LOGIC;
+	Signal DECout, MI_BRout, BRout, BR_UALout, UAL_MEMout, MEM_EBRout : FormatDeDonnees;
+	Signal W, selecBR, selecUAL, selecEBR, dataW, selecMEM: STD_LOGIC;
+	Signal muxBRout, UALout, muxUALout, MEMout, muxMEMout, muxEBRout : STD_LOGIC_VECTOR(Nsys-1 downto 0);
 	Signal IP: STD_LOGIC_VECTOR(Nsys-1 downto 0) := (others => '0');
 	Signal ins_di: STD_LOGIC_VECTOR(Nins-1 downto 0);
 begin
@@ -123,46 +125,46 @@ begin
 
 	-- Banc de registres
 	-- -- Il faut prendre les 4 bits de poids faible pour les addresses
-	BancRegistres: BR port map(Ck, RST, MI_BRout.b(Naddr-1 downto 0), MI_BRout.c(Naddr-1 downto 0), BRout.b, BRout.c, MEM_EBRout.a(Naddr-1 downto 0), W, muxEBRout.b);
+	BancRegistres: BR port map(Ck, RST, MI_BRout.b(Naddr-1 downto 0), MI_BRout.c(Naddr-1 downto 0), BRout.b, BRout.c, MEM_EBRout.a(Naddr-1 downto 0), W, muxEBRout);
 
 	-- MUX BR
 	-- -- Transformation de l'opérande en sélecteur pour le MUX
 	-- -- '1' si on lit dans un registre
 	selecBR <= '1' when MI_BRout.op = x"01" or MI_BRout.op = x"02" or MI_BRout.op = x"03" or MI_BRout.op = x"04" or MI_BRout.op = x"05" or MI_BRout.op = x"08" or MI_BRout.op = x"05" or MI_BRout.op = x"09" or MI_BRout.op = x"0A" or MI_BRout.op = x"0B" or MI_BRout.op = x"0C" or MI_BRout.op = x"0D" else
 		'0';
-	muxBR: MUX port map(selecBR, MI_BRout.b, BRout.b, muxBRout.b);
+	muxBR: MUX port map(selecBR, MI_BRout.b, BRout.b, muxBRout);
 
 	-- Pipeline BR <-> UAL
-	BR_UAL: Pipeline port map(Ck, MI_BRout.op, MI_BRout.a, muxBRout.b, BRout.c, BR_UALout.op, BR_UALout.a, BR_UALout.b, BR_UALout.c);
+	BR_UAL: Pipeline port map(Ck, MI_BRout.op, MI_BRout.a, muxBRout, BRout.c, BR_UALout.op, BR_UALout.a, BR_UALout.b, BR_UALout.c);
 
 	-- UAL
-	ALU: UAL port map(BR_UALout.b, BR_UALout.c, BR_UALout.op, ALUout.b);
+	ALU: UAL port map(BR_UALout.b, BR_UALout.c, BR_UALout.op, UALout);
 
 	-- MUX ALU
 	-- -- Transformation de l'opérande en sélecteur pour le MUX
 	-- -- '1' pour les opérations arithmétiques
-	selecALU <= '1' when BR_UALout.op=x"01" or BR_UALout.op=x"02" or BR_UALout.op=x"03" else
+	selecUAL <= '1' when BR_UALout.op=x"01" or BR_UALout.op=x"02" or BR_UALout.op=x"03" else
 		'0';
-	muxALU: MUX port map(selecALU, BR_UALout.b, ALUout.b, muxALUout.b);
+	muxALU: MUX port map(selecUAL, BR_UALout.b, UALout, muxUALout);
 
 	-- Pipeline UAL <-> MEM
-	UAL_MEM: Pipeline port map(Ck, BR_UALout.op, BR_UALout.a, muxALUout.b, x"0000", UAL_MEMout.op, UAL_MEMout.a, UAL_MEMout.b, open);
+	UAL_MEM: Pipeline port map(Ck, BR_UALout.op, BR_UALout.a, muxUALout, x"0000", UAL_MEMout.op, UAL_MEMout.a, UAL_MEMout.b, open);
 
 	-- MUX MEM
 	-- -- Transformation de l'opérande en sélecteur pour le MUX sur l'@ de la mémoire
 	-- -- Les instructions utilisant la mémoire sont "LOAD Ri @j" (x07) et "STORE @i Rj" (x08)
 	selecMEM <= '1' when UAL_MEMout.op = x"07" else
 		'0';
-	muxMEM: MUX port map(selecMEM, UAL_MEMout.a, UAL_MEMout.b, muxMEMout.b);
+	muxMEM: MUX port map(selecMEM, UAL_MEMout.a, UAL_MEMout.b, muxMEMout);
 
 	-- Mémoire
 	-- -- Transformation de l'opérande en critère d'écriture dans la mémoire
 	dataW <= '1' when UAL_MEMout.op=x"08" else
 		'0';
-	MEM: memoireDonnees port map(Ck, UAL_MEMout.b, muxMEMout.b, dataW, MEMout.b);
+	MEM: memoireDonnees port map(Ck, UAL_MEMout.b, muxMEMout, dataW, MEMout);
 
 	-- Pipeline MEM <-> écriture BR
-	MEM_EBR: Pipeline port map (Ck, UAL_MEMout.op, UAL_MEMout.a, UAL_MEMout.b, x"0000", MEM_EBRout.op, MEM_EBRout.a, MEM_EBRout.b, open);
+	MEM_EBR: Pipeline port map (Ck, UAL_MEMout.op, UAL_MEMout.a, UAL_MEMout.b, MEMout, MEM_EBRout.op, MEM_EBRout.a, MEM_EBRout.b, MEM_EBRout.c);
 
 	-- écriture BR
 	-- -- Transformation de l'opérande en critère d'écriture dans le banc de registres
@@ -174,11 +176,11 @@ begin
 	-- -- On passe la DATA dans le bus de données que si on fait une lecture dans la mémoire
 	selecEBR <= '1' when MEM_EBRout.op=x"07" else
 		'0';
-	muxEBR: MUX port map(selecEBR, MEM_EBRout.b, MEMout.b, muxEBRout.b);
+	muxEBR: MUX port map(selecEBR, MEM_EBRout.b, MEM_EBRout.c, muxEBRout);
 
 	-- Sorties du processeur
 	addrWout <=  MEM_EBRout.a(Naddr-1 downto 0);
 	Wout <=  W;
-	DATAout <=  muxEBRout.b;
+	DATAout <=  muxEBRout;
 
 end Behavioral;

@@ -1,43 +1,24 @@
-Running: /usr/local/insa/Xilinx.ISE/13.4/ISE_DS/ISE/bin/lin64/unwrapped/fuse -relaunch -intstyle "ise" -incremental -lib "secureip" -o "/home/feuillet/Bureau/4A/S2/Projet info/projet_systeme_info/test_processeur_isim_beh.exe" -prj "/home/feuillet/Bureau/4A/S2/Projet info/projet_systeme_info/test_processeur_beh.prj" "work.test_processeur" 
+Running: /usr/local/insa/Xilinx.ISE/13.4/ISE_DS/ISE/bin/lin64/unwrapped/fuse -intstyle ise -incremental -lib secureip -o /home/feuillet/Bureau/4A/S2/Projet info/projet_systeme_info/test_ual_isim_beh.exe -prj /home/feuillet/Bureau/4A/S2/Projet info/projet_systeme_info/test_ual_beh.prj work.test_ual 
 ISim O.87xd (signature 0x8ddf5b5d)
 Number of CPUs detected in this system: 4
 Turning on mult-threading, number of parallel sub-compilation jobs: 8 
 Determining compilation order of HDL files
-Parsing VHDL file "/home/feuillet/Bureau/4A/S2/Projet info/projet_systeme_info/common.vhd" into library work
 Parsing VHDL file "/home/feuillet/Bureau/4A/S2/Projet info/projet_systeme_info/ual.vhd" into library work
-Parsing VHDL file "/home/feuillet/Bureau/4A/S2/Projet info/projet_systeme_info/pipeline.vhd" into library work
-Parsing VHDL file "/home/feuillet/Bureau/4A/S2/Projet info/projet_systeme_info/MUX.vhd" into library work
-Parsing VHDL file "/home/feuillet/Bureau/4A/S2/Projet info/projet_systeme_info/memoireDonnees.vhd" into library work
-Parsing VHDL file "/home/feuillet/Bureau/4A/S2/Projet info/projet_systeme_info/memIns.vhd" into library work
-Parsing VHDL file "/home/feuillet/Bureau/4A/S2/Projet info/projet_systeme_info/decodeur.vhd" into library work
-Parsing VHDL file "/home/feuillet/Bureau/4A/S2/Projet info/projet_systeme_info/BR.vhd" into library work
-Parsing VHDL file "/home/feuillet/Bureau/4A/S2/Projet info/projet_systeme_info/processor.vhd" into library work
-Parsing VHDL file "/home/feuillet/Bureau/4A/S2/Projet info/projet_systeme_info/test_processeur.vhd" into library work
+Parsing VHDL file "/home/feuillet/Bureau/4A/S2/Projet info/projet_systeme_info/test_ual.vhd" into library work
 Starting static elaboration
 Completed static elaboration
-Fuse Memory Usage: 98316 KB
-Fuse CPU Usage: 1030 ms
+Fuse Memory Usage: 96112 KB
+Fuse CPU Usage: 870 ms
 Compiling package standard
 Compiling package std_logic_1164
 Compiling package std_logic_arith
 Compiling package std_logic_unsigned
-Compiling package numeric_std
-Compiling package textio
-Compiling package std_logic_textio
-Compiling package common
-Compiling architecture behavioral of entity memIns [\memIns(32,16,256)\]
-Compiling architecture behavioral of entity decodeur [\decodeur(32,16,8)\]
-Compiling architecture behavioral of entity Pipeline [\Pipeline(16)\]
-Compiling architecture behavioral of entity BR [\BR(16,4)\]
-Compiling architecture behavioral of entity MUX [\MUX(16)\]
 Compiling architecture behavioral of entity ual [\ual(16,8)\]
-Compiling architecture behavioral of entity memoireDonnees [\memoireDonnees(16,256)\]
-Compiling architecture behavioral of entity Processor [\Processor(16,4,8,32)\]
-Compiling architecture behavior of entity test_processeur
+Compiling architecture behavior of entity test_ual
 Time Resolution for simulation is 1ps.
 Waiting for 1 sub-compilation(s) to finish...
-Compiled 25 VHDL Units
-Built simulation executable /home/feuillet/Bureau/4A/S2/Projet info/projet_systeme_info/test_processeur_isim_beh.exe
-Fuse Memory Usage: 680872 KB
-Fuse CPU Usage: 1240 ms
-GCC CPU Usage: 130 ms
+Compiled 7 VHDL Units
+Built simulation executable /home/feuillet/Bureau/4A/S2/Projet info/projet_systeme_info/test_ual_isim_beh.exe
+Fuse Memory Usage: 668332 KB
+Fuse CPU Usage: 930 ms
+GCC CPU Usage: 160 ms

@@ -1,15 +1,3 @@
-----------------------------------------------------------------------------------
--- Ecole : 					INSA Toulouse
--- Etudiants : 			Laure FEUILLET et Maël PLANTEC
---
--- Nom du module :	Banc de registres
--- Nom du projet :	Projet Système Informatique
--- Description:			Décodeur d'instructions en hexadecimal sur 32 bits, en
--- 											- OP sur 8 bits
--- 											- A sur 16 bits
--- 											- B sur 16 bits
--- 											- C sur 16 bits
-----------------------------------------------------------------------------------
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
@@ -34,10 +22,10 @@ architecture beh of instr_memory is
 
 --	signal instr_memory: instrArray := (
 --		0 => x"0601FFFD",
---		1 => x"06020002",
---		2 => x"00020102",
+--		1 => x"06020002", 
+--		2 => x"00020102", 
 --		3 => x"08000102",
---		4 => x"06020001",
+--		4 => x"06020001", 
 --		5 => x"07010001",
 --		6 => x"00010102",
 --		others => x"FFFFFFFF"
@@ -48,3 +36,4 @@ begin
 	q <= instr_memory(to_integer(unsigned(sel)));
 
 end architecture;
+

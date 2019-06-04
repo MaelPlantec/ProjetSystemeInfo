@@ -1,0 +1,2 @@
+vhdl work "pipeline.vhd"
+vhdl work "test_pipeline.vhd"
